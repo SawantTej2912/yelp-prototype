@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
-from routers import auth, users, restaurants
+from routers import auth, users, restaurants, reviews
 
 app = FastAPI(title="Yelp Prototype API", version="1.0.0")
 
@@ -24,11 +24,7 @@ app.mount("/uploads", StaticFiles(directory=str(uploads_dir)), name="uploads")
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(restaurants.router)
-
-# Future routers (uncomment as phases are implemented):
-# app.include_router(reviews.router)
-# app.include_router(favorites.router)
-# app.include_router(chat.router)
+app.include_router(reviews.router)
 
 
 @app.get("/")

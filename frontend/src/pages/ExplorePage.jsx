@@ -34,17 +34,44 @@ export default function ExplorePage() {
         }
     }, []);
 
-    // Initial load — show all restaurants
+    // Build params from current state, with optional overrides
+    const buildParams = (overrides = {}) => {
+        const q = overrides.query    ?? query;
+        const c = overrides.city     ?? city;
+        const cu = overrides.cuisine ?? cuisine;
+        const pr = overrides.price   ?? price;
+        const so = overrides.sort    ?? sort;
+        const params = { sort: so, limit: 20 };
+        if (q.trim())    params.q = q.trim();
+        if (c.trim())    params.city = c.trim();
+        if (cu !== 'All') params.cuisine = cu;
+        if (pr !== 'Any') params.pricing_tier = pr;
+        return params;
+    };
+
+    // Initial load
     useEffect(() => { doSearch({ sort: 'rating', limit: 20 }); }, [doSearch]);
 
+    // Auto re-search when sort / cuisine / price chips change
+    // We pass overrides so we always read the *new* value, not stale state
+    const handleSort = (e) => {
+        const newSort = e.target.value;
+        setSort(newSort);
+        doSearch(buildParams({ sort: newSort }));
+    };
+    const handleCuisine = (c) => {
+        setCuisine(c);
+        doSearch(buildParams({ cuisine: c }));
+    };
+    const handlePrice = (p) => {
+        setPrice(p);
+        doSearch(buildParams({ price: p }));
+    };
+
+    // Manual search (keyword + city typed input)
     const onSearch = (e) => {
         e.preventDefault();
-        const params = { sort, limit: 20 };
-        if (query.trim()) params.q = query.trim();
-        if (city.trim()) params.city = city.trim();
-        if (cuisine !== 'All') params.cuisine = cuisine;
-        if (price !== 'Any') params.pricing_tier = price;
-        doSearch(params);
+        doSearch(buildParams());
     };
 
     return (
@@ -55,34 +82,54 @@ export default function ExplorePage() {
                 <h1 className="text-3xl font-bold text-white mb-1">Discover Restaurants</h1>
                 <p className="text-white/40 text-sm mb-6">Find your next favourite spot</p>
 
-                <form onSubmit={onSearch} className="glass-card p-4 flex flex-col sm:flex-row gap-3">
-                    {/* Keyword */}
-                    <div className="relative flex-1">
-                        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-                        </svg>
-                        <input
-                            type="text"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            placeholder="burger, sushi, romantic…"
-                            className="input-base pl-9"
-                        />
+                <form onSubmit={onSearch} className="glass-card p-3">
+                    {/* Top row: keyword + city + button */}
+                    <div className="flex flex-col sm:flex-row gap-2">
+                        {/* Keyword — takes all remaining space */}
+                        <div className="relative flex-1 min-w-0">
+                            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30 pointer-events-none" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+                            </svg>
+                            <input
+                                id="search-keyword"
+                                type="text"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                placeholder="Search by name, cuisine, keyword…"
+                                className="input-base"
+                                style={{ paddingLeft: '2.25rem' }}
+                            />
+                        </div>
+
+                        {/* City — fixed compact width */}
+                        <div className="relative sm:w-44">
+                            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                            </svg>
+                            <input
+                                id="search-city"
+                                type="text"
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                                placeholder="City or zip…"
+                                className="input-base"
+                                style={{ paddingLeft: '2.25rem' }}
+                            />
+                        </div>
+
+                        {/* Search button — auto width, not full-width */}
+                        <button
+                            id="search-btn"
+                            type="submit"
+                            className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-semibold text-sm text-white transition-all shrink-0"
+                            style={{ background: 'linear-gradient(135deg,#ef4444,#dc2626)', boxShadow: '0 4px 14px rgba(239,68,68,0.35)' }}
+                        >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+                            </svg>
+                            Search
+                        </button>
                     </div>
-                    {/* City */}
-                    <div className="relative sm:w-48">
-                        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-                        </svg>
-                        <input
-                            type="text"
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                            placeholder="City or zip…"
-                            className="input-base pl-9"
-                        />
-                    </div>
-                    <button type="submit" className="btn-primary sm:w-28">Search</button>
                 </form>
             </div>
 
@@ -93,7 +140,7 @@ export default function ExplorePage() {
                     {CUISINES.map((c) => (
                         <button
                             key={c}
-                            onClick={() => { setCuisine(c); }}
+                            onClick={() => handleCuisine(c)}
                             className={`text-xs font-medium px-3 py-1.5 rounded-full border transition-all ${cuisine === c
                                     ? 'bg-red-600 border-red-600 text-white'
                                     : 'bg-white/04 border-white/10 text-white/60 hover:border-white/25 hover:text-white'
@@ -111,7 +158,7 @@ export default function ExplorePage() {
                     {PRICES.map((p) => (
                         <button
                             key={p}
-                            onClick={() => setPrice(p)}
+                            onClick={() => handlePrice(p)}
                             className={`text-xs font-medium px-3 py-1.5 rounded-full border transition-all ${price === p
                                     ? 'bg-red-600 border-red-600 text-white'
                                     : 'bg-white/04 border-white/10 text-white/60 hover:border-white/25'
@@ -126,7 +173,7 @@ export default function ExplorePage() {
                     <span>Sort:</span>
                     <select
                         value={sort}
-                        onChange={(e) => setSort(e.target.value)}
+                        onChange={handleSort}
                         className="bg-white/06 border border-white/12 text-white/80 text-xs rounded-lg px-2 py-1.5 outline-none"
                     >
                         {SORTS.map(({ value, label }) => (

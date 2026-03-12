@@ -18,10 +18,11 @@ export default function Navbar() {
     const navLink = (to, label) => (
         <Link
             to={to}
-            className={`text-sm font-medium px-3 py-1.5 rounded-lg transition-colors ${isActive(to)
-                ? 'bg-red-600/20 text-red-400'
-                : 'text-white/60 hover:text-white hover:bg-white/08'
-                }`}
+            className={`text-sm font-medium px-3 py-1.5 rounded-lg transition-colors ${
+                isActive(to)
+                    ? 'bg-red-600/20 text-red-400'
+                    : 'text-white/60 hover:text-white hover:bg-white/08'
+            }`}
         >
             {label}
         </Link>
@@ -42,8 +43,10 @@ export default function Navbar() {
 
                 {/* Nav links */}
                 {isAuthenticated && (
-                    <div className="flex items-center gap-1">
+                    <div className="hidden sm:flex items-center gap-1">
                         {navLink('/', 'Explore')}
+                        {navLink('/favorites', '❤ Favorites')}
+                        {navLink('/history', 'History')}
                         {navLink('/profile', 'Profile')}
                         {navLink('/preferences', 'Preferences')}
                     </div>
@@ -52,7 +55,7 @@ export default function Navbar() {
                 {/* Right: user avatar + logout */}
                 {isAuthenticated ? (
                     <div className="flex items-center gap-3 shrink-0">
-                        <span className="hidden sm:block text-xs text-white/40 max-w-[120px] truncate">
+                        <span className="hidden lg:block text-xs text-white/40 max-w-[120px] truncate">
                             {user?.name}
                         </span>
                         {/* Avatar */}

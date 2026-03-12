@@ -52,6 +52,7 @@ def search_restaurants(
     cuisine: Optional[str] = Query(None, description="Filter by cuisine type"),
     pricing_tier: Optional[str] = Query(None, description="Filter by pricing tier ($, $$, $$$, $$$$)"),
     sort: Optional[str] = Query("rating", description="Sort: rating | review_count | newest"),
+    added_by: Optional[int] = Query(None, description="Filter by the user who added the restaurant"),
     limit: int = Query(20, ge=1, le=100),
     offset: int = Query(0, ge=0),
     db: Session = Depends(get_db),
@@ -92,6 +93,10 @@ def search_restaurants(
     # Pricing tier filter
     if pricing_tier:
         query = query.filter(Restaurant.pricing_tier == pricing_tier)
+
+    # added_by filter
+    if added_by is not None:
+        query = query.filter(Restaurant.added_by == added_by)
 
     # Sorting
     if sort == "review_count":
@@ -186,10 +191,13 @@ async def upload_restaurant_photo(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    """Upload a photo for a restaurant."""
+    """Upload a photo for a restaurant. Requester must be the creator or owner."""
     r = db.query(Restaurant).filter(Restaurant.id == restaurant_id).first()
     if not r:
         raise HTTPException(status_code=404, detail="Restaurant not found")
+
+    if r.added_by != current_user.id and r.owner_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Only the restaurant creator or owner can upload photos")
 
     if file.content_type not in ALLOWED_IMAGE_TYPES:
         raise HTTPException(status_code=400, detail="Only JPEG, PNG, and WebP images are allowed")
@@ -217,3 +225,77 @@ async def upload_restaurant_photo(
     result = RestaurantResponse.model_validate(r)
     result.avg_rating = float(r.avg_rating) if r.avg_rating is not None else None
     return result
+
+
+# ─── DELETE /restaurants/{id}/photos/{photo_id} — Remove one photo ────────────
+
+@router.delete(
+    "/{restaurant_id}/photos/{photo_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+    summary="Delete a specific restaurant photo",
+)
+def delete_restaurant_photo(
+    restaurant_id: int,
+    photo_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Delete a single photo from a restaurant. Only the restaurant creator or owner can remove photos."""
+    r = db.query(Restaurant).filter(Restaurant.id == restaurant_id).first()
+    if not r:
+        raise HTTPException(status_code=404, detail="Restaurant not found")
+
+    if r.added_by != current_user.id and r.owner_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Only the restaurant creator or owner can delete photos")
+
+    photo = db.query(RestaurantPhoto).filter(
+        RestaurantPhoto.id == photo_id,
+        RestaurantPhoto.restaurant_id == restaurant_id,
+    ).first()
+    if not photo:
+        raise HTTPException(status_code=404, detail="Photo not found")
+
+    # Remove file from disk
+    try:
+        disk_path = Path(__file__).parent.parent / photo.photo_url.lstrip("/")
+        if disk_path.exists():
+            disk_path.unlink()
+    except Exception:
+        pass  # Don't fail the request if the file is already gone
+
+    db.delete(photo)
+    db.commit()
+
+
+# ─── DELETE /restaurants/{id} — Delete restaurant ────────────────────────────
+
+@router.delete(
+    "/{restaurant_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+    summary="Delete a restaurant and all its photos",
+)
+def delete_restaurant(
+    restaurant_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Permanently delete a restaurant and all associated photos (DB rows + files on disk).
+    Only the user who originally added it or the owner can delete it."""
+    r = db.query(Restaurant).filter(Restaurant.id == restaurant_id).first()
+    if not r:
+        raise HTTPException(status_code=404, detail="Restaurant not found")
+
+    if r.added_by != current_user.id and r.owner_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Only the restaurant creator or owner can delete this restaurant")
+
+    # Remove all photo files from disk before deleting DB rows
+    for photo in r.photos:
+        try:
+            disk_path = Path(__file__).parent.parent / photo.photo_url.lstrip("/")
+            if disk_path.exists():
+                disk_path.unlink()
+        except Exception:
+            pass
+
+    db.delete(r)
+    db.commit()

@@ -12,6 +12,9 @@ export const createRestaurant = (data) =>
 export const updateRestaurant = (id, data) =>
     api.put(`/restaurants/${id}`, data);
 
+export const deleteRestaurant = (id) =>
+    api.delete(`/restaurants/${id}`);
+
 export const uploadRestaurantPhoto = (restaurantId, file) => {
     const form = new FormData();
     form.append('file', file);
@@ -19,3 +22,6 @@ export const uploadRestaurantPhoto = (restaurantId, file) => {
         headers: { 'Content-Type': 'multipart/form-data' },
     });
 };
+
+export const deleteRestaurantPhoto = (restaurantId, photoId) =>
+    api.delete(`/restaurants/${restaurantId}/photos/${photoId}`);

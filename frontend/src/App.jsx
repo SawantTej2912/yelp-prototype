@@ -9,6 +9,9 @@ import ProfilePage from './pages/ProfilePage';
 import PreferencesPage from './pages/PreferencesPage';
 import RestaurantDetailsPage from './pages/RestaurantDetailsPage';
 import AddRestaurantPage from './pages/AddRestaurantPage';
+import WriteReviewPage from './pages/WriteReviewPage';
+import FavoritesPage from './pages/FavoritesPage';
+import HistoryPage from './pages/HistoryPage';
 
 function AppLayout({ children }) {
   return (
@@ -42,6 +45,11 @@ export default function App() {
           <Route path="/preferences" element={<ProtectedLayout><PreferencesPage /></ProtectedLayout>} />
           <Route path="/restaurants/new" element={<ProtectedLayout><AddRestaurantPage /></ProtectedLayout>} />
           <Route path="/restaurants/:id" element={<ProtectedLayout><RestaurantDetailsPage /></ProtectedLayout>} />
+
+          {/* Phase 5 — Reviews & Favorites */}
+          <Route path="/restaurants/:id/review" element={<ProtectedLayout><WriteReviewPage /></ProtectedLayout>} />
+          <Route path="/favorites" element={<ProtectedLayout><FavoritesPage /></ProtectedLayout>} />
+          <Route path="/history" element={<ProtectedLayout><HistoryPage /></ProtectedLayout>} />
 
           {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />
