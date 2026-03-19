@@ -70,7 +70,7 @@ def _get_tavily_context(query: str) -> Optional[str]:
     if not api_key:
         return None
     try:
-        from tavily import TavilyClient
+        from tavily import TavilyClient  # type: ignore[import-not-found]
 
         client = TavilyClient(api_key=api_key)
         res = client.search(query=query, search_depth="basic", max_results=5)
@@ -100,7 +100,7 @@ def _gemini_extract_filters(
         return {}
 
     try:
-        from langchain_google_genai import ChatGoogleGenerativeAI
+        from langchain_google_genai import ChatGoogleGenerativeAI  # type: ignore[import-not-found]
 
         llm = ChatGoogleGenerativeAI(
             model="gemini-1.5-flash",
@@ -159,6 +159,48 @@ def _heuristic_extract_filters(message: str) -> Dict[str, Any]:
     """Fallback extraction when Gemini is unavailable or returns unusable output."""
     msg = (message or "").strip()
     lower = msg.lower()
+
+    # Quick action intents (avoid over-filtering on literal words like "tonight")
+    if lower in {"find dinner tonight", "find dinner for tonight", "dinner tonight"}:
+        return {
+            "cuisine": None,
+            "city": None,
+            "pricing_tier": None,
+            "dietary_needs": [],
+            "occasion": "dinner tonight",
+            "ambiance": [],
+            "keywords": None,  # let preferences + ranking drive results
+        }
+    if lower in {"best rated near me", "best rated nearby", "best rated"}:
+        return {
+            "cuisine": None,
+            "city": None,
+            "pricing_tier": None,
+            "dietary_needs": [],
+            "occasion": None,
+            "ambiance": [],
+            "keywords": None,
+        }
+    if lower in {"vegan options", "show vegan options", "vegan"}:
+        return {
+            "cuisine": None,
+            "city": None,
+            "pricing_tier": None,
+            "dietary_needs": ["vegan"],
+            "occasion": None,
+            "ambiance": [],
+            "keywords": "vegan",
+        }
+    if lower in {"something romantic", "romantic", "date night"}:
+        return {
+            "cuisine": None,
+            "city": None,
+            "pricing_tier": None,
+            "dietary_needs": [],
+            "occasion": "date night",
+            "ambiance": ["romantic"],
+            "keywords": "romantic date night",
+        }
 
     pricing_tier = None
     # Explicit tiers
@@ -349,8 +391,17 @@ def chat(
     if not extracted:
         extracted = _heuristic_extract_filters(payload.message)
 
-    # If Gemini returned a partial object without keywords, default to the message
-    if not (extracted.get("keywords") or "").strip():
+    # If Gemini returned a partial object without keywords, default to the message,
+    # except for quick-action intents where keywords should remain empty.
+    quick_intents = {
+        "find dinner tonight",
+        "find dinner for tonight",
+        "dinner tonight",
+        "best rated near me",
+        "best rated nearby",
+        "best rated",
+    }
+    if not (extracted.get("keywords") or "").strip() and payload.message.strip().lower() not in quick_intents:
         extracted["keywords"] = payload.message.strip()
 
     # Build + run DB query
@@ -383,7 +434,7 @@ def chat(
     try:
         api_key = os.getenv("GEMINI_API_KEY")
         if api_key:
-            from langchain_google_genai import ChatGoogleGenerativeAI
+            from langchain_google_genai import ChatGoogleGenerativeAI  # type: ignore[import-not-found]
 
             llm = ChatGoogleGenerativeAI(
                 model="gemini-1.5-flash",
