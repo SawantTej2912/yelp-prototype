@@ -23,6 +23,7 @@ export default function LoginPage() {
     const [form, setForm] = useState({ email: '', password: '' });
     const [fieldErrors, setFieldErrors] = useState({});
     const [serverError, setServerError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -101,16 +102,36 @@ export default function LoginPage() {
                         <label htmlFor="password" className="block text-sm font-medium text-white/70 mb-1.5">
                             Password
                         </label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            autoComplete="current-password"
-                            value={form.password}
-                            onChange={onChange}
-                            placeholder="••••••••"
-                            className={`input-base ${fieldErrors.password ? 'input-error' : ''}`}
-                        />
+                        <div className="relative">
+                            <input
+                                id="password"
+                                name="password"
+                                type={showPassword ? 'text' : 'password'}
+                                autoComplete="current-password"
+                                value={form.password}
+                                onChange={onChange}
+                                placeholder="••••••••"
+                                className={`input-base pr-11 ${fieldErrors.password ? 'input-error' : ''}`}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword((v) => !v)}
+                                className="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg border border-white/10 bg-white/05 hover:bg-white/08 text-white/60 hover:text-white transition-colors flex items-center justify-center"
+                                title={showPassword ? 'Hide password' : 'Show password'}
+                                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                            >
+                                {showPassword ? (
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18M10.477 10.48a3 3 0 104.243 4.243M9.88 5.09A9.956 9.956 0 0112 5c5.523 0 10 5 10 7 0 .72-.27 1.56-.76 2.43M6.23 6.23C3.86 7.94 2 10.17 2 12c0 2 4.477 7 10 7 1.5 0 2.92-.27 4.19-.73" />
+                                    </svg>
+                                ) : (
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 15a3 3 0 110-6 3 3 0 010 6z" />
+                                    </svg>
+                                )}
+                            </button>
+                        </div>
                         {fieldErrors.password && (
                             <p className="mt-1 text-xs text-red-400">{fieldErrors.password}</p>
                         )}
