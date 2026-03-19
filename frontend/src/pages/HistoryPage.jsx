@@ -292,7 +292,7 @@ export default function HistoryPage() {
                                             {review.photos.map((p) => (
                                                 <img
                                                     key={p.id}
-                                                    src={`${BACKEND}${p.photo_url}`}
+                                                    src={p.photo_url.startsWith('http') ? p.photo_url : `${BACKEND}${p.photo_url}`}
                                                     alt="Review photo"
                                                     className="w-14 h-14 rounded-lg object-cover border border-white/10"
                                                 />
@@ -373,7 +373,7 @@ export default function HistoryPage() {
                         >
                             {r.cover_photo ? (
                                 <img
-                                    src={`${BACKEND}${r.cover_photo}`}
+                                    src={r.cover_photo.startsWith('http') ? r.cover_photo : `${BACKEND}${r.cover_photo}`}
                                     alt={r.name}
                                     className="w-16 h-16 rounded-xl object-cover shrink-0"
                                 />

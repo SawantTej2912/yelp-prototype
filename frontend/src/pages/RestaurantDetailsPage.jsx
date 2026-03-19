@@ -254,7 +254,7 @@ function EditRestaurantModal({ restaurant, onClose, onSaved }) {
                         <div className="flex flex-wrap gap-2">
                             {existingPhotos.map((p) => (
                                 <div key={p.id} className="relative w-20 h-20 group">
-                                    <img src={`${BACKEND}${p.photo_url}`} alt="" className="w-full h-full object-cover rounded-xl border border-white/10" />
+                                    <img src={p.photo_url.startsWith('http') ? p.photo_url : `${BACKEND}${p.photo_url}`} alt="" className="w-full h-full object-cover rounded-xl border border-white/10" />
                                     <button
                                         type="button"
                                         onClick={() => handleDeleteExistingPhoto(p.id)}
@@ -453,7 +453,7 @@ function ReviewCard({ review, currentUserId, onEdit, onDelete, deleting }) {
                 {review.photos?.length > 0 && (
                     <div className="flex gap-2 mt-2 flex-wrap">
                         {review.photos.map((p) => (
-                            <img key={p.id} src={`${BACKEND}${p.photo_url}`} alt="Review" className="w-14 h-14 rounded-lg object-cover border border-white/08" />
+                            <img key={p.id} src={p.photo_url.startsWith('http') ? p.photo_url : `${BACKEND}${p.photo_url}`} alt="Review" className="w-full h-full object-cover rounded-lg border border-white/08" />
                         ))}
                     </div>
                 )}
@@ -608,7 +608,7 @@ export default function RestaurantDetailsPage() {
             <div className="glass-card overflow-hidden mb-6">
                 <div className="relative h-72 bg-gradient-to-br from-white/05 to-black/20">
                     {photos.length > 0 ? (
-                        <img src={`${BACKEND}${photos[activePhoto].photo_url}`} alt={r.name} className="w-full h-full object-cover" />
+                        <img src={photos[activePhoto].photo_url.startsWith('http') ? photos[activePhoto].photo_url : `${BACKEND}${photos[activePhoto].photo_url}`} alt={r.name} className="w-full h-full object-cover" />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-white/10">
                             <svg className="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
@@ -630,7 +630,7 @@ export default function RestaurantDetailsPage() {
                                 className={`shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
                                     i === activePhoto ? 'border-red-500' : 'border-transparent opacity-60 hover:opacity-90'
                                 }`}>
-                                <img src={`${BACKEND}${p.photo_url}`} alt="" className="w-full h-full object-cover" />
+                                <img src={p.photo_url.startsWith('http') ? p.photo_url : `${BACKEND}${p.photo_url}`} alt="" className="w-full h-full object-cover" />
                             </button>
                         ))}
                     </div>

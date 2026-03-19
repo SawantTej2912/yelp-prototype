@@ -11,6 +11,8 @@ const SORTS = [
     { value: 'newest', label: '🆕 Newest' },
 ];
 
+const LIMIT = 20;
+
 export default function ExplorePage() {
     const [query, setQuery] = useState('');
     const [city, setCity] = useState('');
@@ -19,18 +21,36 @@ export default function ExplorePage() {
     const [sort, setSort] = useState('rating');
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searched, setSearched] = useState(false);
+    
+    // Pagination states
+    const [offset, setOffset] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
 
-    const doSearch = useCallback(async (params) => {
-        setLoading(true);
+    const doSearch = useCallback(async (params, isLoadMore = false) => {
+        if (isLoadMore) {
+            setLoadingMore(true);
+        } else {
+            setLoading(true);
+            setOffset(0);
+        }
+
         try {
             const { data } = await searchRestaurants(params);
-            setResults(data);
-            setSearched(true);
+            
+            if (isLoadMore) {
+                setResults((prev) => [...prev, ...data]);
+            } else {
+                setResults(data);
+            }
+            // If we received fewer items than the limit, we've hit the end
+            setHasMore(data.length === params.limit);
         } catch {
-            setResults([]);
+            if (!isLoadMore) setResults([]);
+            setHasMore(false);
         } finally {
             setLoading(false);
+            setLoadingMore(false);
         }
     }, []);
 
@@ -41,7 +61,9 @@ export default function ExplorePage() {
         const cu = overrides.cuisine ?? cuisine;
         const pr = overrides.price   ?? price;
         const so = overrides.sort    ?? sort;
-        const params = { sort: so, limit: 20 };
+        const off = overrides.offset ?? 0;
+        
+        const params = { sort: so, limit: LIMIT, offset: off };
         if (q.trim())    params.q = q.trim();
         if (c.trim())    params.city = c.trim();
         if (cu !== 'All') params.cuisine = cu;
@@ -50,28 +72,35 @@ export default function ExplorePage() {
     };
 
     // Initial load
-    useEffect(() => { doSearch({ sort: 'rating', limit: 20 }); }, [doSearch]);
+    useEffect(() => { doSearch(buildParams({ offset: 0 })); }, []);
 
     // Auto re-search when sort / cuisine / price chips change
     // We pass overrides so we always read the *new* value, not stale state
     const handleSort = (e) => {
         const newSort = e.target.value;
         setSort(newSort);
-        doSearch(buildParams({ sort: newSort }));
+        doSearch(buildParams({ sort: newSort, offset: 0 }));
     };
     const handleCuisine = (c) => {
         setCuisine(c);
-        doSearch(buildParams({ cuisine: c }));
+        doSearch(buildParams({ cuisine: c, offset: 0 }));
     };
     const handlePrice = (p) => {
         setPrice(p);
-        doSearch(buildParams({ price: p }));
+        doSearch(buildParams({ price: p, offset: 0 }));
     };
 
     // Manual search (keyword + city typed input)
     const onSearch = (e) => {
         e.preventDefault();
-        doSearch(buildParams());
+        doSearch(buildParams({ offset: 0 }));
+    };
+
+    // Load more handler
+    const handleLoadMore = () => {
+        const nextOffset = offset + LIMIT;
+        setOffset(nextOffset);
+        doSearch(buildParams({ offset: nextOffset }), true);
     };
 
     return (
@@ -121,7 +150,7 @@ export default function ExplorePage() {
                         <button
                             id="search-btn"
                             type="submit"
-                            className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-semibold text-sm text-white transition-all shrink-0"
+                            className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-semibold text-sm text-white transition-all shrink-0 hover:scale-105 active:scale-95"
                             style={{ background: 'linear-gradient(135deg,#ef4444,#dc2626)', boxShadow: '0 4px 14px rgba(239,68,68,0.35)' }}
                         >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
@@ -174,10 +203,10 @@ export default function ExplorePage() {
                     <select
                         value={sort}
                         onChange={handleSort}
-                        className="bg-white/06 border border-white/12 text-white/80 text-xs rounded-lg px-2 py-1.5 outline-none"
+                        className="bg-white/06 border border-white/12 text-white/80 text-xs rounded-lg px-2 py-1.5 outline-none focus:border-red-500/50"
                     >
                         {SORTS.map(({ value, label }) => (
-                            <option key={value} value={value}>{label}</option>
+                            <option key={value} value={value} className="bg-neutral-900">{label}</option>
                         ))}
                     </select>
                 </div>
@@ -186,7 +215,7 @@ export default function ExplorePage() {
             {/* ── Add restaurant CTA ── */}
             <div className="flex items-center justify-between mb-5">
                 <p className="text-white/40 text-sm">
-                    {loading ? 'Searching…' : `${results.length} restaurant${results.length !== 1 ? 's' : ''} found`}
+                    {loading ? 'Searching…' : `${results.length} restaurant${results.length !== 1 ? 's' : ''} loaded`}
                 </p>
                 <Link
                     to="/restaurants/new"
@@ -210,7 +239,7 @@ export default function ExplorePage() {
                     ))}
                 </div>
             ) : results.length === 0 ? (
-                <div className="text-center py-20">
+                <div className="text-center py-20 animate-fade-in">
                     <p className="text-4xl mb-3">🍽</p>
                     <p className="text-white/40 text-lg font-medium">No restaurants found</p>
                     <p className="text-white/25 text-sm mt-1">Try adjusting your filters or search terms</p>
@@ -219,9 +248,25 @@ export default function ExplorePage() {
                     </Link>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {results.map((r) => <RestaurantCard key={r.id} restaurant={r} />)}
-                </div>
+                <>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-fade-in">
+                        {results.map((r) => <RestaurantCard key={r.id} restaurant={r} />)}
+                    </div>
+                    
+                    {/* Load More Button */}
+                    {hasMore && (
+                        <div className="mt-12 mb-4 flex justify-center w-full animate-fade-in">
+                            <button
+                                onClick={handleLoadMore}
+                                disabled={loadingMore}
+                                className="btn-secondary cursor-pointer disabled:cursor-not-allowed transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-xl hover:shadow-white/10 hover:bg-white/10 active:scale-95 disabled:hover:scale-100 disabled:hover:translate-y-0 disabled:opacity-50"
+                                style={{ width: 'auto', padding: '0.75rem 2.5rem', borderRadius: '9999px' }}
+                            >
+                                {loadingMore ? <span className="spinner" /> : 'Load More Restaurants'}
+                            </button>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );

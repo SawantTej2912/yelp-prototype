@@ -40,7 +40,7 @@ export default function RestaurantCard({ restaurant }) {
             <div className="relative h-44 bg-gradient-to-br from-white/05 to-white/02 overflow-hidden">
                 {cover_photo ? (
                     <img
-                        src={`${BACKEND}${cover_photo}`}
+                        src={cover_photo.startsWith('http') ? cover_photo : `${BACKEND}${cover_photo}`}
                         alt={name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
