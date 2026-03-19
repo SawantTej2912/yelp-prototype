@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
 from routers import auth, users, restaurants, reviews
+from routers import ai_assistant
 
 app = FastAPI(title="Yelp Prototype API", version="1.0.0")
 
@@ -25,6 +26,7 @@ app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(restaurants.router)
 app.include_router(reviews.router)
+app.include_router(ai_assistant.router)
 
 
 @app.get("/")

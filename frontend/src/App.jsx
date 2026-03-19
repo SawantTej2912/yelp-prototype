@@ -12,6 +12,7 @@ import AddRestaurantPage from './pages/AddRestaurantPage';
 import WriteReviewPage from './pages/WriteReviewPage';
 import FavoritesPage from './pages/FavoritesPage';
 import HistoryPage from './pages/HistoryPage';
+import ChatWidget from './components/ChatWidget';
 
 function AppLayout({ children }) {
   return (
@@ -54,6 +55,9 @@ export default function App() {
           {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+
+        {/* Persistent floating AI assistant (logged-in only) */}
+        <ChatWidget />
       </AuthProvider>
     </BrowserRouter>
   );
