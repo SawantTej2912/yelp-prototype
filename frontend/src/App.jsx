@@ -12,6 +12,7 @@ import AddRestaurantPage from './pages/AddRestaurantPage';
 import WriteReviewPage from './pages/WriteReviewPage';
 import FavoritesPage from './pages/FavoritesPage';
 import HistoryPage from './pages/HistoryPage';
+import OwnerDashboardPage from './pages/OwnerDashboardPage';
 import ChatWidget from './components/ChatWidget';
 
 function AppLayout({ children }) {
@@ -51,6 +52,7 @@ export default function App() {
           <Route path="/restaurants/:id/review" element={<ProtectedLayout><WriteReviewPage /></ProtectedLayout>} />
           <Route path="/favorites" element={<ProtectedLayout><FavoritesPage /></ProtectedLayout>} />
           <Route path="/history" element={<ProtectedLayout><HistoryPage /></ProtectedLayout>} />
+          <Route path="/owner/dashboard" element={<ProtectedLayout><OwnerDashboardPage /></ProtectedLayout>} />
 
           {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -78,6 +78,7 @@ class RestaurantResponse(BaseModel):
     owner_id: Optional[int] = None
     avg_rating: Optional[float] = None
     review_count: Optional[int] = None
+    view_count: Optional[int] = None
     created_at: Optional[datetime] = None
     photos: List[RestaurantPhotoResponse] = []
 
@@ -94,6 +95,7 @@ class RestaurantListResponse(BaseModel):
     pricing_tier: Optional[str] = None
     avg_rating: Optional[float] = None
     review_count: Optional[int] = None
+    view_count: Optional[int] = None
     cover_photo: Optional[str] = None   # first photo URL or None
 
     model_config = {"from_attributes": True}

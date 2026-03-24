@@ -26,6 +26,7 @@ class Restaurant(Base):
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
     avg_rating = Column(DECIMAL(3, 2), default=0.00)
     review_count = Column(Integer, default=0)
+    view_count = Column(Integer, default=0)
     created_at = Column(DateTime, server_default=func.now())
 
     # Relationships

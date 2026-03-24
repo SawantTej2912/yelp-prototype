@@ -174,6 +174,7 @@ export default function HistoryPage() {
     const [myRestaurants, setMyRestaurants] = useState([]);
     const [restLoading, setRestLoading] = useState(false);
     const [restError, setRestError] = useState('');
+    const [restSearchQuery, setRestSearchQuery] = useState('');
 
     // Load reviews on mount
     useEffect(() => {
@@ -189,11 +190,13 @@ export default function HistoryPage() {
         if (myRestaurants.length > 0) return; // already loaded
         setRestLoading(true);
         setRestError('');
-        searchRestaurants({ added_by: user?.id })
+        searchRestaurants({ added_by: user?.id, limit: 1000 })
             .then(({ data }) => setMyRestaurants(data))
             .catch((err) => setRestError(err.message))
             .finally(() => setRestLoading(false));
     }, [activeTab, user?.id]);
+
+    const filteredRestaurants = myRestaurants.filter(r => r.name.toLowerCase().includes(restSearchQuery.toLowerCase()));
 
     const handleDeleteReview = async (reviewId) => {
         if (!window.confirm('Are you sure you want to delete this review?')) return;
@@ -338,6 +341,16 @@ export default function HistoryPage() {
             {/* ── Restaurants Added Tab ── */}
             {activeTab === 'restaurants' && (
                 <div className="space-y-4">
+                    {/* Search Input for Restaurants */}
+                    <div className="mb-4">
+                        <input
+                            type="text"
+                            placeholder="Search restaurants..."
+                            value={restSearchQuery}
+                            onChange={(e) => setRestSearchQuery(e.target.value)}
+                            className="input-base"
+                        />
+                    </div>
                     {restError && <div className="error-badge">{restError}</div>}
 
                     {restLoading && (
@@ -365,7 +378,7 @@ export default function HistoryPage() {
                         </div>
                     )}
 
-                    {myRestaurants.map((r) => (
+                    {filteredRestaurants.map((r) => (
                         <Link
                             key={r.id}
                             to={`/restaurants/${r.id}`}
@@ -406,6 +419,9 @@ export default function HistoryPage() {
                             </svg>
                         </Link>
                     ))}
+                    {!restLoading && myRestaurants.length > 0 && filteredRestaurants.length === 0 && (
+                        <div className="text-center py-6 text-white/40">No restaurants match your search.</div>
+                    )}
                 </div>
             )}
 

@@ -48,3 +48,7 @@ export const removeFavorite = (restaurantId) =>
 /** Check if a restaurant is already favorited. */
 export const getFavoriteStatus = (restaurantId) =>
     api.get(`/favorites/${restaurantId}/status`);
+
+/** Get all reviews for restaurants owned by the current user. */
+export const getOwnerReviews = (params = {}) =>
+    api.get(`/owner/reviews`, { params });

@@ -18,7 +18,7 @@ Favorites:
 import uuid
 from decimal import Decimal
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from fastapi import (
     APIRouter, Depends, File, HTTPException,
@@ -334,3 +334,36 @@ def favorite_status(
         Favorite.restaurant_id == restaurant_id,
     ).first()
     return {"is_favorite": exists is not None}
+
+
+# ═══════════════════════════════════
+# OWNER EXCLUSIVE
+# ═══════════════════════════════════
+
+@router.get(
+    "/owner/reviews",
+    response_model=List[ReviewResponse],
+    summary="Get all reviews for restaurants owned by the current user",
+)
+def get_owner_reviews(
+    restaurant_id: Optional[int] = None,
+    sort: Optional[str] = "date",  # "date" or "rating"
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Returns all reviews for all restaurants owned by the authenticated user."""
+    if current_user.role != "owner":
+        raise HTTPException(status_code=403, detail="Only owners can access this endpoint")
+
+    query = db.query(Review).join(Restaurant).filter(Restaurant.owner_id == current_user.id)
+
+    if restaurant_id:
+        query = query.filter(Review.restaurant_id == restaurant_id)
+
+    if sort == "rating":
+        query = query.order_by(Review.rating.desc(), Review.review_date.desc())
+    else:
+        query = query.order_by(Review.review_date.desc())
+
+    reviews = query.all()
+    return [ReviewResponse.model_validate(r) for r in reviews]

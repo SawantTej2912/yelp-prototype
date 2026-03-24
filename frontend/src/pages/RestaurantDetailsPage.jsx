@@ -6,6 +6,7 @@ import {
     deleteRestaurant,
     uploadRestaurantPhoto,
     deleteRestaurantPhoto,
+    claimRestaurant,
 } from '../api/restaurants';
 import {
     getRestaurantReviews,
@@ -467,7 +468,7 @@ function ReviewCard({ review, currentUserId, onEdit, onDelete, deleting }) {
 export default function RestaurantDetailsPage() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user, updateUser } = useAuth();
 
     const [restaurant, setRestaurant] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -486,6 +487,7 @@ export default function RestaurantDetailsPage() {
     const [showEditModal, setShowEditModal] = useState(false);
     const [deletingRestaurant, setDeletingRestaurant] = useState(false);
     const [deleteError, setDeleteError] = useState('');
+    const [claiming, setClaiming] = useState(false);
 
     // Load restaurant details
     useEffect(() => {
@@ -548,6 +550,23 @@ export default function RestaurantDetailsPage() {
     const handleReviewSaved = (updated) => {
         setReviews((prev) => prev.map((r) => (r.id === updated.id ? updated : r)));
         setEditingReview(null);
+    };
+
+    // Claim restaurant
+    const handleClaimRestaurant = async () => {
+        setClaiming(true);
+        try {
+            await claimRestaurant(id);
+            const { data } = await getRestaurant(id);
+            setRestaurant(data);
+            if (user && user.role !== 'owner') {
+                updateUser({ role: 'owner' });
+            }
+        } catch (err) {
+            alert(err.message || 'Failed to claim restaurant');
+        } finally {
+            setClaiming(false);
+        }
     };
 
     // Delete restaurant
@@ -676,6 +695,19 @@ export default function RestaurantDetailsPage() {
                             </svg>
                         )}
                     </button>
+
+                    {/* Claim Restaurant */}
+                    {user && r.owner_id === null && (
+                        <button
+                            id="claim-restaurant-btn"
+                            onClick={handleClaimRestaurant}
+                            disabled={claiming}
+                            className="flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium rounded-xl border border-blue-500/50 text-blue-400 hover:bg-blue-500/15 hover:border-blue-400 transition-all disabled:opacity-40"
+                        >
+                            {claiming ? <span className="spinner" style={{ width: '0.85rem', height: '0.85rem' }} /> : '🤝'}
+                            Claim this Restaurant
+                        </button>
+                    )}
 
                     {/* Owner-only: Edit + Delete restaurant */}
                     {isRestaurantOwner && (

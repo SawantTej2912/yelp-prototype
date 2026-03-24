@@ -47,8 +47,8 @@ export default function Navbar() {
                         {navLink('/', 'Explore')}
                         {navLink('/favorites', '❤ Favorites')}
                         {navLink('/history', 'History')}
-                        {navLink('/profile', 'Profile')}
                         {navLink('/preferences', 'Preferences')}
+                        {user?.role === 'owner' && navLink('/owner/dashboard', 'Dashboard')}
                     </div>
                 )}
 
@@ -59,7 +59,7 @@ export default function Navbar() {
                             {user?.name}
                         </span>
                         {/* Avatar */}
-                        <div className="w-8 h-8 rounded-full overflow-hidden bg-red-600/30 flex items-center justify-center border border-white/10">
+                        <Link to="/profile" className="w-8 h-8 rounded-full overflow-hidden bg-red-600/30 flex items-center justify-center border border-white/10 hover:border-red-400/50 transition-colors cursor-pointer">
                             {user?.profile_pic ? (
                                 <img
                                     src={`${BACKEND}${user.profile_pic}`}
@@ -71,7 +71,7 @@ export default function Navbar() {
                                     {user?.name?.[0]?.toUpperCase() ?? '?'}
                                 </span>
                             )}
-                        </div>
+                        </Link>
                         <button
                             onClick={handleLogout}
                             className="text-xs text-white/40 hover:text-red-400 transition-colors font-medium"

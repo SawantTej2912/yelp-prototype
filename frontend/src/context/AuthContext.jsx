@@ -43,6 +43,16 @@ export function AuthProvider({ children }) {
         setUser(null);
     }, []);
 
+    /** Update specific fields on the local user object */
+    const updateUser = useCallback((updates) => {
+        setUser((prev) => {
+            if (!prev) return prev;
+            const updatedUser = { ...prev, ...updates };
+            localStorage.setItem(USER_KEY, JSON.stringify(updatedUser));
+            return updatedUser;
+        });
+    }, []);
+
     /**
      * Sign in with email + password.
      * @throws Error with a user-friendly message on failure.
@@ -87,7 +97,7 @@ export function AuthProvider({ children }) {
     const isAuthenticated = Boolean(token);
 
     return (
-        <AuthContext.Provider value={{ user, token, loading, isAuthenticated, login, signup, logout }}>
+        <AuthContext.Provider value={{ user, token, loading, isAuthenticated, login, signup, logout, updateUser }}>
             {children}
         </AuthContext.Provider>
     );

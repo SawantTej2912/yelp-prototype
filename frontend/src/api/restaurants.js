@@ -25,3 +25,6 @@ export const uploadRestaurantPhoto = (restaurantId, file) => {
 
 export const deleteRestaurantPhoto = (restaurantId, photoId) =>
     api.delete(`/restaurants/${restaurantId}/photos/${photoId}`);
+
+export const claimRestaurant = (id) =>
+    api.post(`/restaurants/${id}/claim`);

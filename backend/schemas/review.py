@@ -21,6 +21,14 @@ class ReviewerInfo(BaseModel):
     model_config = {"from_attributes": True}
 
 
+class RestaurantInfo(BaseModel):
+    """Slim restaurant info embedded within a review response."""
+    id: int
+    name: str
+
+    model_config = {"from_attributes": True}
+
+
 # ─── Request schemas ──────────────────────────────────────────────────────────
 
 class ReviewCreateRequest(BaseModel):
@@ -68,6 +76,7 @@ class ReviewResponse(BaseModel):
     updated_at: Optional[datetime] = None
     photos: List[ReviewPhotoResponse] = []
     user: Optional[ReviewerInfo] = None
+    restaurant: Optional[RestaurantInfo] = None
 
     model_config = {"from_attributes": True}
 

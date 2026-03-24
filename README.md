@@ -90,6 +90,7 @@ CREATE TABLE restaurants (
     owner_id INT DEFAULT NULL,
     avg_rating DECIMAL(3,2) DEFAULT 0.00,
     review_count INT DEFAULT 0,
+    view_count INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (added_by) REFERENCES users(id) ON DELETE SET NULL,
     FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE SET NULL
@@ -232,3 +233,19 @@ mkdir -p uploads/restaurants uploads/reviews uploads/profiles
 - [ ] Backend running at `localhost:8000`
 - [ ] Frontend running at `localhost:5173`
 - [ ] `uploads/` folder created inside backend
+
+---
+
+## 🚀 Key Features Implemented
+
+**Core Features:**
+- Full User Auth (JWT setup, bcrypt hashes)
+- Profile & Preferences Management (Syncs with AI Assistant)
+- Dynamic Restaurant Search / Details / Add / Favorites
+- Review System (Add, Edit, Delete with Star Ratings)
+- Conversational AI Chatbot (Gemini + Tavily Web Search)
+
+**Owner Specific Stretch Features:**
+- **Tracking Restaurant Views:** Silent backend tracker augmenting the `view_count`.
+- **Claim Restaurant Workflow:** Validates whether a restaurant operates under an owner; allows any user to claim it which immediately upgrades their session access level.
+- **Owner Dashboard:** A dedicated space for verified `'owner'` roles incorporating full Review filtering and graphical Restaurant progression stats/analytics (View Counts, Rating Distributions, Total Reviews).

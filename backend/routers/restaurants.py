@@ -39,6 +39,7 @@ def _to_list_response(r: Restaurant) -> RestaurantListResponse:
         pricing_tier=r.pricing_tier,
         avg_rating=float(r.avg_rating) if r.avg_rating is not None else None,
         review_count=r.review_count,
+        view_count=r.view_count,
         cover_photo=cover,
     )
 
@@ -53,7 +54,8 @@ def search_restaurants(
     pricing_tier: Optional[str] = Query(None, description="Filter by pricing tier ($, $$, $$$, $$$$)"),
     sort: Optional[str] = Query("rating", description="Sort: rating | review_count | newest"),
     added_by: Optional[int] = Query(None, description="Filter by the user who added the restaurant"),
-    limit: int = Query(20, ge=1, le=100),
+    owner_id: Optional[int] = Query(None, description="Filter by the user who owns the restaurant"),
+    limit: int = Query(20, ge=1),
     offset: int = Query(0, ge=0),
     db: Session = Depends(get_db),
 ):
@@ -98,6 +100,10 @@ def search_restaurants(
     if added_by is not None:
         query = query.filter(Restaurant.added_by == added_by)
 
+    # owner_id filter
+    if owner_id is not None:
+        query = query.filter(Restaurant.owner_id == owner_id)
+
     # Sorting
     if sort == "review_count":
         query = query.order_by(Restaurant.review_count.desc())
@@ -118,6 +124,10 @@ def get_restaurant(restaurant_id: int, db: Session = Depends(get_db)):
     r = db.query(Restaurant).filter(Restaurant.id == restaurant_id).first()
     if not r:
         raise HTTPException(status_code=404, detail="Restaurant not found")
+
+    r.view_count += 1
+    db.commit()
+    db.refresh(r)
 
     result = RestaurantResponse.model_validate(r)
     result.avg_rating = float(r.avg_rating) if r.avg_rating is not None else None
@@ -299,3 +309,31 @@ def delete_restaurant(
 
     db.delete(r)
     db.commit()
+
+
+# ─── POST /restaurants/{id}/claim — Claim Restaurant ─────────────────────────
+
+@router.post("/{restaurant_id}/claim", response_model=RestaurantResponse)
+def claim_restaurant(
+    restaurant_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Claim a restaurant that has no owner. Any user can do this and they become an owner."""
+    r = db.query(Restaurant).filter(Restaurant.id == restaurant_id).first()
+    if not r:
+        raise HTTPException(status_code=404, detail="Restaurant not found")
+
+    if r.owner_id is not None:
+        raise HTTPException(status_code=400, detail="Restaurant already has an owner")
+
+    r.owner_id = current_user.id
+    if current_user.role != "owner":
+        current_user.role = "owner"
+        
+    db.commit()
+    db.refresh(r)
+
+    result = RestaurantResponse.model_validate(r)
+    result.avg_rating = float(r.avg_rating) if r.avg_rating is not None else None
+    return result
