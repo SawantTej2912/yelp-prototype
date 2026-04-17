@@ -1,10 +1,9 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 from bson import ObjectId
 from database import reviews_collection, restaurants_collection
-from kafka.producer import send_event
 
 router = APIRouter()
 
@@ -34,6 +33,26 @@ def serialize_review(review):
     }
 
 
+async def update_restaurant_rating_summary(restaurant_id: str):
+    ratings = []
+    async for review in reviews_collection.find({"restaurant_id": restaurant_id}):
+        ratings.append(review.get("rating", 0))
+
+    review_count = len(ratings)
+    avg_rating = sum(ratings) / review_count if review_count > 0 else 0
+
+    await restaurants_collection.update_one(
+        {"_id": ObjectId(restaurant_id)},
+        {
+            "$set": {
+                "review_count": review_count,
+                "avg_rating": round(avg_rating, 2),
+                "updated_at": datetime.utcnow()
+            }
+        }
+    )
+
+
 @router.post("/")
 async def create_review(payload: ReviewCreate):
     if not ObjectId.is_valid(payload.restaurant_id):
@@ -46,19 +65,24 @@ async def create_review(payload: ReviewCreate):
     if not restaurant:
         raise HTTPException(status_code=404, detail="Restaurant not found")
 
-    event_payload = {
+    review_doc = {
         "user_id": payload.user_id,
         "restaurant_id": payload.restaurant_id,
         "rating": payload.rating,
-        "comment": payload.comment
+        "comment": payload.comment,
+        "status": "completed",
+        "created_at": datetime.utcnow(),
+        "updated_at": None
     }
 
-    await send_event("review.created", event_payload)
+    result = await reviews_collection.insert_one(review_doc)
+    created_review = await reviews_collection.find_one({"_id": result.inserted_id})
+
+    await update_restaurant_rating_summary(payload.restaurant_id)
 
     return {
-        "message": "Review submitted for processing",
-        "status": "pending",
-        "topic": "review.created"
+        "message": "Review created successfully",
+        "review": serialize_review(created_review)
     }
 
 
@@ -94,25 +118,26 @@ async def update_review(review_id: str, payload: ReviewUpdate):
     if not existing_review:
         raise HTTPException(status_code=404, detail="Review not found")
 
-    if payload.rating is not None:
-        if payload.rating < 1 or payload.rating > 5:
+    update_data = {k: v for k, v in payload.dict().items() if v is not None}
+
+    if "rating" in update_data:
+        if update_data["rating"] < 1 or update_data["rating"] > 5:
             raise HTTPException(status_code=400, detail="Rating must be between 1 and 5")
 
-    event_payload = {
-        "review_id": review_id
-    }
+    update_data["updated_at"] = datetime.utcnow()
 
-    if payload.rating is not None:
-        event_payload["rating"] = payload.rating
-    if payload.comment is not None:
-        event_payload["comment"] = payload.comment
+    await reviews_collection.update_one(
+        {"_id": ObjectId(review_id)},
+        {"$set": update_data}
+    )
 
-    await send_event("review.updated", event_payload)
+    updated_review = await reviews_collection.find_one({"_id": ObjectId(review_id)})
+
+    await update_restaurant_rating_summary(existing_review["restaurant_id"])
 
     return {
-        "message": "Review update submitted for processing",
-        "status": "pending",
-        "topic": "review.updated"
+        "message": "Review updated successfully",
+        "review": serialize_review(updated_review)
     }
 
 
@@ -125,14 +150,10 @@ async def delete_review(review_id: str):
     if not existing_review:
         raise HTTPException(status_code=404, detail="Review not found")
 
-    event_payload = {
-        "review_id": review_id
-    }
+    await reviews_collection.delete_one({"_id": ObjectId(review_id)})
 
-    await send_event("review.deleted", event_payload)
+    await update_restaurant_rating_summary(existing_review["restaurant_id"])
 
     return {
-        "message": "Review deletion submitted for processing",
-        "status": "pending",
-        "topic": "review.deleted"
+        "message": "Review deleted successfully"
     }
