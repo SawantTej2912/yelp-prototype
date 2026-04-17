@@ -1,0 +1,4 @@
+pymongo
+motor
+aiokafka
+passlib[bcrypt]

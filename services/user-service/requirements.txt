@@ -70,3 +70,4 @@ motor
 passlib[bcrypt]
 bcrypt
 email-validator
+aiokafka
