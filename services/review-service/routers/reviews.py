@@ -1,369 +1,159 @@
-"""
-Reviews & Favorites Router
-==========================
-Reviews:
-  POST   /reviews/{restaurant_id}          — Create review (auth)
-  GET    /reviews/restaurant/{restaurant_id} — List reviews for a restaurant
-  GET    /reviews/me                        — Current user's review history
-  PUT    /reviews/{review_id}               — Edit own review (auth)
-  DELETE /reviews/{review_id}               — Delete own review (auth)
-  POST   /reviews/{review_id}/photos        — Upload photo to a review (auth)
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+from typing import Optional, List
+from datetime import datetime
+from bson import ObjectId
+from database import reviews_collection, restaurants_collection
 
-Favorites:
-  GET    /favorites                         — List current user's favorites (auth)
-  POST   /favorites/{restaurant_id}         — Add favorite (auth)
-  DELETE /favorites/{restaurant_id}         — Remove favorite (auth)
-  GET    /favorites/{restaurant_id}/status  — Check if favorited (auth)
-"""
-import uuid
-from decimal import Decimal
-from pathlib import Path
-from typing import List, Optional
-
-from fastapi import (
-    APIRouter, Depends, File, HTTPException,
-    UploadFile, status
-)
-from sqlalchemy import func
-from sqlalchemy.orm import Session
-
-from database import get_db
-from models.favorite import Favorite
-from models.restaurant import Restaurant, RestaurantPhoto
-from models.review import Review, ReviewPhoto
-from models.user import User
-from schemas.review import (
-    FavoriteRestaurantResponse,
-    ReviewCreateRequest,
-    ReviewResponse,
-    ReviewUpdateRequest,
-)
-from utils.jwt import get_current_user
-
-router = APIRouter(tags=["Reviews & Favorites"])
-
-UPLOAD_DIR = Path(__file__).parent.parent / "uploads" / "review_photos"
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/webp"}
-MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
+router = APIRouter()
 
 
-# ─── Helpers ──────────────────────────────────────────────────────────────────
-
-def _recalculate_rating(db: Session, restaurant_id: int) -> None:
-    """Recalculate and persist avg_rating + review_count after any review change."""
-    result = db.query(
-        func.avg(Review.rating).label("avg"),
-        func.count(Review.id).label("cnt"),
-    ).filter(Review.restaurant_id == restaurant_id).one()
-
-    restaurant = db.query(Restaurant).filter(Restaurant.id == restaurant_id).first()
-    if restaurant:
-        restaurant.avg_rating = round(float(result.avg or 0), 2)
-        restaurant.review_count = result.cnt or 0
-        db.commit()
+class ReviewCreate(BaseModel):
+    user_id: str
+    restaurant_id: str
+    rating: int
+    comment: Optional[str] = ""
 
 
-# ═══════════════════════════════════
-# REVIEWS
-# ═══════════════════════════════════
+class ReviewUpdate(BaseModel):
+    rating: Optional[int] = None
+    comment: Optional[str] = None
 
-@router.post(
-    "/reviews/{restaurant_id}",
-    response_model=ReviewResponse,
-    status_code=status.HTTP_201_CREATED,
-    summary="Create a review for a restaurant",
-)
-def create_review(
-    restaurant_id: int,
-    payload: ReviewCreateRequest,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """Submit a 1–5 star review with an optional comment.
-    A user may only submit one review per restaurant."""
-    if not db.query(Restaurant).filter(Restaurant.id == restaurant_id).first():
+
+def serialize_review(review):
+    return {
+        "id": str(review["_id"]),
+        "user_id": review.get("user_id", ""),
+        "restaurant_id": review.get("restaurant_id", ""),
+        "rating": review.get("rating", 0),
+        "comment": review.get("comment", ""),
+        "status": review.get("status", "completed"),
+        "created_at": review.get("created_at").isoformat() if review.get("created_at") else None,
+        "updated_at": review.get("updated_at").isoformat() if review.get("updated_at") else None
+    }
+
+
+async def update_restaurant_rating_summary(restaurant_id: str):
+    ratings = []
+    async for review in reviews_collection.find({"restaurant_id": restaurant_id}):
+        ratings.append(review.get("rating", 0))
+
+    review_count = len(ratings)
+    avg_rating = sum(ratings) / review_count if review_count > 0 else 0
+
+    await restaurants_collection.update_one(
+        {"_id": ObjectId(restaurant_id)},
+        {
+            "$set": {
+                "review_count": review_count,
+                "avg_rating": round(avg_rating, 2),
+                "updated_at": datetime.utcnow()
+            }
+        }
+    )
+
+
+@router.post("/")
+async def create_review(payload: ReviewCreate):
+    if not ObjectId.is_valid(payload.restaurant_id):
+        raise HTTPException(status_code=400, detail="Invalid restaurant id")
+
+    if payload.rating < 1 or payload.rating > 5:
+        raise HTTPException(status_code=400, detail="Rating must be between 1 and 5")
+
+    restaurant = await restaurants_collection.find_one({"_id": ObjectId(payload.restaurant_id)})
+    if not restaurant:
         raise HTTPException(status_code=404, detail="Restaurant not found")
 
-    existing = db.query(Review).filter(
-        Review.user_id == current_user.id,
-        Review.restaurant_id == restaurant_id,
-    ).first()
-    if existing:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="You have already reviewed this restaurant. Use PUT to update your review.",
-        )
+    review_doc = {
+        "user_id": payload.user_id,
+        "restaurant_id": payload.restaurant_id,
+        "rating": payload.rating,
+        "comment": payload.comment,
+        "status": "completed",
+        "created_at": datetime.utcnow(),
+        "updated_at": None
+    }
 
-    review = Review(
-        user_id=current_user.id,
-        restaurant_id=restaurant_id,
-        rating=payload.rating,
-        comment=payload.comment,
-    )
-    db.add(review)
-    db.commit()
-    db.refresh(review)
-    _recalculate_rating(db, restaurant_id)
-    db.refresh(review)
-    return ReviewResponse.model_validate(review)
+    result = await reviews_collection.insert_one(review_doc)
+    created_review = await reviews_collection.find_one({"_id": result.inserted_id})
+
+    await update_restaurant_rating_summary(payload.restaurant_id)
+
+    return {
+        "message": "Review created successfully",
+        "review": serialize_review(created_review)
+    }
 
 
-@router.get(
-    "/reviews/restaurant/{restaurant_id}",
-    response_model=List[ReviewResponse],
-    summary="List all reviews for a restaurant",
-)
-def list_restaurant_reviews(restaurant_id: int, db: Session = Depends(get_db)):
-    """Returns all reviews for a restaurant, newest first."""
-    if not db.query(Restaurant).filter(Restaurant.id == restaurant_id).first():
-        raise HTTPException(status_code=404, detail="Restaurant not found")
-
-    reviews = (
-        db.query(Review)
-        .filter(Review.restaurant_id == restaurant_id)
-        .order_by(Review.review_date.desc())
-        .all()
-    )
-    return [ReviewResponse.model_validate(r) for r in reviews]
+@router.get("/")
+async def get_all_reviews():
+    reviews = []
+    async for review in reviews_collection.find():
+        reviews.append(serialize_review(review))
+    return reviews
 
 
-@router.get(
-    "/reviews/me",
-    response_model=List[ReviewResponse],
-    summary="Get the current user's review history",
-)
-def my_reviews(
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """Returns all reviews written by the authenticated user, newest first."""
-    reviews = (
-        db.query(Review)
-        .filter(Review.user_id == current_user.id)
-        .order_by(Review.review_date.desc())
-        .all()
-    )
-    return [ReviewResponse.model_validate(r) for r in reviews]
+@router.get("/restaurant/{restaurant_id}")
+async def get_reviews_by_restaurant(restaurant_id: str):
+    if not ObjectId.is_valid(restaurant_id):
+        raise HTTPException(status_code=400, detail="Invalid restaurant id")
+
+    reviews = []
+    async for review in reviews_collection.find({"restaurant_id": restaurant_id}):
+        reviews.append(serialize_review(review))
+
+    return {
+        "restaurant_id": restaurant_id,
+        "reviews": reviews
+    }
 
 
-@router.put(
-    "/reviews/{review_id}",
-    response_model=ReviewResponse,
-    summary="Update your own review",
-)
-def update_review(
-    review_id: int,
-    payload: ReviewUpdateRequest,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """Edit the rating and/or comment of a review you own."""
-    review = db.query(Review).filter(Review.id == review_id).first()
-    if not review:
+@router.put("/{review_id}")
+async def update_review(review_id: str, payload: ReviewUpdate):
+    if not ObjectId.is_valid(review_id):
+        raise HTTPException(status_code=400, detail="Invalid review id")
+
+    existing_review = await reviews_collection.find_one({"_id": ObjectId(review_id)})
+    if not existing_review:
         raise HTTPException(status_code=404, detail="Review not found")
-    if review.user_id != current_user.id:
-        raise HTTPException(status_code=403, detail="You can only edit your own reviews")
 
-    for field, value in payload.model_dump(exclude_none=True).items():
-        setattr(review, field, value)
+    update_data = {k: v for k, v in payload.dict().items() if v is not None}
 
-    db.commit()
-    db.refresh(review)
-    _recalculate_rating(db, review.restaurant_id)
-    db.refresh(review)
-    return ReviewResponse.model_validate(review)
+    if "rating" in update_data:
+        if update_data["rating"] < 1 or update_data["rating"] > 5:
+            raise HTTPException(status_code=400, detail="Rating must be between 1 and 5")
 
+    update_data["updated_at"] = datetime.utcnow()
 
-@router.delete(
-    "/reviews/{review_id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-    summary="Delete your own review",
-)
-def delete_review(
-    review_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """Permanently delete a review you own. Also recalculates the restaurant's rating."""
-    review = db.query(Review).filter(Review.id == review_id).first()
-    if not review:
-        raise HTTPException(status_code=404, detail="Review not found")
-    if review.user_id != current_user.id:
-        raise HTTPException(status_code=403, detail="You can only delete your own reviews")
-
-    restaurant_id = review.restaurant_id
-    db.delete(review)
-    db.commit()
-    _recalculate_rating(db, restaurant_id)
-
-
-@router.post(
-    "/reviews/{review_id}/photos",
-    response_model=ReviewResponse,
-    status_code=status.HTTP_201_CREATED,
-    summary="Upload a photo to your review",
-)
-async def upload_review_photo(
-    review_id: int,
-    file: UploadFile = File(...),
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """Attach a JPEG/PNG/WebP photo (max 10 MB) to one of your own reviews."""
-    review = db.query(Review).filter(Review.id == review_id).first()
-    if not review:
-        raise HTTPException(status_code=404, detail="Review not found")
-    if review.user_id != current_user.id:
-        raise HTTPException(status_code=403, detail="You can only add photos to your own reviews")
-    if file.content_type not in ALLOWED_IMAGE_TYPES:
-        raise HTTPException(status_code=400, detail="Only JPEG, PNG, WebP images are allowed")
-
-    contents = await file.read()
-    if len(contents) > MAX_FILE_SIZE:
-        raise HTTPException(status_code=413, detail="File exceeds 10 MB")
-
-    ext = file.filename.rsplit(".", 1)[-1] if file.filename and "." in file.filename else "jpg"
-    filename = f"{review_id}_{uuid.uuid4().hex}.{ext}"
-    with open(UPLOAD_DIR / filename, "wb") as f:
-        f.write(contents)
-
-    photo = ReviewPhoto(review_id=review_id, photo_url=f"/uploads/review_photos/{filename}")
-    db.add(photo)
-    db.commit()
-    db.refresh(review)
-    return ReviewResponse.model_validate(review)
-
-
-# ═══════════════════════════════════
-# FAVORITES
-# ═══════════════════════════════════
-
-@router.get(
-    "/favorites",
-    response_model=List[FavoriteRestaurantResponse],
-    summary="List the current user's favorite restaurants",
-)
-def list_favorites(
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """Returns all restaurants the user has favorited, with slim restaurant info."""
-    favs = (
-        db.query(Favorite)
-        .filter(Favorite.user_id == current_user.id)
-        .order_by(Favorite.created_at.desc())
-        .all()
+    await reviews_collection.update_one(
+        {"_id": ObjectId(review_id)},
+        {"$set": update_data}
     )
-    result = []
-    for fav in favs:
-        r = fav.restaurant
-        cover = r.photos[0].photo_url if r and r.photos else None
-        result.append(FavoriteRestaurantResponse(
-            restaurant_id=fav.restaurant_id,
-            created_at=fav.created_at,
-            restaurant_name=r.name if r else None,
-            restaurant_cuisine=r.cuisine_type if r else None,
-            restaurant_city=r.city if r else None,
-            restaurant_rating=float(r.avg_rating) if r and r.avg_rating else None,
-            restaurant_cover=cover,
-        ))
-    return result
+
+    updated_review = await reviews_collection.find_one({"_id": ObjectId(review_id)})
+
+    await update_restaurant_rating_summary(existing_review["restaurant_id"])
+
+    return {
+        "message": "Review updated successfully",
+        "review": serialize_review(updated_review)
+    }
 
 
-@router.post(
-    "/favorites/{restaurant_id}",
-    status_code=status.HTTP_201_CREATED,
-    summary="Add a restaurant to favorites",
-)
-def add_favorite(
-    restaurant_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """Mark a restaurant as a favorite. Idempotent — does not error if already favorited."""
-    if not db.query(Restaurant).filter(Restaurant.id == restaurant_id).first():
-        raise HTTPException(status_code=404, detail="Restaurant not found")
+@router.delete("/{review_id}")
+async def delete_review(review_id: str):
+    if not ObjectId.is_valid(review_id):
+        raise HTTPException(status_code=400, detail="Invalid review id")
 
-    existing = db.query(Favorite).filter(
-        Favorite.user_id == current_user.id,
-        Favorite.restaurant_id == restaurant_id,
-    ).first()
-    if existing:
-        return {"message": "Already in favorites"}
+    existing_review = await reviews_collection.find_one({"_id": ObjectId(review_id)})
+    if not existing_review:
+        raise HTTPException(status_code=404, detail="Review not found")
 
-    fav = Favorite(user_id=current_user.id, restaurant_id=restaurant_id)
-    db.add(fav)
-    db.commit()
-    return {"message": "Added to favorites"}
+    await reviews_collection.delete_one({"_id": ObjectId(review_id)})
 
+    await update_restaurant_rating_summary(existing_review["restaurant_id"])
 
-@router.delete(
-    "/favorites/{restaurant_id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-    summary="Remove a restaurant from favorites",
-)
-def remove_favorite(
-    restaurant_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """Un-favorite a restaurant."""
-    fav = db.query(Favorite).filter(
-        Favorite.user_id == current_user.id,
-        Favorite.restaurant_id == restaurant_id,
-    ).first()
-    if not fav:
-        raise HTTPException(status_code=404, detail="Not in your favorites")
-    db.delete(fav)
-    db.commit()
-
-
-@router.get(
-    "/favorites/{restaurant_id}/status",
-    summary="Check if a restaurant is in the user's favorites",
-)
-def favorite_status(
-    restaurant_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """Returns {is_favorite: true/false} — used to toggle the heart button."""
-    exists = db.query(Favorite).filter(
-        Favorite.user_id == current_user.id,
-        Favorite.restaurant_id == restaurant_id,
-    ).first()
-    return {"is_favorite": exists is not None}
-
-
-# ═══════════════════════════════════
-# OWNER EXCLUSIVE
-# ═══════════════════════════════════
-
-@router.get(
-    "/owner/reviews",
-    response_model=List[ReviewResponse],
-    summary="Get all reviews for restaurants owned by the current user",
-)
-def get_owner_reviews(
-    restaurant_id: Optional[int] = None,
-    sort: Optional[str] = "date",  # "date" or "rating"
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    """Returns all reviews for all restaurants owned by the authenticated user."""
-    if current_user.role != "owner":
-        raise HTTPException(status_code=403, detail="Only owners can access this endpoint")
-
-    query = db.query(Review).join(Restaurant).filter(Restaurant.owner_id == current_user.id)
-
-    if restaurant_id:
-        query = query.filter(Review.restaurant_id == restaurant_id)
-
-    if sort == "rating":
-        query = query.order_by(Review.rating.desc(), Review.review_date.desc())
-    else:
-        query = query.order_by(Review.review_date.desc())
-
-    reviews = query.all()
-    return [ReviewResponse.model_validate(r) for r in reviews]
+    return {
+        "message": "Review deleted successfully"
+    }
