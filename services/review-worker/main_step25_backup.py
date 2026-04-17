@@ -1,5 +1,4 @@
 import json
-import asyncio
 from datetime import datetime
 from bson import ObjectId
 from kafka.consumer import create_consumer
@@ -25,12 +24,8 @@ async def update_restaurant_rating_summary(restaurant_id: str):
         }
     )
 
-    print(f"[worker] Updated restaurant summary for restaurant_id={restaurant_id} avg_rating={round(avg_rating, 2)} review_count={review_count}")
-
 
 async def process_message(topic: str, payload: dict):
-    print(f"[worker] Processing topic={topic} payload={payload}")
-
     if topic == "review.created":
         review_doc = {
             "user_id": payload["user_id"],
@@ -43,7 +38,6 @@ async def process_message(topic: str, payload: dict):
         }
         await reviews_collection.insert_one(review_doc)
         await update_restaurant_rating_summary(payload["restaurant_id"])
-        print("[worker] Review created successfully")
 
     elif topic == "review.updated":
         review_id = payload["review_id"]
@@ -63,9 +57,6 @@ async def process_message(topic: str, payload: dict):
                 {"$set": update_data}
             )
             await update_restaurant_rating_summary(existing_review["restaurant_id"])
-            print("[worker] Review updated successfully")
-        else:
-            print(f"[worker] Review not found for update review_id={review_id}")
 
     elif topic == "review.deleted":
         review_id = payload["review_id"]
@@ -73,30 +64,14 @@ async def process_message(topic: str, payload: dict):
         if existing_review:
             await reviews_collection.delete_one({"_id": ObjectId(review_id)})
             await update_restaurant_rating_summary(existing_review["restaurant_id"])
-            print("[worker] Review deleted successfully")
-        else:
-            print(f"[worker] Review not found for delete review_id={review_id}")
-
-    else:
-        print(f"[worker] Unknown topic received: {topic}")
 
 
 async def consume_messages():
-    print("[worker] Starting Kafka consumer...")
     consumer = await create_consumer()
-    print("[worker] Kafka consumer started successfully")
-
     try:
         async for message in consumer:
             topic = message.topic
             payload = json.loads(message.value.decode("utf-8"))
             await process_message(topic, payload)
-    except Exception as e:
-        print(f"[worker] Error while consuming messages: {e}")
     finally:
-        print("[worker] Stopping Kafka consumer...")
         await consumer.stop()
-
-
-if __name__ == "__main__":
-    asyncio.run(consume_messages())
