@@ -1,34 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from pathlib import Path
+from routers import restaurants
 
-from routers import auth, users, restaurants, reviews
-from routers import ai_assistant
-
-app = FastAPI(title="Yelp Prototype API", version="1.0.0")
+app = FastAPI(title="Owner Service")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vite default port
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ─── Static file serving for uploaded images ─────────────────────────────────
-uploads_dir = Path(__file__).parent / "uploads"
-uploads_dir.mkdir(exist_ok=True)
-app.mount("/uploads", StaticFiles(directory=str(uploads_dir)), name="uploads")
-
-# ─── Routers ─────────────────────────────────────────────────────────────────
-app.include_router(auth.router)
-app.include_router(users.router)
-app.include_router(restaurants.router)
-app.include_router(reviews.router)
-app.include_router(ai_assistant.router)
-
+app.include_router(restaurants.router, prefix="/owner/restaurants", tags=["owner-restaurants"])
 
 @app.get("/")
 def root():
-    return {"message": "Yelp Prototype API is running"}
+    return {"message": "Owner Service is running"}
