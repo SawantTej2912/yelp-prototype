@@ -1,82 +1,79 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, EmailStr
+from datetime import datetime, timedelta
+from database import users_collection, sessions_collection
+from utils.password import hash_password, verify_password
+from bson import ObjectId
+import uuid
 
-from database import get_db
-from models.user import User
-from schemas.auth import LoginRequest, SignupRequest, TokenResponse, UserResponse
-from utils.jwt import create_access_token, get_current_user, hash_password, verify_password
+router = APIRouter()
 
-router = APIRouter(prefix="/auth", tags=["Authentication"])
-
-
-# ─── POST /auth/signup ───────────────────────────────────────────────────────
-
-@router.post("/signup", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
-def signup(payload: SignupRequest, db: Session = Depends(get_db)):
-    """Register a new user account.
-
-    - Validates that the email is not already taken.
-    - Hashes the password with bcrypt before persisting.
-    - Returns a JWT access token alongside the created user profile.
-    """
-    existing = db.query(User).filter(User.email == payload.email).first()
-    if existing:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="An account with this email already exists",
-        )
-
-    new_user = User(
-        email=payload.email,
-        password_hash=hash_password(payload.password),
-        name=payload.name,
-        phone=payload.phone,
-        about_me=payload.about_me,
-        city=payload.city,
-        state=payload.state,
-        country=payload.country,
-        languages=payload.languages,
-        gender=payload.gender,
-        role="user",
-    )
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-
-    token = create_access_token({"sub": str(new_user.id)})
-    return TokenResponse(
-        access_token=token,
-        user=UserResponse.model_validate(new_user),
-    )
+SESSION_DURATION_HOURS = 24
 
 
-# ─── POST /auth/login ────────────────────────────────────────────────────────
-
-@router.post("/login", response_model=TokenResponse)
-def login(payload: LoginRequest, db: Session = Depends(get_db)):
-    """Authenticate an existing user.
-
-    - Looks up the user by email.
-    - Verifies the password against the stored bcrypt hash.
-    - Returns a fresh JWT access token alongside the user profile.
-    """
-    user = db.query(User).filter(User.email == payload.email).first()
-    if not user or not verify_password(payload.password, user.password_hash):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email or password",
-        )
-
-    token = create_access_token({"sub": str(user.id)})
-    return TokenResponse(
-        access_token=token,
-        user=UserResponse.model_validate(user),
-    )
+class SignupRequest(BaseModel):
+    name: str
+    email: EmailStr
+    password: str
+    role: str = "user"
 
 
-# ─── GET /auth/me ────────────────────────────────────────────────────────────
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
 
-@router.get("/me", response_model=UserResponse)
-def me(current_user: User = Depends(get_current_user)):
-    """Return the currently authenticated user's profile."""
-    return UserResponse.model_validate(current_user)
+
+@router.post("/signup")
+async def signup(payload: SignupRequest):
+    existing_user = await users_collection.find_one({"email": payload.email})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    user_doc = {
+        "name": payload.name,
+        "email": payload.email,
+        "password_hash": hash_password(payload.password),
+        "role": payload.role,
+        "created_at": datetime.utcnow()
+    }
+
+    result = await users_collection.insert_one(user_doc)
+
+    return {
+        "message": "User created successfully",
+        "user_id": str(result.inserted_id)
+    }
+
+
+@router.post("/login")
+async def login(payload: LoginRequest):
+    user = await users_collection.find_one({"email": payload.email})
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+
+    if not verify_password(payload.password, user["password_hash"]):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+
+    expires_at = datetime.utcnow() + timedelta(hours=SESSION_DURATION_HOURS)
+    session_token = str(uuid.uuid4())
+
+    session_doc = {
+        "user_id": str(user["_id"]),
+        "token": session_token,
+        "created_at": datetime.utcnow(),
+        "expires_at": expires_at
+    }
+
+    await sessions_collection.insert_one(session_doc)
+
+    return {
+        "message": "Login successful",
+        "token": session_token,
+        "user": {
+            "id": str(user["_id"]),
+            "name": user["name"],
+            "email": user["email"],
+            "role": user.get("role", "user")
+        },
+        "expires_at": expires_at.isoformat()
+    }
