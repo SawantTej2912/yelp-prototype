@@ -1,0 +1,2569 @@
+[
+    {
+        "name": "Eos & Nyx",
+        "cuisine_type": "Cocktail Bars, Breakfast & Brunch, New American",
+        "address": "201 S Second St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95113",
+        "contact_info": "",
+        "hours": "Tue: 17:00-21:00 | Thu: 17:00-22:00 | Fri: 17:00-22:00 | Sat: 10:00-15:00, 17:00-22:00 | Sun: 10:00-15:00, 17:00-21:00",
+        "pricing_tier": null,
+        "description": "Eos & Nyx is a cocktail bars, breakfast & brunch, new american restaurant in San Jose.",
+        "avg_rating": 4.2,
+        "review_count": 604,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/cI-3vLaqaGZ3GAA8HjIHEQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Wagyu Master",
+        "cuisine_type": "Japanese, Hot Pot, Seafood",
+        "address": "1410 El Paseo De Saratoga",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95130",
+        "contact_info": "(408) 549-7891",
+        "hours": "Mon: 11:30-22:00 | Tue: 11:30-22:00 | Wed: 11:30-22:00 | Thu: 11:30-22:00 | Fri: 11:30-23:00 | Sat: 11:30-23:00 | Sun: 11:30-22:00",
+        "pricing_tier": null,
+        "description": "Wagyu Master is a japanese, hot pot, seafood restaurant in San Jose.",
+        "avg_rating": 4.7,
+        "review_count": 157,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/o9Er-QK_LXZbV68AZfjDaA/o.jpg"
+        ]
+    },
+    {
+        "name": "The Grandview Restaurant",
+        "cuisine_type": "Venues & Event Spaces, Steakhouses, New American",
+        "address": "15005 Mount Hamilton Rd",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95140",
+        "contact_info": "(408) 251-8909",
+        "hours": "Mon: 17:00-21:00 | Tue: 17:00-21:00 | Wed: 17:00-21:00 | Thu: 17:00-21:00 | Fri: 17:00-22:00 | Sat: 17:00-22:00 | Sun: 17:00-21:00",
+        "pricing_tier": "$$$$",
+        "description": "The Grandview Restaurant is a venues & event spaces, steakhouses, new american restaurant in San Jose.",
+        "avg_rating": 3.9,
+        "review_count": 2269,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/gsy_3gmpd7f_Y-Rey8RAbw/o.jpg"
+        ]
+    },
+    {
+        "name": "Nem N\u01b0\u1edbng Nha Trang",
+        "cuisine_type": "Vietnamese, Coffee & Tea, Asian Fusion",
+        "address": "919 Story Rd",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95122",
+        "contact_info": "(408) 420-8448",
+        "hours": "Mon: 11:00-18:00 | Thu: 11:00-18:00 | Fri: 10:00-18:00 | Sat: 10:00-18:00 | Sun: 10:00-18:00",
+        "pricing_tier": "$$",
+        "description": "Nem N\u01b0\u1edbng Nha Trang is a vietnamese, coffee & tea, asian fusion restaurant in San Jose.",
+        "avg_rating": 4.2,
+        "review_count": 187,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/CFIeC-kFDZiotoX6syvgVg/o.jpg"
+        ]
+    },
+    {
+        "name": "JOEY Valley Fair",
+        "cuisine_type": "Sushi Bars, Steakhouses, Wine Bars",
+        "address": "2855 Stevens Creek Blvd",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(669) 899-5639",
+        "hours": "Mon: 11:00-00:00 | Tue: 11:00-00:00 | Wed: 11:00-00:00 | Thu: 11:00-00:00 | Fri: 11:00-01:00 | Sat: 11:00-01:00 | Sun: 11:00-00:00",
+        "pricing_tier": "$$$",
+        "description": "JOEY Valley Fair is a sushi bars, steakhouses, wine bars restaurant in Santa Clara.",
+        "avg_rating": 4.8,
+        "review_count": 4474,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/VXQ1YyEWxK85A6df_6Dw2g/o.jpg"
+        ]
+    },
+    {
+        "name": "Samuthr Thai Restaurant",
+        "cuisine_type": "Thai",
+        "address": "312 S Third St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95112",
+        "contact_info": "(669) 230-3183",
+        "hours": "Mon: 11:00-14:30, 17:00-21:00 | Tue: 11:00-14:30, 17:00-21:00 | Wed: 11:00-14:30, 17:00-21:00 | Thu: 11:00-14:30, 17:00-21:00 | Fri: 11:00-14:30, 17:00-21:00 | Sat: 11:00-14:30, 17:00-21:00 | Sun: 11:00-14:30, 17:00-21:00",
+        "pricing_tier": null,
+        "description": "Samuthr Thai Restaurant is a thai restaurant in San Jose.",
+        "avg_rating": 5.0,
+        "review_count": 3,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/Pia4vj7nDfDyN6aHV8O1cg/o.jpg"
+        ]
+    },
+    {
+        "name": "Salted Crumb Bakery",
+        "cuisine_type": "Bakeries, Pop-Up Restaurants",
+        "address": "Unknown",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95112",
+        "contact_info": "",
+        "hours": null,
+        "pricing_tier": null,
+        "description": "Salted Crumb Bakery is a bakeries, pop-up restaurants restaurant in San Jose.",
+        "avg_rating": 5.0,
+        "review_count": 1,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/zuQrNtKoanTRjJ9QHXEiag/o.jpg"
+        ]
+    },
+    {
+        "name": "Blue Pagoda",
+        "cuisine_type": "Sushi Bars",
+        "address": "1613 N Capitol Ave",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95132",
+        "contact_info": "(408) 649-3183",
+        "hours": "Tue: 17:30-22:00 | Wed: 12:00-14:00, 17:30-22:00 | Thu: 12:00-14:00, 17:30-22:00 | Fri: 12:00-14:00, 17:00-22:00 | Sat: 12:00-14:00, 17:00-22:00 | Sun: 12:00-14:00, 17:00-22:00",
+        "pricing_tier": "$$$$",
+        "description": "Blue Pagoda is a sushi bars restaurant in San Jose.",
+        "avg_rating": 4.5,
+        "review_count": 189,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/9tOeE8FoPydjHVOxN4YCSg/o.jpg"
+        ]
+    },
+    {
+        "name": "Poppy & Claro",
+        "cuisine_type": "Coffee & Tea, New American, Pizza",
+        "address": "50 W San Fernando St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95113",
+        "contact_info": "(408) 408-7777",
+        "hours": "Mon: 07:30-19:30 | Tue: 07:30-19:30 | Wed: 07:30-19:30 | Thu: 07:30-19:30 | Fri: 07:30-19:30",
+        "pricing_tier": "$$",
+        "description": "Poppy & Claro is a coffee & tea, new american, pizza restaurant in San Jose.",
+        "avg_rating": 4.5,
+        "review_count": 38,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/TSLdkjCOvlbqGTqu8wvILg/o.jpg"
+        ]
+    },
+    {
+        "name": "Bloom",
+        "cuisine_type": "American, Breakfast & Brunch, Cocktail Bars",
+        "address": "202 Saratoga Ave",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(408) 345-2667",
+        "hours": "Wed: 08:00-14:30 | Thu: 08:00-14:30 | Fri: 08:00-14:30 | Sat: 08:00-14:30 | Sun: 08:00-14:30",
+        "pricing_tier": "$$",
+        "description": "Bloom is a american, breakfast & brunch, cocktail bars restaurant in Santa Clara.",
+        "avg_rating": 4.3,
+        "review_count": 1789,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/7k0P8wC9C0MfShETO4FugA/o.jpg"
+        ]
+    },
+    {
+        "name": "Goodtime Bar",
+        "cuisine_type": "Wine Bars, Tapas/Small Plates, Seafood",
+        "address": "30 Fountain Alley",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95113",
+        "contact_info": "(408) 256-1266",
+        "hours": "Mon: 16:00-23:00 | Tue: 16:00-23:00 | Wed: 16:00-23:00 | Thu: 16:00-23:00 | Fri: 16:00-00:00 | Sat: 14:00-00:00 | Sun: 14:00-22:00",
+        "pricing_tier": "$$",
+        "description": "Goodtime Bar is a wine bars, tapas/small plates, seafood restaurant in San Jose.",
+        "avg_rating": 4.7,
+        "review_count": 217,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/lEEjBtL6qaBCYS_BC2CrnA/o.jpg"
+        ]
+    },
+    {
+        "name": "Kumako Ramen Den",
+        "cuisine_type": "Ramen",
+        "address": "487 Saratoga Ave",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95129",
+        "contact_info": "(408) 352-5290",
+        "hours": "Wed: 11:00-20:00 | Thu: 11:00-20:00 | Fri: 11:00-20:00 | Sat: 11:00-20:00 | Sun: 11:00-20:00",
+        "pricing_tier": "$$",
+        "description": "Kumako Ramen Den is a ramen restaurant in San Jose.",
+        "avg_rating": 4.7,
+        "review_count": 1153,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/P5ykHrRzCRkqn7oB3sDiCw/o.jpg"
+        ]
+    },
+    {
+        "name": "The Second Wife",
+        "cuisine_type": "Indian, Buffets",
+        "address": "50 Skyport Dr",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95110",
+        "contact_info": "(408) 963-6690",
+        "hours": "Mon: 11:00-15:00, 16:30-21:30 | Tue: 11:00-15:00, 16:30-21:30 | Wed: 11:00-15:00, 16:30-21:30 | Thu: 11:00-15:00, 16:30-21:30 | Fri: 11:00-15:00, 16:30-21:30 | Sat: 11:00-15:00, 16:30-21:30 | Sun: 11:00-15:00, 16:30-20:30",
+        "pricing_tier": null,
+        "description": "The Second Wife is a indian, buffets restaurant in San Jose.",
+        "avg_rating": 4.0,
+        "review_count": 100,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/4-kDCOzbizRc8KqwQizrCw/o.jpg"
+        ]
+    },
+    {
+        "name": "The Pressroom",
+        "cuisine_type": "Cocktail Bars, American, Breakfast & Brunch",
+        "address": "189 W Santa Clara St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95113",
+        "contact_info": "",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-22:00 | Fri: 11:00-22:00 | Sat: 10:00-22:00 | Sun: 10:00-20:00",
+        "pricing_tier": null,
+        "description": "The Pressroom is a cocktail bars, american, breakfast & brunch restaurant in San Jose.",
+        "avg_rating": 4.1,
+        "review_count": 388,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/vatEa8MQrZ9nzjtOvR-sZA/o.jpg"
+        ]
+    },
+    {
+        "name": "The Breakfast Club",
+        "cuisine_type": "Breakfast & Brunch, Waffles, American",
+        "address": "1432 W San Carlos St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95126",
+        "contact_info": "(408) 564-7150",
+        "hours": "Mon: 07:00-15:00 | Tue: 07:00-15:00 | Wed: 07:00-15:00 | Thu: 07:00-15:00 | Fri: 07:00-15:00 | Sat: 07:00-15:00 | Sun: 07:00-15:00",
+        "pricing_tier": "$$",
+        "description": "The Breakfast Club is a breakfast & brunch, waffles, american restaurant in San Jose.",
+        "avg_rating": 3.9,
+        "review_count": 4411,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/IKf4bCw3DAl2NrwuiV6nGQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Mad Yolks",
+        "cuisine_type": "Breakfast & Brunch",
+        "address": "1087 Meridian Ave",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95125",
+        "contact_info": "(408) 622-8382",
+        "hours": "Mon: 07:00-14:00 | Tue: 07:00-14:00 | Wed: 07:00-14:00 | Thu: 07:00-14:00 | Fri: 07:00-14:00 | Sat: 08:00-16:00 | Sun: 08:00-16:00",
+        "pricing_tier": null,
+        "description": "Mad Yolks is a breakfast & brunch restaurant in San Jose.",
+        "avg_rating": 4.2,
+        "review_count": 155,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/mFekbQNndu4K_JsFwSWZ1A/o.jpg"
+        ]
+    },
+    {
+        "name": "Dough Burger",
+        "cuisine_type": "Burgers",
+        "address": "1751 N First St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95112",
+        "contact_info": "(408) 320-2573",
+        "hours": "Mon: 11:00-01:30 | Tue: 11:00-01:30 | Wed: 11:00-01:30 | Thu: 11:00-01:30 | Fri: 11:00-03:00 | Sat: 11:00-03:00 | Sun: 11:00-01:30",
+        "pricing_tier": "$",
+        "description": "Dough Burger is a burgers restaurant in San Jose.",
+        "avg_rating": 4.2,
+        "review_count": 340,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/yPgOVE44Debk-gGRu6YEAQ/o.jpg"
+        ]
+    },
+    {
+        "name": "\u00c9lyse Restaurant",
+        "cuisine_type": "French, Vietnamese, Cocktail Bars",
+        "address": "96 S 1st St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95113",
+        "contact_info": "(408) 899-2762",
+        "hours": "Tue: 17:00-21:00 | Wed: 17:00-21:00 | Thu: 17:00-21:00 | Fri: 17:00-21:00 | Sat: 17:00-21:00",
+        "pricing_tier": "$$",
+        "description": "\u00c9lyse Restaurant is a french, vietnamese, cocktail bars restaurant in San Jose.",
+        "avg_rating": 4.3,
+        "review_count": 542,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/-ryDQxwnP0xogwMN1C89Hg/o.jpg"
+        ]
+    },
+    {
+        "name": "Blossom & Bourbon",
+        "cuisine_type": "American, Cocktail Bars, Whiskey Bars",
+        "address": "632 Blossom Hill Rd",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95123",
+        "contact_info": "(408) 818-8444",
+        "hours": "Mon: 17:00-22:00 | Tue: 17:00-22:00 | Wed: 17:00-22:00 | Thu: 17:00-22:00 | Fri: 16:00-22:00 | Sat: 16:00-22:00 | Sun: 16:00-22:00",
+        "pricing_tier": "$$$",
+        "description": "Blossom & Bourbon is a american, cocktail bars, whiskey bars restaurant in San Jose.",
+        "avg_rating": 4.2,
+        "review_count": 640,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/Faq87XssOGqPXaNmwaZKbQ/o.jpg"
+        ]
+    },
+    {
+        "name": "King's Fish House - San Jose",
+        "cuisine_type": "Seafood",
+        "address": "2855 Stevens Creek Blvd",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95128",
+        "contact_info": "(669) 699-3474",
+        "hours": "Mon: 11:00-22:00 | Tue: 11:00-22:00 | Wed: 11:00-22:00 | Thu: 11:00-22:00 | Fri: 11:00-23:00 | Sat: 11:00-23:00 | Sun: 11:00-22:00",
+        "pricing_tier": "$$$",
+        "description": "King's Fish House - San Jose is a seafood restaurant in San Jose.",
+        "avg_rating": 4.2,
+        "review_count": 2554,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/CwJIeZ4L_JWpSdpokmOzpg/o.jpg"
+        ]
+    },
+    {
+        "name": "La Foret",
+        "cuisine_type": "French, Venues & Event Spaces, Lounges",
+        "address": "21747 Bertram Rd",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95120",
+        "contact_info": "(408) 997-3458",
+        "hours": "Tue: 17:00-21:00 | Wed: 17:00-21:00 | Thu: 17:00-21:00 | Fri: 17:00-22:00 | Sat: 17:00-22:00 | Sun: 17:00-21:00",
+        "pricing_tier": "$$$$",
+        "description": "La Foret is a french, venues & event spaces, lounges restaurant in San Jose.",
+        "avg_rating": 4.1,
+        "review_count": 912,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/TGZtYDrwJvZQIuEqksvJWw/o.jpg"
+        ]
+    },
+    {
+        "name": "Paper Plane",
+        "cuisine_type": "Cocktail Bars, New American",
+        "address": "72 S 1st St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95113",
+        "contact_info": "(408) 713-2625",
+        "hours": "Mon: 21:30-00:00 | Tue: 21:30-00:00 | Thu: 17:00-00:00 | Fri: 17:00-02:00 | Sat: 17:00-02:00 | Sun: 17:00-00:00",
+        "pricing_tier": "$$",
+        "description": "Paper Plane is a cocktail bars, new american restaurant in San Jose.",
+        "avg_rating": 4.1,
+        "review_count": 1722,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/frPABlI7pUcGTiAeO2oBJw/o.jpg"
+        ]
+    },
+    {
+        "name": "Rice Junky Katsu",
+        "cuisine_type": "Japanese, Korean",
+        "address": "1098 N First St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95112",
+        "contact_info": "(669) 360-7547",
+        "hours": "Mon: 11:00-14:00, 17:00-21:00 | Tue: 11:00-14:00, 17:00-21:00 | Wed: 11:00-14:00, 17:00-21:00 | Thu: 11:00-14:00, 17:00-21:00 | Fri: 11:00-14:00, 17:00-21:00 | Sat: 11:00-14:00, 17:00-21:00",
+        "pricing_tier": null,
+        "description": "Rice Junky Katsu is a japanese, korean restaurant in San Jose.",
+        "avg_rating": 4.3,
+        "review_count": 29,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/CgVli9JsSXY1iW7cbMTXJA/o.jpg"
+        ]
+    },
+    {
+        "name": "GIWA",
+        "cuisine_type": "Breakfast & Brunch, Korean, Cocktail Bars",
+        "address": "1494 Halford Ave",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(669) 279-7922",
+        "hours": "Mon: 08:30-22:30 | Tue: 08:30-22:30 | Wed: 08:30-22:30 | Thu: 08:30-22:30 | Fri: 08:30-22:30 | Sat: 08:30-22:30 | Sun: 08:30-22:30",
+        "pricing_tier": "$$",
+        "description": "GIWA is a breakfast & brunch, korean, cocktail bars restaurant in Santa Clara.",
+        "avg_rating": 4.4,
+        "review_count": 1114,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/qJwLnwv9DNTjr6d3FvtS4w/o.jpg"
+        ]
+    },
+    {
+        "name": "Serious Dumpling \u6b63\u7ecf\u751f\u714e",
+        "cuisine_type": "Chinese, Noodles, Asian Fusion",
+        "address": "49 North San Pedro St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95110",
+        "contact_info": "(408) 320-2023",
+        "hours": "Mon: 12:00-14:30, 17:00-22:00 | Tue: 12:00-14:30, 17:00-22:00 | Wed: 12:00-14:30, 17:00-22:00 | Thu: 12:00-14:30, 17:00-22:00 | Fri: 12:00-22:00 | Sat: 12:00-22:00 | Sun: 12:00-22:00",
+        "pricing_tier": "$$",
+        "description": "Serious Dumpling \u6b63\u7ecf\u751f\u714e is a chinese, noodles, asian fusion restaurant in San Jose.",
+        "avg_rating": 4.0,
+        "review_count": 1254,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/5RSHjiyGlCpO_BxoiuBbkQ/o.jpg"
+        ]
+    },
+    {
+        "name": "The Hero Ranch Kitchen",
+        "cuisine_type": "American",
+        "address": "14583 Big Basin Way",
+        "city": "Saratoga",
+        "state": "CA",
+        "zip": "95070",
+        "contact_info": "(669) 267-3183",
+        "hours": "Tue: 17:00-20:30 | Wed: 17:00-20:30 | Thu: 17:00-20:30 | Fri: 17:00-21:00 | Sat: 17:00-21:00 | Sun: 17:00-20:00",
+        "pricing_tier": "$$$",
+        "description": "The Hero Ranch Kitchen is a american restaurant in Saratoga.",
+        "avg_rating": 4.5,
+        "review_count": 934,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/TMs3sy8ZaVAIwWrw-qtXug/o.jpg"
+        ]
+    },
+    {
+        "name": "SJ Eggrolls",
+        "cuisine_type": "Vietnamese",
+        "address": "1807 E Capitol Expy",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95121",
+        "contact_info": "(408) 440-2801",
+        "hours": "Tue: 08:00-18:00 | Wed: 08:00-18:00 | Thu: 08:00-18:00 | Fri: 08:00-19:00 | Sat: 08:00-19:00 | Sun: 08:00-18:00",
+        "pricing_tier": "$$",
+        "description": "SJ Eggrolls is a vietnamese restaurant in San Jose.",
+        "avg_rating": 4.1,
+        "review_count": 205,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/Da8SNKsB3mAlYA7nxcreZA/o.jpg"
+        ]
+    },
+    {
+        "name": "C\u01a1m T\u1ea5m Anh Chi Em",
+        "cuisine_type": "Vietnamese",
+        "address": "1709 Tully Rd",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95122",
+        "contact_info": "(408) 649-3024",
+        "hours": "Mon: 10:00-14:00, 16:00-20:00 | Tue: 10:00-14:00, 16:00-20:00 | Thu: 10:00-14:00, 16:00-20:00 | Fri: 10:00-14:00, 16:00-20:00 | Sat: 10:00-14:00, 16:00-20:00 | Sun: 10:00-14:00, 16:00-20:00",
+        "pricing_tier": null,
+        "description": "C\u01a1m T\u1ea5m Anh Chi Em is a vietnamese restaurant in San Jose.",
+        "avg_rating": 4.1,
+        "review_count": 30,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/CavsB9_dGO9E8WlyBEKLHg/o.jpg"
+        ]
+    },
+    {
+        "name": "Naschmarkt - Campbell",
+        "cuisine_type": "Austrian, German, Modern European",
+        "address": "384 E Campbell Ave",
+        "city": "Campbell",
+        "state": "CA",
+        "zip": "95008",
+        "contact_info": "(408) 378-0335",
+        "hours": "Mon: 11:30-14:00, 17:00-21:00 | Tue: 11:30-14:00, 17:00-21:00 | Wed: 11:30-14:00, 17:00-21:00 | Thu: 11:30-14:00, 17:00-21:00 | Fri: 11:30-14:00, 17:00-21:30 | Sat: 11:30-14:00, 17:00-21:30 | Sun: 11:30-14:00, 17:00-21:00",
+        "pricing_tier": "$$$",
+        "description": "Naschmarkt - Campbell is a austrian, german, modern european restaurant in Campbell.",
+        "avg_rating": 4.5,
+        "review_count": 1543,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/zjWuAQioqwRBaQcNJnNrMQ/o.jpg"
+        ]
+    },
+    {
+        "name": "The Table",
+        "cuisine_type": "New American, Breakfast & Brunch, Salad",
+        "address": "1110 Willow St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95125",
+        "contact_info": "(408) 638-7911",
+        "hours": "Wed: 11:30-21:00 | Thu: 11:30-21:00 | Fri: 09:00-22:00 | Sat: 09:00-22:00 | Sun: 09:00-20:30",
+        "pricing_tier": "$$",
+        "description": "The Table is a new american, breakfast & brunch, salad restaurant in San Jose.",
+        "avg_rating": 3.9,
+        "review_count": 3862,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/UhM-Z47tZ8SGX663NwFr3g/o.jpg"
+        ]
+    },
+    {
+        "name": "Siam Station",
+        "cuisine_type": "Thai, Pan Asian",
+        "address": "20956 Homestead Rd",
+        "city": "Cupertino",
+        "state": "CA",
+        "zip": "95014",
+        "contact_info": "(408) 352-5207",
+        "hours": "Mon: 11:30-21:00 | Tue: 11:30-21:00 | Wed: 11:30-21:00 | Thu: 11:30-21:00 | Fri: 11:30-21:00 | Sat: 11:30-21:00 | Sun: 11:30-21:00",
+        "pricing_tier": "$$",
+        "description": "Siam Station is a thai, pan asian restaurant in Cupertino.",
+        "avg_rating": 4.3,
+        "review_count": 1391,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/Lt856NRkMLixssknKH8FHA/o.jpg"
+        ]
+    },
+    {
+        "name": "Jubba",
+        "cuisine_type": "African, Halal, Somali",
+        "address": "5330 Terner Way",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95136",
+        "contact_info": "(408) 440-1504",
+        "hours": "Mon: 11:30-21:00 | Tue: 11:30-21:00 | Thu: 11:30-21:00 | Fri: 11:30-21:00 | Sat: 11:30-21:00 | Sun: 11:30-21:00",
+        "pricing_tier": "$$",
+        "description": "Jubba is a african, halal, somali restaurant in San Jose.",
+        "avg_rating": 4.5,
+        "review_count": 1551,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/l16n_oK-H8pVQL_xBHshog/o.jpg"
+        ]
+    },
+    {
+        "name": "D-D Delight Restaurant",
+        "cuisine_type": "Asian Fusion, Vietnamese, Noodles",
+        "address": "1645 Flickinger Ave",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95131",
+        "contact_info": "(408) 649-3276",
+        "hours": "Tue: 09:00-20:30 | Wed: 09:00-20:30 | Thu: 09:00-20:30 | Fri: 09:00-20:30 | Sat: 09:00-20:30 | Sun: 09:00-20:30",
+        "pricing_tier": "$$",
+        "description": "D-D Delight Restaurant is a asian fusion, vietnamese, noodles restaurant in San Jose.",
+        "avg_rating": 4.4,
+        "review_count": 1292,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/CQpHw3gBCqd4Q0KZdzELmA/o.jpg"
+        ]
+    },
+    {
+        "name": "Costa Azul",
+        "cuisine_type": "Mexican",
+        "address": "500 Hwy 1",
+        "city": "Davenport",
+        "state": "CA",
+        "zip": "95017",
+        "contact_info": "(831) 205-3771",
+        "hours": "Mon: 10:00-20:00 | Tue: 10:00-20:00 | Wed: 10:00-20:00 | Thu: 10:00-20:00 | Fri: 10:00-20:00 | Sat: 09:00-20:00 | Sun: 09:00-20:00",
+        "pricing_tier": null,
+        "description": "Costa Azul is a mexican restaurant in Davenport.",
+        "avg_rating": 4.5,
+        "review_count": 74,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/ZTHzXOn8Q29hSlCd0v2fLA/o.jpg"
+        ]
+    },
+    {
+        "name": "Burma Roots",
+        "cuisine_type": "Burmese, Bars",
+        "address": "1100 Lincoln Ave",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95125",
+        "contact_info": "(669) 242-7954",
+        "hours": "Mon: 11:00-14:30, 16:30-21:00 | Tue: 11:00-14:30, 16:30-21:00 | Wed: 11:00-14:30, 16:30-21:00 | Thu: 11:00-14:30, 16:30-21:00 | Fri: 11:00-14:30, 16:30-21:30 | Sat: 11:00-14:30, 16:30-21:30 | Sun: 11:00-14:30, 16:30-21:00",
+        "pricing_tier": null,
+        "description": "Burma Roots is a burmese, bars restaurant in San Jose.",
+        "avg_rating": 4.4,
+        "review_count": 137,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/Owgo52xvve7zaLqF0Hd2Sg/o.jpg"
+        ]
+    },
+    {
+        "name": "Milk Belly Bakery",
+        "cuisine_type": "Bakeries, Breakfast & Brunch, Food Delivery Services",
+        "address": "30 E Santa Clara",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95113",
+        "contact_info": "(408) 691-1506",
+        "hours": "Wed: 09:00-15:30 | Thu: 09:00-15:30 | Fri: 09:00-15:30 | Sat: 09:00-15:30",
+        "pricing_tier": "$$",
+        "description": "Milk Belly Bakery is a bakeries, breakfast & brunch, food delivery services restaurant in San Jose.",
+        "avg_rating": 4.5,
+        "review_count": 363,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/AtTrQCRAnk4ScWDuAtrKHw/o.jpg"
+        ]
+    },
+    {
+        "name": "Wild Rose Eatery and Bar",
+        "cuisine_type": "Cocktail Bars, Seafood, Steakhouses",
+        "address": "200 E Campbell Ave",
+        "city": "Campbell",
+        "state": "CA",
+        "zip": "95008",
+        "contact_info": "(408) 340-5136",
+        "hours": "Tue: 17:00-22:00 | Wed: 17:00-22:00 | Thu: 17:00-22:00 | Fri: 17:00-01:00 | Sat: 17:00-01:00 | Sun: 10:00-15:00",
+        "pricing_tier": "$$$",
+        "description": "Wild Rose Eatery and Bar is a cocktail bars, seafood, steakhouses restaurant in Campbell.",
+        "avg_rating": 4.4,
+        "review_count": 970,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/oWWf-Kar-d52KILpWuax2A/o.jpg"
+        ]
+    },
+    {
+        "name": "Fox Tale Fermentation Project",
+        "cuisine_type": "Specialty Food, Vegetarian, Brewpubs",
+        "address": "30 E Santa Clara St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95113",
+        "contact_info": "(408) 216-0158",
+        "hours": "Wed: 12:00-22:00 | Thu: 12:00-22:00 | Fri: 12:00-22:00 | Sat: 12:00-22:00 | Sun: 12:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Fox Tale Fermentation Project is a specialty food, vegetarian, brewpubs restaurant in San Jose.",
+        "avg_rating": 4.8,
+        "review_count": 182,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/qM81A51AeEgkHEAeJm8SJg/o.jpg"
+        ]
+    },
+    {
+        "name": "Silver Creek Barbeque",
+        "cuisine_type": "Barbeque",
+        "address": "4898 San Felipe Rd",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95135",
+        "contact_info": "(408) 440-2536",
+        "hours": "Mon: 07:00-21:00 | Tue: 07:00-21:00 | Wed: 07:00-21:00 | Thu: 07:00-21:00 | Fri: 07:00-21:00 | Sat: 07:00-21:00 | Sun: 07:00-21:00",
+        "pricing_tier": null,
+        "description": "Silver Creek Barbeque is a barbeque restaurant in San Jose.",
+        "avg_rating": 4.4,
+        "review_count": 22,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/qZO7TY-xxOvZAbNEdKRJDA/o.jpg"
+        ]
+    },
+    {
+        "name": "Paesano Ristorante Italiano",
+        "cuisine_type": "Italian",
+        "address": "350 W Julian St",
+        "city": "San Jose",
+        "state": "CA",
+        "zip": "95110",
+        "contact_info": "(408) 217-9327",
+        "hours": "Mon: 11:00-14:00, 17:00-21:00 | Tue: 11:00-14:00, 17:00-21:00 | Wed: 11:00-14:00, 17:00-21:00 | Thu: 11:00-14:00, 17:00-21:00 | Fri: 11:00-14:00, 17:00-22:00 | Sat: 17:00-22:00",
+        "pricing_tier": "$$$",
+        "description": "Paesano Ristorante Italiano is a italian restaurant in San Jose.",
+        "avg_rating": 4.1,
+        "review_count": 1420,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/7dwg71hHmBAbFJX2eeIEzw/o.jpg"
+        ]
+    },
+    {
+        "name": "Puesto Santa Clara",
+        "cuisine_type": "Mexican, Cocktail Bars",
+        "address": "2752 Augustine Dr",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95054",
+        "contact_info": "(408) 333-9750",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-21:00 | Sat: 11:00-21:00 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Puesto Santa Clara is a mexican, cocktail bars restaurant in Santa Clara.",
+        "avg_rating": 4.3,
+        "review_count": 3947,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/twlG0esnlzPR7ZAldY0KhQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Amazing Katsu",
+        "cuisine_type": "Japanese, Korean",
+        "address": "2670 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(669) 400-1822",
+        "hours": "Mon: 10:00-20:00 | Tue: 10:00-20:00 | Wed: 10:00-20:00 | Thu: 10:00-20:00 | Fri: 10:00-20:00",
+        "pricing_tier": "$$",
+        "description": "Amazing Katsu is a japanese, korean restaurant in Santa Clara.",
+        "avg_rating": 4.3,
+        "review_count": 183,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/fHsM-gPBqE3c7S86rBm67Q/o.jpg"
+        ]
+    },
+    {
+        "name": "Ondam",
+        "cuisine_type": "Korean",
+        "address": "2450 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(669) 242-7824",
+        "hours": "Mon: 11:00-23:30 | Tue: 11:00-23:30 | Wed: 11:00-23:30 | Thu: 11:00-23:30 | Fri: 11:00-00:30 | Sat: 11:00-00:30 | Sun: 11:00-23:30",
+        "pricing_tier": "$$$",
+        "description": "Ondam is a korean restaurant in Santa Clara.",
+        "avg_rating": 4.2,
+        "review_count": 852,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/ZZoFzDwiJTMYzIR2Al6T9w/o.jpg"
+        ]
+    },
+    {
+        "name": "Kunjip",
+        "cuisine_type": "Korean",
+        "address": "1066 Kiely Blvd",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 246-0025",
+        "hours": "Mon: 10:00-21:00 | Tue: 10:00-21:00 | Wed: 10:00-21:00 | Thu: 10:00-21:00 | Fri: 10:00-22:00 | Sat: 10:00-22:00 | Sun: 10:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Kunjip is a korean restaurant in Santa Clara.",
+        "avg_rating": 4.1,
+        "review_count": 2377,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/3wCRtgcc6p0xq-eZMkJfCw/o.jpg"
+        ]
+    },
+    {
+        "name": "Il Fornaio",
+        "cuisine_type": "Pizza, Seafood, Italian",
+        "address": "2752 Augustine Dr",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95054",
+        "contact_info": "(408) 217-8844",
+        "hours": "Mon: 11:30-21:00 | Tue: 11:30-21:00 | Wed: 11:30-21:00 | Thu: 11:30-21:00 | Fri: 11:30-21:30 | Sat: 11:30-21:30 | Sun: 11:30-21:00",
+        "pricing_tier": "$$$",
+        "description": "Il Fornaio is a pizza, seafood, italian restaurant in Santa Clara.",
+        "avg_rating": 4.2,
+        "review_count": 2328,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/wCsESggGPDj4a3V2PkNzEA/o.jpg"
+        ]
+    },
+    {
+        "name": "Rice Junky",
+        "cuisine_type": "Pubs, Korean, Wraps",
+        "address": "2089 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(669) 268-9141",
+        "hours": "Mon: 11:00-00:00 | Tue: 11:00-00:00 | Wed: 11:00-00:00 | Thu: 11:00-00:00 | Fri: 11:00-00:00 | Sat: 11:00-00:00",
+        "pricing_tier": "$$",
+        "description": "Rice Junky is a pubs, korean, wraps restaurant in Santa Clara.",
+        "avg_rating": 4.3,
+        "review_count": 627,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/sY6PrWVVoJk7Tx3NwcmsKA/o.jpg"
+        ]
+    },
+    {
+        "name": "Eureka!",
+        "cuisine_type": "American",
+        "address": "2762 Augustine Dr",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95054",
+        "contact_info": "(408) 703-0037",
+        "hours": "Mon: 11:00-23:00 | Tue: 11:00-23:00 | Wed: 11:00-23:00 | Thu: 11:00-23:00 | Fri: 11:00-00:00 | Sat: 11:00-00:00 | Sun: 11:00-23:00",
+        "pricing_tier": "$$",
+        "description": "Eureka! is a american restaurant in Santa Clara.",
+        "avg_rating": 4.1,
+        "review_count": 609,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/j0vdluCBPQeokFWn-Uiceg/o.jpg"
+        ]
+    },
+    {
+        "name": "Paik's Noodle",
+        "cuisine_type": "Korean, Noodles",
+        "address": "1520 Kiely Blvd",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 244-0410",
+        "hours": "Mon: 11:00-20:30 | Tue: 11:00-20:30 | Wed: 11:00-20:30 | Thu: 11:00-20:30 | Fri: 11:00-21:00 | Sat: 11:00-21:00 | Sun: 11:00-20:30",
+        "pricing_tier": "$$",
+        "description": "Paik's Noodle is a korean, noodles restaurant in Santa Clara.",
+        "avg_rating": 4.3,
+        "review_count": 1822,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/bk9rL0_oXsXVbAu35jHKrw/o.jpg"
+        ]
+    },
+    {
+        "name": "Bafang Dumpling",
+        "cuisine_type": "Dim Sum, Taiwanese",
+        "address": "2702 Augustine Dr",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95054",
+        "contact_info": "(408) 564-4021",
+        "hours": "Mon: 10:00-22:00 | Tue: 10:00-22:00 | Wed: 10:00-22:00 | Thu: 10:00-22:00 | Fri: 10:00-22:00 | Sat: 10:00-22:00 | Sun: 10:00-22:00",
+        "pricing_tier": "$$",
+        "description": "Bafang Dumpling is a dim sum, taiwanese restaurant in Santa Clara.",
+        "avg_rating": 3.9,
+        "review_count": 178,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/6N2hkf-oTs8Ehtm57I6mZg/o.jpg"
+        ]
+    },
+    {
+        "name": "Rantei Japanese Cuisine",
+        "cuisine_type": "Sushi Bars, Japanese",
+        "address": "1271 Franklin Mall",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(408) 352-5683",
+        "hours": "Mon: 16:30-21:00 | Tue: 16:30-21:00 | Wed: 16:30-21:00 | Thu: 16:30-21:00 | Fri: 16:30-21:30 | Sat: 16:30-21:30 | Sun: 16:30-21:00",
+        "pricing_tier": "$$$",
+        "description": "Rantei Japanese Cuisine is a sushi bars, japanese restaurant in Santa Clara.",
+        "avg_rating": 4.2,
+        "review_count": 1643,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/EC7xvgMkhxmDCSSk4oXiFw/o.jpg"
+        ]
+    },
+    {
+        "name": "Jashn",
+        "cuisine_type": "Indian, Venues & Event Spaces, Cocktail Bars",
+        "address": "1285 Homestead Rd",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(408) 222-3723",
+        "hours": "Tue: 11:30-14:30, 17:00-21:30 | Wed: 11:30-14:30, 17:00-21:30 | Thu: 11:30-14:30, 17:00-21:30 | Fri: 11:30-14:30, 17:00-22:30 | Sat: 12:00-15:00, 17:00-22:30 | Sun: 12:00-15:00, 17:00-22:30",
+        "pricing_tier": null,
+        "description": "Jashn is a indian, venues & event spaces, cocktail bars restaurant in Santa Clara.",
+        "avg_rating": 4.1,
+        "review_count": 76,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/8fORPyKI417b3w5eAOA1rQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Hong Dae Pocha",
+        "cuisine_type": "Korean, Bars",
+        "address": "3450 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 564-5370",
+        "hours": "Mon: 17:30-01:00 | Tue: 17:30-02:00 | Wed: 11:30-16:00, 17:30-02:00 | Thu: 11:30-16:00, 17:30-02:00 | Fri: 11:30-16:00, 17:00-02:00 | Sat: 11:30-16:00, 17:00-02:00 | Sun: 11:30-16:00, 17:30-01:00",
+        "pricing_tier": null,
+        "description": "Hong Dae Pocha is a korean, bars restaurant in Santa Clara.",
+        "avg_rating": 3.9,
+        "review_count": 303,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/D2-XU7SRkezAn2lyLNyoZA/o.jpg"
+        ]
+    },
+    {
+        "name": "Pocha K - Santa Clara",
+        "cuisine_type": "Korean, Bars",
+        "address": "2340 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(669) 248-6103",
+        "hours": "Mon: 18:00-01:00 | Tue: 18:00-01:00 | Thu: 18:00-02:00 | Fri: 18:00-02:00 | Sat: 18:00-02:00 | Sun: 18:00-01:00",
+        "pricing_tier": "$$",
+        "description": "Pocha K - Santa Clara is a korean, bars restaurant in Santa Clara.",
+        "avg_rating": 4.3,
+        "review_count": 653,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/XRmkK6bEtnnigFvbB0TL2w/o.jpg"
+        ]
+    },
+    {
+        "name": "Danawa",
+        "cuisine_type": "Asian Fusion, Korean, Lounges",
+        "address": "2776 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(669) 342-7080",
+        "hours": "Mon: 18:00-01:00 | Tue: 18:00-01:00 | Wed: 18:00-02:00 | Thu: 18:00-02:00 | Fri: 18:00-02:00 | Sat: 18:00-02:00 | Sun: 18:00-01:00",
+        "pricing_tier": "$$",
+        "description": "Danawa is a asian fusion, korean, lounges restaurant in Santa Clara.",
+        "avg_rating": 3.9,
+        "review_count": 353,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/jkJCgJSUWCiQ_npJdEBx0Q/o.jpg"
+        ]
+    },
+    {
+        "name": "Home Eat",
+        "cuisine_type": "Chinese",
+        "address": "638 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(408) 984-0414",
+        "hours": "Mon: 11:15-23:15 | Tue: 11:15-23:15 | Wed: 11:15-23:15 | Thu: 11:15-23:15 | Fri: 11:15-23:15 | Sat: 11:15-23:15 | Sun: 11:15-23:15",
+        "pricing_tier": "$$",
+        "description": "Home Eat is a chinese restaurant in Santa Clara.",
+        "avg_rating": 4.8,
+        "review_count": 887,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/-_1wg9CwbonwqxisCGE9Rg/o.jpg"
+        ]
+    },
+    {
+        "name": "Fleming\u2019s Prime Steakhouse & Wine Bar",
+        "cuisine_type": "Wine Bars, Steakhouses, Seafood",
+        "address": "2762 Augustine Dr",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(408) 346-4557",
+        "hours": "Mon: 11:00-22:00 | Tue: 11:00-22:00 | Wed: 11:00-22:00 | Thu: 11:00-22:00 | Fri: 11:00-22:00 | Sat: 16:00-22:00 | Sun: 16:00-21:00",
+        "pricing_tier": "$$$$",
+        "description": "Fleming\u2019s Prime Steakhouse & Wine Bar is a wine bars, steakhouses, seafood restaurant in Santa Clara.",
+        "avg_rating": 4.3,
+        "review_count": 1378,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/rKctRFj8diqswEkATTDC5g/o.jpg"
+        ]
+    },
+    {
+        "name": "Master Oh's",
+        "cuisine_type": "Seafood, Korean",
+        "address": "1484 Halford Ave",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 246-1484",
+        "hours": "Mon: 11:00-14:30, 17:00-22:00 | Tue: 11:00-14:30, 17:00-22:00 | Wed: 11:00-14:30, 17:00-22:00 | Thu: 11:00-14:30, 17:00-22:00 | Fri: 11:00-14:30, 17:00-22:00 | Sat: 11:00-22:00 | Sun: 11:00-22:00",
+        "pricing_tier": null,
+        "description": "Master Oh's is a seafood, korean restaurant in Santa Clara.",
+        "avg_rating": 4.4,
+        "review_count": 134,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/7lqChB0ZnVA_26UqXt0Hyw/o.jpg"
+        ]
+    },
+    {
+        "name": "Restaurant Gish",
+        "cuisine_type": "New American, Korean",
+        "address": "1998 Homestead Rd",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(669) 230-5162",
+        "hours": "Tue: 18:00-22:00 | Wed: 18:00-22:00 | Thu: 18:00-22:00 | Fri: 18:00-22:00 | Sat: 18:00-22:00",
+        "pricing_tier": "$$$$",
+        "description": "Restaurant Gish is a new american, korean restaurant in Santa Clara.",
+        "avg_rating": 4.6,
+        "review_count": 338,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/2-aqn2gNXK9D6gByJ0REFQ/o.jpg"
+        ]
+    },
+    {
+        "name": "The Magpie and Tiger",
+        "cuisine_type": "Bars, Korean, Karaoke",
+        "address": "2725 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 320-2130",
+        "hours": "Tue: 19:00-02:00 | Wed: 19:00-02:00 | Thu: 19:00-02:00 | Fri: 18:00-02:00 | Sat: 18:00-02:00 | Sun: 19:00-02:00",
+        "pricing_tier": null,
+        "description": "The Magpie and Tiger is a bars, korean, karaoke restaurant in Santa Clara.",
+        "avg_rating": 4.8,
+        "review_count": 233,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/7O9kA42iRpi1MidE_nmjtg/o.jpg"
+        ]
+    },
+    {
+        "name": "Katsu Burger",
+        "cuisine_type": "Burgers",
+        "address": "3006 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 816-8713",
+        "hours": "Mon: 10:30-20:30 | Tue: 10:30-20:30 | Wed: 10:30-20:30 | Thu: 10:30-20:30 | Fri: 10:30-20:30 | Sat: 10:30-20:30",
+        "pricing_tier": null,
+        "description": "Katsu Burger is a burgers restaurant in Santa Clara.",
+        "avg_rating": 4.5,
+        "review_count": 88,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/5hHE8MfvQvPY1y2DQZx9Zg/o.jpg"
+        ]
+    },
+    {
+        "name": "ACHILLES",
+        "cuisine_type": "Mediterranean, Halal, Greek",
+        "address": "2521 Newhall St",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(408) 984-2204",
+        "hours": "Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-21:00 | Sat: 11:00-21:00 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "ACHILLES is a mediterranean, halal, greek restaurant in Santa Clara.",
+        "avg_rating": 4.6,
+        "review_count": 2334,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/xF-PGaFpFl9KB4rf5U6RJQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Pacific Catch",
+        "cuisine_type": "Sushi Bars, Seafood, Cocktail Bars",
+        "address": "3315 Coronado Pl",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95054",
+        "contact_info": "(669) 342-4327",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-22:00 | Sat: 11:00-22:00 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Pacific Catch is a sushi bars, seafood, cocktail bars restaurant in Santa Clara.",
+        "avg_rating": 4.1,
+        "review_count": 528,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/4TapbVivPUnYRhBwF4PVRQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Tay Ho",
+        "cuisine_type": "Vietnamese, Noodles",
+        "address": "2047 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(408) 239-4748",
+        "hours": "Mon: 10:30-21:00 | Tue: 10:30-21:00 | Wed: 10:30-21:00 | Thu: 10:30-21:00 | Fri: 10:30-21:00 | Sat: 10:30-21:00 | Sun: 10:30-21:00",
+        "pricing_tier": "$$",
+        "description": "Tay Ho is a vietnamese, noodles restaurant in Santa Clara.",
+        "avg_rating": 4.2,
+        "review_count": 1009,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/EEDKUzjucihaq_KpEeyYYg/o.jpg"
+        ]
+    },
+    {
+        "name": "Valley Goat",
+        "cuisine_type": "New American, Tapas/Small Plates, Cocktail Bars",
+        "address": "1100 N Mathilda Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94089",
+        "contact_info": "(408) 900-9470",
+        "hours": "Mon: 11:00-22:00 | Tue: 11:00-22:00 | Wed: 11:00-22:00 | Thu: 11:00-22:00 | Fri: 11:00-22:00 | Sat: 11:00-22:00 | Sun: 11:00-22:00",
+        "pricing_tier": null,
+        "description": "Valley Goat is a new american, tapas/small plates, cocktail bars restaurant in Sunnyvale.",
+        "avg_rating": 4.3,
+        "review_count": 517,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/mHwfrSF6hq7niAdT26H7wA/o.jpg"
+        ]
+    },
+    {
+        "name": "Sumiya",
+        "cuisine_type": "Japanese",
+        "address": "2634 Homestead Rd",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 973-0604",
+        "hours": "Mon: 11:30-13:30, 17:30-21:00 | Tue: 11:30-13:30, 17:30-21:00 | Wed: 11:30-13:30, 17:30-21:00 | Thu: 11:30-13:30, 17:30-21:00 | Fri: 11:30-13:30, 17:30-21:30 | Sat: 17:30-21:30 | Sun: 17:30-21:00",
+        "pricing_tier": "$$$",
+        "description": "Sumiya is a japanese restaurant in Santa Clara.",
+        "avg_rating": 3.9,
+        "review_count": 1530,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/N-242Y3RF8sEfNBSErwImQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Ni Chou Sha Kitchen",
+        "cuisine_type": "Chinese",
+        "address": "2725 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 921-9999",
+        "hours": "Mon: 12:00-21:30 | Tue: 12:00-21:30 | Wed: 12:00-21:30 | Thu: 12:00-21:30 | Fri: 11:30-22:00 | Sat: 11:30-22:00 | Sun: 11:30-22:00",
+        "pricing_tier": null,
+        "description": "Ni Chou Sha Kitchen is a chinese restaurant in Santa Clara.",
+        "avg_rating": 4.3,
+        "review_count": 3,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/xTLdDsO6yaL_OQxUIjcRCw/o.jpg"
+        ]
+    },
+    {
+        "name": "Kenny's Cafe",
+        "cuisine_type": "Cafes",
+        "address": "2315 De La Cruz Blvd",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(408) 588-1508",
+        "hours": "Mon: 07:00-12:00 | Tue: 07:00-12:00 | Wed: 07:00-12:00 | Thu: 07:00-12:00 | Fri: 07:00-12:00 | Sat: 07:00-12:00 | Sun: 07:00-12:00",
+        "pricing_tier": "$$",
+        "description": "Kenny's Cafe is a cafes restaurant in Santa Clara.",
+        "avg_rating": 4.5,
+        "review_count": 822,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/4j1Wwl3TobaB8CfFJr1CZg/o.jpg"
+        ]
+    },
+    {
+        "name": "Iraklis",
+        "cuisine_type": "Syrian, Lebanese, Halal",
+        "address": "2165 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95050",
+        "contact_info": "(408) 549-3111",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-23:00 | Sat: 11:00-23:00 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Iraklis is a syrian, lebanese, halal restaurant in Santa Clara.",
+        "avg_rating": 4.7,
+        "review_count": 550,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/UmKAek9x7OP1JSoO0xf2cg/o.jpg"
+        ]
+    },
+    {
+        "name": "La Casa Mia",
+        "cuisine_type": "Japanese, Italian",
+        "address": "3548 Homestead Rd",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(650) 603-1277",
+        "hours": "Mon: 17:30-20:30 | Tue: 17:30-20:30 | Wed: 11:30-13:30, 17:30-20:30 | Thu: 11:30-13:30, 17:30-20:30 | Fri: 11:30-14:00, 17:30-21:00 | Sat: 11:30-15:00, 17:30-21:00 | Sun: 11:30-15:00, 17:30-20:30",
+        "pricing_tier": "$$",
+        "description": "La Casa Mia is a japanese, italian restaurant in Santa Clara.",
+        "avg_rating": 3.9,
+        "review_count": 756,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/NgZr1tQIFJldPju5FxMJcA/o.jpg"
+        ]
+    },
+    {
+        "name": "HiroNori Craft Ramen",
+        "cuisine_type": "Ramen, Noodles",
+        "address": "4300 Great America Pkwy",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95054",
+        "contact_info": "(669) 342-5146",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-22:00 | Sat: 11:00-22:00 | Sun: 11:00-22:00",
+        "pricing_tier": "$$",
+        "description": "HiroNori Craft Ramen is a ramen, noodles restaurant in Santa Clara.",
+        "avg_rating": 4.4,
+        "review_count": 3640,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/SQUsZKjwYuI19WbLHeq51g/o.jpg"
+        ]
+    },
+    {
+        "name": "ToBang",
+        "cuisine_type": "Korean, Barbeque",
+        "address": "1052 Kiely Blvd",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 615-7540",
+        "hours": "Mon: 16:30-21:30 | Tue: 16:30-21:30 | Wed: 16:30-21:30 | Thu: 16:30-21:30 | Fri: 16:30-21:30 | Sat: 11:45-21:30 | Sun: 11:45-21:30",
+        "pricing_tier": "$$",
+        "description": "ToBang is a korean, barbeque restaurant in Santa Clara.",
+        "avg_rating": 4.1,
+        "review_count": 2958,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/6g09U0PPYfdWiJwbcZkWAQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Chungdam",
+        "cuisine_type": "Korean, Barbeque, Beer, Wine & Spirits",
+        "address": "3180 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 246-1208",
+        "hours": "Mon: 11:30-14:30, 17:00-21:00 | Tue: 11:30-14:30, 17:00-21:00 | Wed: 11:30-14:30, 17:00-21:00 | Thu: 11:30-14:30, 17:00-21:00 | Fri: 11:30-14:30, 17:00-22:00 | Sat: 11:30-14:30, 17:00-22:00 | Sun: 11:30-14:30, 17:00-21:00",
+        "pricing_tier": "$$$",
+        "description": "Chungdam is a korean, barbeque, beer, wine & spirits restaurant in Santa Clara.",
+        "avg_rating": 4.0,
+        "review_count": 1204,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/F6wNJqaP0t9ssgIH9dkbmA/o.jpg"
+        ]
+    },
+    {
+        "name": "Croissante",
+        "cuisine_type": "Cafes, Bakeries, Desserts",
+        "address": "2908 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 564-5092",
+        "hours": "Mon: 07:30-17:30 | Tue: 07:30-17:30 | Wed: 07:30-17:30 | Thu: 07:30-17:30 | Fri: 07:00-18:00 | Sat: 07:00-18:00 | Sun: 07:00-18:00",
+        "pricing_tier": "$$",
+        "description": "Croissante is a cafes, bakeries, desserts restaurant in Santa Clara.",
+        "avg_rating": 4.1,
+        "review_count": 1087,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/212IGUuM8V18GsUqLhjbZQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Rise Woodfire Pizza & Rotisserie ",
+        "cuisine_type": "Pizza, Bars, American",
+        "address": "3905 Rivermark Plz",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95054",
+        "contact_info": "(408) 752-5365",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-22:00 | Sat: 11:00-22:00 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Rise Woodfire Pizza & Rotisserie  is a pizza, bars, american restaurant in Santa Clara.",
+        "avg_rating": 4.3,
+        "review_count": 275,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/_WBDR7UbOTokchwss-pV5g/o.jpg"
+        ]
+    },
+    {
+        "name": "Kailash Parbat",
+        "cuisine_type": "Vegetarian, Vegan, Indian",
+        "address": "3406 El Camino Real",
+        "city": "Santa Clara",
+        "state": "CA",
+        "zip": "95051",
+        "contact_info": "(408) 516-0666",
+        "hours": null,
+        "pricing_tier": null,
+        "description": "Kailash Parbat is a vegetarian, vegan, indian restaurant in Santa Clara.",
+        "avg_rating": 3.6,
+        "review_count": 58,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/FpfIbRaBt7GwEMDDieFV6A/o.jpg"
+        ]
+    },
+    {
+        "name": "Meyhouse",
+        "cuisine_type": "Turkish, Mediterranean, Middle Eastern",
+        "address": "187 S Murphy Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 685-2255",
+        "hours": "Mon: 11:45-14:00, 17:00-21:00 | Tue: 11:45-14:00, 17:00-21:00 | Wed: 11:45-14:00, 17:00-21:00 | Thu: 11:45-14:00, 17:00-21:00 | Fri: 11:45-14:00, 17:00-22:00 | Sat: 11:45-14:00, 17:00-22:00 | Sun: 11:45-14:00, 17:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Meyhouse is a turkish, mediterranean, middle eastern restaurant in Sunnyvale.",
+        "avg_rating": 4.3,
+        "review_count": 482,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/mWXPL8nGYIizHCwtVtI9HQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Garlic High",
+        "cuisine_type": "Ramen, Noodles",
+        "address": "107 West Maude Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94085",
+        "contact_info": "(669) 899-7165",
+        "hours": "Tue: 11:30-13:30, 17:30-20:30 | Wed: 11:30-13:30, 17:30-20:30 | Thu: 11:30-13:30, 17:30-20:30 | Fri: 11:30-13:30, 17:30-20:30 | Sat: 11:30-13:30, 17:30-20:30",
+        "pricing_tier": "$$",
+        "description": "Garlic High is a ramen, noodles restaurant in Sunnyvale.",
+        "avg_rating": 4.3,
+        "review_count": 34,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/2Ze5mL6AYHmQUmASWXssoQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Dehaati",
+        "cuisine_type": "Indian",
+        "address": "954 E El Camino Real",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94087",
+        "contact_info": "(408) 685-2054",
+        "hours": null,
+        "pricing_tier": null,
+        "description": "Dehaati is a indian restaurant in Sunnyvale.",
+        "avg_rating": 4.3,
+        "review_count": 39,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/wXHjoAGy_59xp-486zeKhg/o.jpg"
+        ]
+    },
+    {
+        "name": "Enka Japanese Izakaya",
+        "cuisine_type": "Izakaya",
+        "address": "500 Lawrence Expy",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94085",
+        "contact_info": "(669) 249-7021",
+        "hours": "Mon: 11:00-14:30, 17:30-21:30 | Wed: 11:00-14:30, 17:30-21:30 | Thu: 11:00-14:30, 17:30-21:30 | Fri: 11:00-14:30, 17:30-22:30 | Sat: 11:00-14:30, 17:30-22:30 | Sun: 11:00-14:30, 17:30-20:30",
+        "pricing_tier": "$$",
+        "description": "Enka Japanese Izakaya is a izakaya restaurant in Sunnyvale.",
+        "avg_rating": 4.3,
+        "review_count": 306,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/hFXp_7psz_fh4F3MsXUo5Q/o.jpg"
+        ]
+    },
+    {
+        "name": "10 Butchers Korean BBQ",
+        "cuisine_type": "Korean, Barbeque, Wine Bars",
+        "address": "595 E El Camino Real",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94087",
+        "contact_info": "(408) 720-8889",
+        "hours": "Mon: 11:30-14:30, 17:00-21:00 | Tue: 11:30-14:30, 17:00-21:00 | Wed: 11:30-14:30, 17:00-21:00 | Thu: 11:30-14:30, 17:00-21:00 | Fri: 11:30-14:30, 17:00-22:00 | Sat: 11:30-22:00 | Sun: 11:30-21:00",
+        "pricing_tier": "$$$$",
+        "description": "10 Butchers Korean BBQ is a korean, barbeque, wine bars restaurant in Sunnyvale.",
+        "avg_rating": 4.3,
+        "review_count": 2115,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/6jDEP3yPkt-1xHuR9bdSvw/o.jpg"
+        ]
+    },
+    {
+        "name": "Zareen\u2019s",
+        "cuisine_type": "Pakistani, Indian",
+        "address": "135 S Murphy Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "",
+        "hours": null,
+        "pricing_tier": null,
+        "description": "Zareen\u2019s is a pakistani, indian restaurant in Sunnyvale.",
+        "avg_rating": 0.0,
+        "review_count": 0,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/Z5UGfkrbVulfTT6Oc6AMOA/o.jpg"
+        ]
+    },
+    {
+        "name": "Hello ! Rice",
+        "cuisine_type": "Taiwanese, Pan Asian, Bubble Tea",
+        "address": "587 E El Camino Real",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94087",
+        "contact_info": "(408) 685-2044",
+        "hours": "Mon: 11:00-14:30, 16:30-20:00 | Tue: 11:00-14:30, 16:30-20:00 | Wed: 11:00-14:30, 16:30-20:00 | Thu: 11:00-14:30, 16:30-20:00 | Fri: 11:00-20:00 | Sat: 11:00-20:00 | Sun: 11:00-20:00",
+        "pricing_tier": null,
+        "description": "Hello ! Rice is a taiwanese, pan asian, bubble tea restaurant in Sunnyvale.",
+        "avg_rating": 4.6,
+        "review_count": 21,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/82BEoFBHteiR4S7TYucD9A/o.jpg"
+        ]
+    },
+    {
+        "name": "Craft House",
+        "cuisine_type": "Bars, American, Beer, Wine & Spirits",
+        "address": "295 E Washington Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 638-7822",
+        "hours": "Mon: 14:00-02:00 | Tue: 14:00-02:00 | Wed: 14:00-02:00 | Thu: 14:00-02:00 | Fri: 14:00-02:00 | Sat: 14:00-02:00 | Sun: 14:00-02:00",
+        "pricing_tier": null,
+        "description": "Craft House is a bars, american, beer, wine & spirits restaurant in Sunnyvale.",
+        "avg_rating": 4.5,
+        "review_count": 53,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/Cx3e1jItVH1lSImRuFiG0Q/o.jpg"
+        ]
+    },
+    {
+        "name": "Mayan Kitchen Food",
+        "cuisine_type": "Latin American, Vegan, Tapas/Small Plates",
+        "address": "139 S Murphy Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(650) 305-6595",
+        "hours": "Tue: 11:30-14:00, 17:00-20:30 | Wed: 11:30-14:00, 17:00-20:30 | Thu: 11:30-14:00, 17:00-20:30 | Fri: 11:30-14:00, 17:00-20:45 | Sat: 11:30-14:30, 17:00-20:45 | Sun: 11:30-14:30, 17:00-20:30",
+        "pricing_tier": "$$",
+        "description": "Mayan Kitchen Food is a latin american, vegan, tapas/small plates restaurant in Sunnyvale.",
+        "avg_rating": 4.4,
+        "review_count": 387,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/JwKC8pTmSsxUtGYxD1OXuQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Fugetsu - Sunnyvale",
+        "cuisine_type": "Japanese, Seafood, Noodles",
+        "address": "190 S Frances St",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 773-8225",
+        "hours": "Mon: 11:30-13:30, 17:30-20:30 | Tue: 11:30-13:30, 17:30-20:30 | Wed: 11:30-13:30, 17:30-20:30 | Thu: 11:30-13:30, 17:30-20:30 | Fri: 11:30-13:30, 17:30-20:30 | Sat: 11:30-13:30, 17:30-20:30 | Sun: 17:30-20:30",
+        "pricing_tier": "$$",
+        "description": "Fugetsu - Sunnyvale is a japanese, seafood, noodles restaurant in Sunnyvale.",
+        "avg_rating": 3.9,
+        "review_count": 756,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/sDiwLWwiQVOopgvXorRY0g/o.jpg"
+        ]
+    },
+    {
+        "name": "DishDash",
+        "cuisine_type": "Middle Eastern, Mediterranean",
+        "address": "190 S Murphy Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 774-1889",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-21:30 | Sat: 11:30-21:30 | Sun: 16:00-21:00",
+        "pricing_tier": "$$",
+        "description": "DishDash is a middle eastern, mediterranean restaurant in Sunnyvale.",
+        "avg_rating": 4.4,
+        "review_count": 4832,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/NfeFZQXrvH5r051M3Lr3uA/o.jpg"
+        ]
+    },
+    {
+        "name": "Urban Plates",
+        "cuisine_type": "New American, Salad, Sandwiches",
+        "address": "300 W McKinley Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 721-5115",
+        "hours": "Mon: 11:00-21:15 | Tue: 11:00-21:15 | Wed: 11:00-21:15 | Thu: 11:00-21:15 | Fri: 11:00-21:45 | Sat: 11:00-21:45 | Sun: 11:00-21:15",
+        "pricing_tier": "$$",
+        "description": "Urban Plates is a new american, salad, sandwiches restaurant in Sunnyvale.",
+        "avg_rating": 4.1,
+        "review_count": 611,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/rwHYQN0nLBxe19A41SWKWg/o.jpg"
+        ]
+    },
+    {
+        "name": "Cuanyue Malatang",
+        "cuisine_type": "Hot Pot",
+        "address": "150 W El Camino Real",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94087",
+        "contact_info": "(408) 850-5842",
+        "hours": "Mon: 11:30-14:00, 17:00-21:00 | Tue: 11:30-14:00, 17:00-21:00 | Wed: 11:30-14:00, 17:00-21:00 | Thu: 11:30-14:00, 17:00-21:00 | Fri: 11:30-14:00, 17:00-21:00 | Sat: 11:30-14:00, 17:00-21:00 | Sun: 11:30-14:00, 17:00-21:00",
+        "pricing_tier": null,
+        "description": "Cuanyue Malatang is a hot pot restaurant in Sunnyvale.",
+        "avg_rating": 4.7,
+        "review_count": 87,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/oGKnP-86UXDhmrmO81mVNw/o.jpg"
+        ]
+    },
+    {
+        "name": "Surmai",
+        "cuisine_type": "Indian, Seafood",
+        "address": "500 Lawrence Expy",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94085",
+        "contact_info": "(408) 736-2411",
+        "hours": "Mon: 11:00-21:30 | Wed: 11:00-21:30 | Thu: 11:00-21:30 | Fri: 11:00-22:30 | Sat: 11:00-22:30 | Sun: 11:00-21:30",
+        "pricing_tier": "$$",
+        "description": "Surmai is a indian, seafood restaurant in Sunnyvale.",
+        "avg_rating": 4.4,
+        "review_count": 487,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/O-ieBYhs-Wt12l8_jE4saA/o.jpg"
+        ]
+    },
+    {
+        "name": "Laughing Monk Brewing",
+        "cuisine_type": "Gastropubs, Pizza, Sandwiches",
+        "address": "1235 Oakmead Pkwy",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94085",
+        "contact_info": "(408) 736-2739",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-21:00 | Sat: 11:30-21:00 | Sun: 11:30-20:00",
+        "pricing_tier": "$$",
+        "description": "Laughing Monk Brewing is a gastropubs, pizza, sandwiches restaurant in Sunnyvale.",
+        "avg_rating": 4.0,
+        "review_count": 266,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/C_8D8M4pTzl0r6VJufShsQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Momo Grill",
+        "cuisine_type": "Himalayan/Nepalese, Indian",
+        "address": "133 S Murphy Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(650) 350-0958",
+        "hours": "Mon: 11:30-00:00 | Tue: 11:30-00:00 | Wed: 11:30-00:00 | Thu: 11:30-00:00 | Fri: 11:30-00:00 | Sat: 11:30-00:00 | Sun: 11:30-00:00",
+        "pricing_tier": "$$",
+        "description": "Momo Grill is a himalayan/nepalese, indian restaurant in Sunnyvale.",
+        "avg_rating": 4.7,
+        "review_count": 68,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/lR5e6ZsowEodTNTTEArv_A/o.jpg"
+        ]
+    },
+    {
+        "name": "Nalapaka",
+        "cuisine_type": "Indian",
+        "address": "1026 W Evelyn Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(510) 516-5015",
+        "hours": "Tue: 10:30-14:30, 16:30-20:30 | Wed: 10:30-14:30, 16:30-20:30 | Thu: 10:30-14:30, 16:30-20:30 | Fri: 10:30-14:30, 16:30-20:30 | Sat: 10:30-14:30, 16:30-20:30",
+        "pricing_tier": null,
+        "description": "Nalapaka is a indian restaurant in Sunnyvale.",
+        "avg_rating": 4.7,
+        "review_count": 38,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/68Uq2RYcVje4SwVe_ADrsg/o.jpg"
+        ]
+    },
+    {
+        "name": "Kurated Kitchens",
+        "cuisine_type": "Coffee & Tea, Thai, Breakfast & Brunch",
+        "address": "155 E Maude Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94085",
+        "contact_info": "(408) 430-3450",
+        "hours": "Mon: 08:00-16:00 | Tue: 08:00-16:00 | Wed: 08:00-16:00 | Thu: 08:00-16:00 | Fri: 08:00-16:00",
+        "pricing_tier": "$$",
+        "description": "Kurated Kitchens is a coffee & tea, thai, breakfast & brunch restaurant in Sunnyvale.",
+        "avg_rating": 4.5,
+        "review_count": 87,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/ZNDATg0fkK4JvfGpYeaJLA/o.jpg"
+        ]
+    },
+    {
+        "name": "Fashion Wok",
+        "cuisine_type": "Hot Pot, Chinese, Seafood",
+        "address": "163 S Murphy Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 739-8866",
+        "hours": "Mon: 11:15-23:15 | Tue: 11:15-23:15 | Wed: 11:15-23:15 | Thu: 11:15-23:15 | Fri: 11:15-23:15 | Sat: 11:15-23:15 | Sun: 11:15-23:15",
+        "pricing_tier": "$$",
+        "description": "Fashion Wok is a hot pot, chinese, seafood restaurant in Sunnyvale.",
+        "avg_rating": 4.5,
+        "review_count": 982,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/ffJBAiKcfViya7SO38D4Vw/o.jpg"
+        ]
+    },
+    {
+        "name": "Burma Taste",
+        "cuisine_type": "Noodles, Burmese, Seafood",
+        "address": "124 S Murphy Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 789-5182",
+        "hours": "Mon: 11:00-14:30, 16:30-21:00 | Tue: 11:00-14:30, 16:30-21:00 | Wed: 11:00-14:30, 16:30-21:00 | Thu: 11:00-14:30, 16:30-21:00 | Fri: 11:00-14:30, 16:30-21:30 | Sat: 11:00-14:30, 16:30-21:30 | Sun: 11:00-14:30, 16:30-21:00",
+        "pricing_tier": "$$",
+        "description": "Burma Taste is a noodles, burmese, seafood restaurant in Sunnyvale.",
+        "avg_rating": 4.2,
+        "review_count": 476,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/gPzax2Cj7tYtDsVX_YhQ5g/o.jpg"
+        ]
+    },
+    {
+        "name": "Backyard Caf\u00e9",
+        "cuisine_type": "Cafes",
+        "address": "1100 N Mathilda Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94089",
+        "contact_info": "(408) 900-9450",
+        "hours": "Mon: 06:30-14:00 | Tue: 06:30-14:00 | Wed: 06:30-14:00 | Thu: 06:30-14:00 | Fri: 06:30-14:00 | Sat: 06:30-14:00 | Sun: 06:30-14:00",
+        "pricing_tier": "$$",
+        "description": "Backyard Caf\u00e9 is a cafes restaurant in Sunnyvale.",
+        "avg_rating": 4.4,
+        "review_count": 25,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/l12FjKDclBBdzFCdauBwwA/o.jpg"
+        ]
+    },
+    {
+        "name": "Pacific Catch",
+        "cuisine_type": "Seafood, Sushi Bars, Tacos",
+        "address": "300 W McKinley Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(669) 600-3858",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-22:00 | Sat: 11:00-22:00 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Pacific Catch is a seafood, sushi bars, tacos restaurant in Sunnyvale.",
+        "avg_rating": 4.0,
+        "review_count": 255,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/TQcBieclxkzZUbdYnYd26Q/o.jpg"
+        ]
+    },
+    {
+        "name": "Oh Baby Sushi",
+        "cuisine_type": "Vegetarian, Sushi Bars",
+        "address": "1200 Crossman Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94089",
+        "contact_info": "(408) 685-2128",
+        "hours": "Tue: 16:30-20:00 | Wed: 16:30-20:00 | Thu: 16:30-20:00 | Fri: 16:30-20:30 | Sat: 11:30-13:30, 16:30-20:30 | Sun: 11:30-13:30, 16:30-20:00",
+        "pricing_tier": null,
+        "description": "Oh Baby Sushi is a vegetarian, sushi bars restaurant in Sunnyvale.",
+        "avg_rating": 4.4,
+        "review_count": 208,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/rQY-I-RE47FGFfei-SxhwA/o.jpg"
+        ]
+    },
+    {
+        "name": "Xiang Xiang Noodle",
+        "cuisine_type": "Chinese, Noodles",
+        "address": "1115 Tasman Dr",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94089",
+        "contact_info": "(408) 400-0888",
+        "hours": "Mon: 11:00-22:00 | Tue: 11:00-22:00 | Wed: 11:00-22:00 | Thu: 11:00-22:00 | Fri: 11:00-22:00 | Sat: 11:00-22:00 | Sun: 11:00-22:00",
+        "pricing_tier": "$$",
+        "description": "Xiang Xiang Noodle is a chinese, noodles restaurant in Sunnyvale.",
+        "avg_rating": 4.4,
+        "review_count": 830,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/surmcZabQ5qgY987rzUUXg/o.jpg"
+        ]
+    },
+    {
+        "name": "Tandoori Pizza",
+        "cuisine_type": "Indian, Pizza, Italian",
+        "address": "241 W Washington Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 889-4881",
+        "hours": "Mon: 09:00-04:00 | Tue: 09:00-04:00 | Wed: 09:00-04:00 | Thu: 09:00-04:00 | Fri: 09:00-04:00 | Sat: 09:00-04:00 | Sun: 09:00-04:00",
+        "pricing_tier": "$$",
+        "description": "Tandoori Pizza is a indian, pizza, italian restaurant in Sunnyvale.",
+        "avg_rating": 4.3,
+        "review_count": 312,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/fdZUXZniYZsPz7s9n2bhcw/o.jpg"
+        ]
+    },
+    {
+        "name": "Sushi Boat",
+        "cuisine_type": "Sushi Bars",
+        "address": "1026 W Evelyn Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 256-0611",
+        "hours": "Mon: 10:00-20:00 | Tue: 10:00-20:00 | Wed: 10:00-20:00 | Thu: 10:00-20:00 | Fri: 10:00-20:00 | Sat: 11:00-20:00 | Sun: 11:00-20:00",
+        "pricing_tier": null,
+        "description": "Sushi Boat is a sushi bars restaurant in Sunnyvale.",
+        "avg_rating": 4.5,
+        "review_count": 41,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/Nq_6Fq6OCGY-B4YHrMJi6A/o.jpg"
+        ]
+    },
+    {
+        "name": "Koko Izakaya",
+        "cuisine_type": "Korean, Japanese",
+        "address": "759 E El Camino Real",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94087",
+        "contact_info": "(408) 743-5025",
+        "hours": "Tue: 17:00-23:00 | Wed: 17:00-23:00 | Thu: 17:00-23:00 | Fri: 17:00-23:00 | Sat: 12:00-14:00, 17:00-23:00 | Sun: 12:00-14:00, 17:00-21:00",
+        "pricing_tier": null,
+        "description": "Koko Izakaya is a korean, japanese restaurant in Sunnyvale.",
+        "avg_rating": 4.2,
+        "review_count": 57,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/5-bR_sk5YNtuBj7C-QMjJQ/o.jpg"
+        ]
+    },
+    {
+        "name": "The Oxford Kitchen and Gastropub",
+        "cuisine_type": "Gastropubs, Modern European",
+        "address": "195 S Murphy Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 245-8503",
+        "hours": "Mon: 16:00-21:30 | Tue: 16:00-21:30 | Wed: 16:00-21:30 | Thu: 16:00-21:30 | Fri: 16:00-22:00 | Sat: 16:00-22:00",
+        "pricing_tier": "$$",
+        "description": "The Oxford Kitchen and Gastropub is a gastropubs, modern european restaurant in Sunnyvale.",
+        "avg_rating": 3.8,
+        "review_count": 672,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/u0QZKXF_ry74pvkSi4L3YA/o.jpg"
+        ]
+    },
+    {
+        "name": "Kabul Afghan Cuisine",
+        "cuisine_type": "Afghan",
+        "address": "351 W Washington Ave",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94087",
+        "contact_info": "(408) 245-4350",
+        "hours": "Mon: 11:30-14:00, 17:00-21:00 | Tue: 11:30-14:00, 17:00-21:00 | Wed: 11:30-14:00, 17:00-21:00 | Thu: 11:30-14:00, 17:00-21:00 | Fri: 11:30-14:00, 17:00-21:00 | Sat: 17:00-21:00 | Sun: 17:00-21:00",
+        "pricing_tier": "$$$",
+        "description": "Kabul Afghan Cuisine is a afghan restaurant in Sunnyvale.",
+        "avg_rating": 4.1,
+        "review_count": 1403,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/aNA2tf7u5VrmvvS68LgqCw/o.jpg"
+        ]
+    },
+    {
+        "name": "Xiaoman Riceburrito",
+        "cuisine_type": "Breakfast & Brunch, Taiwanese",
+        "address": "573 E El Camino Real",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94087",
+        "contact_info": "(669) 291-6167",
+        "hours": "Mon: 08:30-13:30 | Tue: 08:30-13:30 | Wed: 08:30-13:30 | Fri: 08:30-13:30 | Sat: 08:30-13:30 | Sun: 08:30-13:30",
+        "pricing_tier": "$$",
+        "description": "Xiaoman Riceburrito is a breakfast & brunch, taiwanese restaurant in Sunnyvale.",
+        "avg_rating": 4.1,
+        "review_count": 230,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/qZUa6pPGPIV_NnTPvEodig/o.jpg"
+        ]
+    },
+    {
+        "name": "Seapot Hot Pot & KBBQ",
+        "cuisine_type": "Hot Pot, Korean, Seafood",
+        "address": "740 E El Camino Real",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94087",
+        "contact_info": "(408) 685-2268",
+        "hours": "Mon: 11:00-15:00, 17:00-22:00 | Tue: 11:00-15:00, 17:00-22:00 | Wed: 11:00-15:00, 17:00-22:00 | Thu: 11:00-15:00, 17:00-22:00 | Fri: 11:00-15:00, 17:00-22:30 | Sat: 11:00-22:30 | Sun: 11:00-22:30",
+        "pricing_tier": "$$$",
+        "description": "Seapot Hot Pot & KBBQ is a hot pot, korean, seafood restaurant in Sunnyvale.",
+        "avg_rating": 4.0,
+        "review_count": 1813,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/elDMGBAaSMKDEBdfLMGgtQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Eggmania",
+        "cuisine_type": "Food Trucks, Food Stands",
+        "address": "962 E El Camino Real",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94087",
+        "contact_info": "(669) 317-6979",
+        "hours": "Tue: 12:00-15:00, 17:00-22:00 | Wed: 12:00-15:00, 17:00-22:00 | Thu: 12:00-15:00, 17:00-22:00 | Fri: 12:00-15:00, 17:00-22:30 | Sat: 12:00-15:00, 17:00-22:30 | Sun: 12:00-15:00, 17:00-22:00",
+        "pricing_tier": "$$",
+        "description": "Eggmania is a food trucks, food stands restaurant in Sunnyvale.",
+        "avg_rating": 4.7,
+        "review_count": 102,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/flIyyiFRLFdfriqFiBM8fA/o.jpg"
+        ]
+    },
+    {
+        "name": "Oak & Fire BBQ",
+        "cuisine_type": "Barbeque, Pop-Up Restaurants, Caterers",
+        "address": "Unknown",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 691-6884",
+        "hours": "Fri: 09:00-09:30",
+        "pricing_tier": null,
+        "description": "Oak & Fire BBQ is a barbeque, pop-up restaurants, caterers restaurant in Sunnyvale.",
+        "avg_rating": 5.0,
+        "review_count": 2,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/W_xLV4JMhOwZ-RlOcfoOKg/o.jpg"
+        ]
+    },
+    {
+        "name": "Tanto Japanese Restaurant",
+        "cuisine_type": "Tapas/Small Plates, Izakaya, Sushi Bars",
+        "address": "1063 E El Camino Real",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94087",
+        "contact_info": "(408) 244-7311",
+        "hours": "Mon: 17:30-20:30 | Tue: 11:30-13:00, 17:30-20:30 | Wed: 11:30-13:00, 17:30-20:30 | Thu: 11:30-13:00, 17:30-20:30 | Fri: 11:30-13:00, 17:30-20:30 | Sat: 17:30-20:30",
+        "pricing_tier": "$$$",
+        "description": "Tanto Japanese Restaurant is a tapas/small plates, izakaya, sushi bars restaurant in Sunnyvale.",
+        "avg_rating": 3.9,
+        "review_count": 1639,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/cjVyL6vUJT42OfdgUqbjXA/o.jpg"
+        ]
+    },
+    {
+        "name": "Slice of Homage",
+        "cuisine_type": "Pizza, Chicken Wings, Beer Bar",
+        "address": "1253 W El Camino Real",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94086",
+        "contact_info": "(408) 743-5095",
+        "hours": "Mon: 09:00-17:00 | Tue: 11:30-21:00 | Wed: 11:30-21:00 | Thu: 11:30-21:00 | Fri: 11:30-22:00 | Sat: 11:30-22:00 | Sun: 11:30-21:00",
+        "pricing_tier": null,
+        "description": "Slice of Homage is a pizza, chicken wings, beer bar restaurant in Sunnyvale.",
+        "avg_rating": 3.9,
+        "review_count": 36,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/ILt5IOHk_Fd74CaC4bQjdA/o.jpg"
+        ]
+    },
+    {
+        "name": "Rene-Rose Island Cuisine",
+        "cuisine_type": "Filipino",
+        "address": "621 Caliente Dr",
+        "city": "Sunnyvale",
+        "state": "CA",
+        "zip": "94085",
+        "contact_info": "(408) 733-3691",
+        "hours": "Mon: 10:00-17:00 | Tue: 10:00-17:00 | Wed: 10:00-17:00 | Thu: 10:00-17:00 | Fri: 10:00-17:00 | Sat: 10:00-16:00",
+        "pricing_tier": "$$",
+        "description": "Rene-Rose Island Cuisine is a filipino restaurant in Sunnyvale.",
+        "avg_rating": 4.1,
+        "review_count": 301,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/JCGBuP1c6re0yg3J4Mkzvg/o.jpg"
+        ]
+    },
+    {
+        "name": "Katsu Factory",
+        "cuisine_type": "Japanese, Seafood",
+        "address": "5022 Mowry Ave",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 505-0360",
+        "hours": "Mon: 11:30-14:00, 17:00-20:30 | Tue: 11:30-14:00, 17:00-20:30 | Wed: 11:30-14:00, 17:00-20:30 | Thu: 11:30-14:00, 17:00-20:30 | Fri: 11:30-14:00, 17:00-20:30 | Sat: 11:30-14:00, 17:00-20:30 | Sun: 11:30-14:00, 17:00-20:30",
+        "pricing_tier": null,
+        "description": "Katsu Factory is a japanese, seafood restaurant in Fremont.",
+        "avg_rating": 4.7,
+        "review_count": 23,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/YhBcdjPv6kp5iZfzS1mXkw/o.jpg"
+        ]
+    },
+    {
+        "name": "Hungry Cow",
+        "cuisine_type": "Korean, Barbeque, Cocktail Bars",
+        "address": "40470 Albrae St",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 573-8200",
+        "hours": "Mon: 11:30-23:00 | Tue: 11:30-23:00 | Wed: 11:30-23:00 | Thu: 11:30-23:00 | Fri: 11:30-23:00 | Sat: 11:00-23:00 | Sun: 11:00-23:00",
+        "pricing_tier": "$$$",
+        "description": "Hungry Cow is a korean, barbeque, cocktail bars restaurant in Fremont.",
+        "avg_rating": 4.6,
+        "review_count": 2215,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/sqLhrIP745ROe_rL6eoVeg/o.jpg"
+        ]
+    },
+    {
+        "name": "HiroNori Craft Ramen ",
+        "cuisine_type": "Noodles, Ramen",
+        "address": "43779 Boscell Rd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 771-9630",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-21:00 | Sat: 11:00-21:00 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "HiroNori Craft Ramen  is a noodles, ramen restaurant in Fremont.",
+        "avg_rating": 4.9,
+        "review_count": 343,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/pF9mRIbsufJsOQlCK8iBmQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Anantara",
+        "cuisine_type": "Indian",
+        "address": "43852 Pacific Commons Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(408) 656-4991",
+        "hours": "Mon: 11:00-14:30, 17:30-22:00 | Tue: 11:00-14:30, 17:30-22:00 | Wed: 11:00-14:30, 17:30-22:00 | Thu: 11:00-14:30, 17:30-22:00 | Fri: 11:00-14:30, 17:30-22:00 | Sat: 11:00-15:00, 17:30-22:00 | Sun: 11:00-15:00, 17:30-22:00",
+        "pricing_tier": "$$$",
+        "description": "Anantara is a indian restaurant in Fremont.",
+        "avg_rating": 4.2,
+        "review_count": 255,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/mh1bwt-JD3jNsWC3C7B15w/o.jpg"
+        ]
+    },
+    {
+        "name": "\u56db\u59d0 Special Noodle",
+        "cuisine_type": "Chinese, Noodles",
+        "address": "6004 Stevenson Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(408) 859-6709",
+        "hours": "Mon: 11:30-02:00 | Tue: 11:30-02:00 | Wed: 11:30-02:00 | Thu: 11:30-02:00 | Fri: 11:30-02:00 | Sat: 11:30-02:00 | Sun: 11:30-02:00",
+        "pricing_tier": "$$",
+        "description": "\u56db\u59d0 Special Noodle is a chinese, noodles restaurant in Fremont.",
+        "avg_rating": 4.8,
+        "review_count": 874,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/aPICA2TfYRj9Ekz5LWWb0g/o.jpg"
+        ]
+    },
+    {
+        "name": "Amazing Basil",
+        "cuisine_type": "Asian Fusion, Thai, Vietnamese",
+        "address": "46831 Warm Springs Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94539",
+        "contact_info": "(510) 573-3598",
+        "hours": "Mon: 11:00-15:00 | Wed: 11:00-15:00, 17:00-21:00 | Thu: 11:00-15:00, 17:00-21:00 | Fri: 11:00-15:00, 17:00-21:00 | Sat: 11:00-15:00, 17:00-21:00 | Sun: 11:00-15:00, 17:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Amazing Basil is a asian fusion, thai, vietnamese restaurant in Fremont.",
+        "avg_rating": 4.3,
+        "review_count": 1019,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/J3f5R9Nc-bY1aRaVjwEnGw/o.jpg"
+        ]
+    },
+    {
+        "name": "House of Raha",
+        "cuisine_type": "Indian, Diners, Comfort Food",
+        "address": "4137 Bay St",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 771-9747",
+        "hours": "Tue: 12:00-15:30, 18:00-22:30 | Wed: 12:00-15:30, 18:00-22:30 | Thu: 12:00-15:30, 18:00-22:30 | Fri: 12:00-23:00 | Sat: 12:00-23:00 | Sun: 12:00-23:00",
+        "pricing_tier": null,
+        "description": "House of Raha is a indian, diners, comfort food restaurant in Fremont.",
+        "avg_rating": 4.6,
+        "review_count": 29,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/WT9ipLCRYF2dOmp5htKfEg/o.jpg"
+        ]
+    },
+    {
+        "name": "Chengdu Memory",
+        "cuisine_type": "Hot Pot",
+        "address": "2090 Warm Springs Ct",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94539",
+        "contact_info": "(510) 270-8046",
+        "hours": "Mon: 12:00-00:00 | Tue: 12:00-00:00 | Wed: 12:00-00:00 | Thu: 12:00-00:00 | Fri: 12:00-00:00 | Sat: 12:00-00:00 | Sun: 12:00-00:00",
+        "pricing_tier": null,
+        "description": "Chengdu Memory is a hot pot restaurant in Fremont.",
+        "avg_rating": 4.4,
+        "review_count": 13,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/acJG7p64DAjdFfFPu_IKUA/o.jpg"
+        ]
+    },
+    {
+        "name": "Wadaya",
+        "cuisine_type": "Ramen, Noodles",
+        "address": "34460 Fremont Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94555",
+        "contact_info": "(510) 598-4299",
+        "hours": "Mon: 11:30-14:00, 17:00-21:00 | Tue: 11:30-14:00, 17:00-21:00 | Wed: 11:30-14:00, 17:00-21:00 | Thu: 11:30-14:00, 17:00-21:00 | Fri: 11:30-14:00, 17:00-21:30 | Sat: 11:00-21:30 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Wadaya is a ramen, noodles restaurant in Fremont.",
+        "avg_rating": 4.4,
+        "review_count": 318,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/bhPxy2s57-qb-R2HQuL-nw/o.jpg"
+        ]
+    },
+    {
+        "name": "Rice Junky",
+        "cuisine_type": "Korean",
+        "address": "38487 Fremont Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94536",
+        "contact_info": "(669) 900-3231",
+        "hours": "Mon: 07:00-15:00 | Tue: 07:00-15:00 | Wed: 07:00-15:00 | Thu: 07:00-15:00 | Fri: 07:00-15:00 | Sat: 07:00-15:00",
+        "pricing_tier": "$",
+        "description": "Rice Junky is a korean restaurant in Fremont.",
+        "avg_rating": 4.5,
+        "review_count": 473,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/RZ07jYpyvlgy9A3ET0T9Rw/o.jpg"
+        ]
+    },
+    {
+        "name": "Always Cool BBQ",
+        "cuisine_type": "Bars, Barbeque",
+        "address": "6004 Stevenson Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 687-1222",
+        "hours": "Mon: 11:30-02:00 | Tue: 11:30-02:00 | Wed: 11:30-02:00 | Thu: 11:30-02:00 | Fri: 11:30-02:00 | Sat: 11:30-02:00 | Sun: 11:30-02:00",
+        "pricing_tier": null,
+        "description": "Always Cool BBQ is a bars, barbeque restaurant in Fremont.",
+        "avg_rating": 4.6,
+        "review_count": 289,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/YVrj5GjQPBCDTLurLZnZbg/o.jpg"
+        ]
+    },
+    {
+        "name": "Din Ding Dumpling House",
+        "cuisine_type": "Dim Sum, Noodles, Shanghainese",
+        "address": "3768 Capitol Ave",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 797-8122",
+        "hours": "Mon: 11:00-14:30, 17:00-21:00 | Tue: 11:00-14:30, 17:00-21:00 | Wed: 11:00-14:30, 17:00-21:00 | Thu: 11:00-14:30, 17:00-21:00 | Fri: 11:00-14:30, 17:00-21:30 | Sat: 11:00-21:30 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Din Ding Dumpling House is a dim sum, noodles, shanghainese restaurant in Fremont.",
+        "avg_rating": 4.3,
+        "review_count": 478,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/MiWsY338UqFyroBRux4uUA/o.jpg"
+        ]
+    },
+    {
+        "name": "Shugetsu",
+        "cuisine_type": "Ramen, Noodles",
+        "address": "39206 Fremont Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 203-3473",
+        "hours": "Mon: 11:30-14:00, 17:30-20:00 | Tue: 11:30-14:00, 17:30-20:00 | Wed: 11:30-14:00, 17:30-20:00 | Thu: 11:30-14:00, 17:30-20:00 | Fri: 11:30-14:00, 17:00-20:00 | Sat: 11:00-14:00, 17:00-20:00 | Sun: 11:00-14:00, 17:00-20:00",
+        "pricing_tier": "$$",
+        "description": "Shugetsu is a ramen, noodles restaurant in Fremont.",
+        "avg_rating": 4.2,
+        "review_count": 137,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/P6pMPfZERhDCywtdAYPS2A/o.jpg"
+        ]
+    },
+    {
+        "name": "Taipei Station",
+        "cuisine_type": "Chinese",
+        "address": "47954 Warm Spring Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94539",
+        "contact_info": "(510) 771-9987",
+        "hours": "Mon: 11:00-14:30, 17:00-20:30 | Tue: 11:00-14:30, 17:00-20:30 | Wed: 11:00-14:30, 17:00-20:30 | Thu: 11:00-14:30, 17:00-20:30 | Fri: 11:00-14:30, 17:00-21:00 | Sat: 11:00-14:30, 17:00-21:00 | Sun: 11:00-14:30, 17:00-20:30",
+        "pricing_tier": "$$",
+        "description": "Taipei Station is a chinese restaurant in Fremont.",
+        "avg_rating": 4.8,
+        "review_count": 132,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/4V7A-8zJCy3ObGZECBnx1w/o.jpg"
+        ]
+    },
+    {
+        "name": "SOHO Modern Japanese",
+        "cuisine_type": "Japanese",
+        "address": "40520 Albrae St",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 949-3654",
+        "hours": "Mon: 10:00-14:30, 17:00-20:00 | Tue: 10:00-14:30 | Wed: 10:00-14:30, 17:00-20:00 | Thu: 10:00-14:30 | Fri: 10:00-14:30, 17:00-20:30 | Sat: 10:00-14:30, 17:00-20:30 | Sun: 10:00-14:30, 17:00-20:00",
+        "pricing_tier": "$$$$",
+        "description": "SOHO Modern Japanese is a japanese restaurant in Fremont.",
+        "avg_rating": 4.3,
+        "review_count": 761,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/4b05YkMGEkIRVl2UYikHEg/o.jpg"
+        ]
+    },
+    {
+        "name": "Haidilao",
+        "cuisine_type": "Hot Pot, Chinese, Pan Asian",
+        "address": "43349 Boscell Rd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 631-0888",
+        "hours": "Mon: 11:30-02:00 | Tue: 11:30-02:00 | Wed: 11:30-02:00 | Thu: 11:30-02:00 | Fri: 11:00-02:00 | Sat: 11:00-02:00 | Sun: 11:00-02:00",
+        "pricing_tier": "$$$",
+        "description": "Haidilao is a hot pot, chinese, pan asian restaurant in Fremont.",
+        "avg_rating": 4.6,
+        "review_count": 1461,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/u0OUY36KsqAEynsyqyzOJw/o.jpg"
+        ]
+    },
+    {
+        "name": "Masala Republic",
+        "cuisine_type": "Indian",
+        "address": "4949 Stevenson Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 771-9948",
+        "hours": "Mon: 11:30-14:30, 17:30-22:00 | Tue: 11:30-14:30, 17:30-22:00 | Wed: 11:30-14:30, 17:30-22:00 | Thu: 11:30-14:30, 17:30-22:00 | Fri: 11:30-23:30 | Sat: 11:30-23:30 | Sun: 11:30-22:00",
+        "pricing_tier": null,
+        "description": "Masala Republic is a indian restaurant in Fremont.",
+        "avg_rating": 4.4,
+        "review_count": 118,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/WBybl8Ccu-tIebaLX0pHzA/o.jpg"
+        ]
+    },
+    {
+        "name": "Bombay Flavors",
+        "cuisine_type": "Caterers, Indian",
+        "address": "145 Grau Dr",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94536",
+        "contact_info": "(510) 714-4642",
+        "hours": "Mon: 07:00-21:00 | Tue: 07:00-21:00 | Wed: 07:00-21:00 | Thu: 07:00-21:00 | Fri: 07:00-21:00 | Sat: 07:00-21:00 | Sun: 07:00-21:00",
+        "pricing_tier": null,
+        "description": "Bombay Flavors is a caterers, indian restaurant in Fremont.",
+        "avg_rating": 5.0,
+        "review_count": 8,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/upo0cD4q5ywRGidjSnYngw/o.jpg"
+        ]
+    },
+    {
+        "name": "Forest & Flour",
+        "cuisine_type": "Bakeries, Gluten-Free, Specialty Food",
+        "address": "43587 Mission Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94539",
+        "contact_info": "(408) 829-5565",
+        "hours": "Thu: 10:00-14:00 | Fri: 10:00-14:00 | Sat: 10:00-14:00",
+        "pricing_tier": "$$",
+        "description": "Forest & Flour is a bakeries, gluten-free, specialty food restaurant in Fremont.",
+        "avg_rating": 4.3,
+        "review_count": 143,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/0DSzwdiQ_-ixnWss9fKNqw/o.jpg"
+        ]
+    },
+    {
+        "name": "Tamper Room Cafe & Gallery",
+        "cuisine_type": "Cafes, Art Galleries",
+        "address": "43737 Boscell Rd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 573-0070",
+        "hours": "Mon: 08:00-18:00 | Tue: 08:00-18:00 | Wed: 08:00-18:00 | Thu: 08:00-18:00 | Fri: 08:00-18:00 | Sat: 09:00-18:00 | Sun: 09:00-18:00",
+        "pricing_tier": "$",
+        "description": "Tamper Room Cafe & Gallery is a cafes, art galleries restaurant in Fremont.",
+        "avg_rating": 4.4,
+        "review_count": 368,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/74ZzhugTci4pDrNbWOZjhw/o.jpg"
+        ]
+    },
+    {
+        "name": "Burma Bay Cafe",
+        "cuisine_type": "Burmese, Asian Fusion, Halal",
+        "address": "47966 Warm Springs Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94539",
+        "contact_info": "(510) 983-9868",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-21:30 | Sat: 11:00-21:30 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Burma Bay Cafe is a burmese, asian fusion, halal restaurant in Fremont.",
+        "avg_rating": 4.4,
+        "review_count": 281,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/DB72at_iaclikJjMrifpTg/o.jpg"
+        ]
+    },
+    {
+        "name": "The Yakitori Bar",
+        "cuisine_type": "Japanese, Hot Pot, Tapas/Small Plates",
+        "address": "46260 Warm Springs Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94539",
+        "contact_info": "(510) 573-6683",
+        "hours": "Tue: 17:00-00:00 | Wed: 17:00-00:00 | Thu: 17:00-00:00 | Fri: 17:00-01:00 | Sat: 17:00-01:00 | Sun: 17:00-21:30",
+        "pricing_tier": "$$$",
+        "description": "The Yakitori Bar is a japanese, hot pot, tapas/small plates restaurant in Fremont.",
+        "avg_rating": 4.2,
+        "review_count": 542,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/XM208Y4HHC8y022abUayJA/o.jpg"
+        ]
+    },
+    {
+        "name": "Steaking",
+        "cuisine_type": "Steakhouses, Taiwanese, Hot Pot",
+        "address": "43755 Boscell Rd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 797-2182",
+        "hours": "Mon: 11:30-14:30, 17:30-20:30 | Tue: 11:30-14:30, 17:30-20:30 | Wed: 11:30-14:30, 17:30-20:30 | Thu: 11:30-14:30, 17:30-20:30 | Fri: 11:30-14:30, 17:30-20:30 | Sat: 11:00-14:30, 17:00-20:30 | Sun: 11:00-14:30, 17:00-20:30",
+        "pricing_tier": "$$",
+        "description": "Steaking is a steakhouses, taiwanese, hot pot restaurant in Fremont.",
+        "avg_rating": 4.2,
+        "review_count": 102,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/78z3G0CwBw1yx4wm-L53qA/o.jpg"
+        ]
+    },
+    {
+        "name": "Soo Ja Seolleongtang",
+        "cuisine_type": "Korean, Soup",
+        "address": "6052 Stevenson Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 573-4329",
+        "hours": "Mon: 10:30-15:00, 17:00-21:30 | Tue: 10:30-15:00, 17:00-21:30 | Wed: 10:30-15:00, 17:00-21:30 | Thu: 10:30-15:00, 17:00-21:30 | Fri: 10:30-15:00, 17:00-21:30 | Sat: 10:30-15:00, 17:00-21:30 | Sun: 17:00-21:30",
+        "pricing_tier": "$$",
+        "description": "Soo Ja Seolleongtang is a korean, soup restaurant in Fremont.",
+        "avg_rating": 4.5,
+        "review_count": 237,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/SDFHbPCFE0c8psmnlWyoaQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Joyful Dimsum Bistro",
+        "cuisine_type": "Dim Sum",
+        "address": "129 Anza St",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94539",
+        "contact_info": "(510) 270-8130",
+        "hours": "Mon: 10:00-15:00, 16:00-19:00 | Tue: 10:00-15:00, 16:00-19:00 | Wed: 10:00-15:00, 16:00-19:00 | Thu: 10:00-15:00, 16:00-19:00 | Fri: 10:00-15:00, 16:00-19:00 | Sat: 10:00-19:00 | Sun: 10:00-19:00",
+        "pricing_tier": "$$",
+        "description": "Joyful Dimsum Bistro is a dim sum restaurant in Fremont.",
+        "avg_rating": 4.4,
+        "review_count": 314,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/a2J0huz-rxq5louGwh22CA/o.jpg"
+        ]
+    },
+    {
+        "name": "Chubby Cattle",
+        "cuisine_type": "Barbeque, Sushi Bars, Seafood",
+        "address": "2693 Stoneridge Dr",
+        "city": "Pleasanton",
+        "state": "CA",
+        "zip": "94588",
+        "contact_info": "(925) 892-3356",
+        "hours": "Mon: 11:30-22:00 | Tue: 11:30-22:00 | Wed: 11:30-22:00 | Thu: 11:30-22:00 | Fri: 11:30-23:00 | Sat: 11:30-23:00 | Sun: 11:30-22:00",
+        "pricing_tier": "$$$$",
+        "description": "Chubby Cattle is a barbeque, sushi bars, seafood restaurant in Pleasanton.",
+        "avg_rating": 4.8,
+        "review_count": 3738,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/fBy-oj8FlGIYaomQ5Q553Q/o.jpg"
+        ]
+    },
+    {
+        "name": "Market Broiler",
+        "cuisine_type": "Seafood, New American",
+        "address": "43406 Christy St",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 791-8675",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-22:00 | Sat: 11:00-22:00 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Market Broiler is a seafood, new american restaurant in Fremont.",
+        "avg_rating": 3.9,
+        "review_count": 2748,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/B2EQM1F01x-uu-IMQnzCLw/o.jpg"
+        ]
+    },
+    {
+        "name": "Kesari Chulha",
+        "cuisine_type": "Food Trucks, Indian",
+        "address": "3400 Mowry Ave",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 578-8615",
+        "hours": "Wed: 17:00-22:00 | Thu: 17:00-22:00 | Fri: 17:00-22:00 | Sat: 17:00-22:00 | Sun: 17:00-22:00",
+        "pricing_tier": null,
+        "description": "Kesari Chulha is a food trucks, indian restaurant in Fremont.",
+        "avg_rating": 4.4,
+        "review_count": 5,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/xnSBAqDb4VjJmuGsRPtQ-g/o.jpg"
+        ]
+    },
+    {
+        "name": "Sizzling Lunch",
+        "cuisine_type": "Teppanyaki, Japanese Curry",
+        "address": "40522 Albrae St",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 573-6122",
+        "hours": "Mon: 11:00-21:00 | Tue: 11:00-21:00 | Wed: 11:00-21:00 | Thu: 11:00-21:00 | Fri: 11:00-22:00 | Sat: 11:00-22:00 | Sun: 11:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Sizzling Lunch is a teppanyaki, japanese curry restaurant in Fremont.",
+        "avg_rating": 4.3,
+        "review_count": 643,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/Hye29cCC89uivp32OIYqsQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Home Eat",
+        "cuisine_type": "Chinese, Hot Pot",
+        "address": "46573 Mission Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94539",
+        "contact_info": "(510) 651-8989",
+        "hours": "Mon: 11:15-23:15 | Tue: 11:15-23:15 | Wed: 11:15-23:15 | Thu: 11:15-23:15 | Fri: 11:15-23:15 | Sat: 11:15-23:15 | Sun: 11:15-23:15",
+        "pricing_tier": "$$",
+        "description": "Home Eat is a chinese, hot pot restaurant in Fremont.",
+        "avg_rating": 4.7,
+        "review_count": 632,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/ErvCChMuXpBSBPx-BfMfRw/o.jpg"
+        ]
+    },
+    {
+        "name": "La Humadera",
+        "cuisine_type": "Tacos, Food Stands",
+        "address": "44356 S Grimmer Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "",
+        "hours": "Tue: 16:30-23:00 | Wed: 16:30-23:00 | Thu: 16:30-23:00 | Fri: 16:30-23:00 | Sat: 16:30-23:00 | Sun: 16:30-23:00",
+        "pricing_tier": "$$",
+        "description": "La Humadera is a tacos, food stands restaurant in Fremont.",
+        "avg_rating": 4.4,
+        "review_count": 63,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/IqE6rUPyKrxTf1rW5OVb5A/o.jpg"
+        ]
+    },
+    {
+        "name": "Papasan Rolls & Bowls Revolving Sushi",
+        "cuisine_type": "Japanese",
+        "address": "3353 Walnut Ave",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 795-8638",
+        "hours": "Tue: 11:30-14:30, 17:30-20:30 | Wed: 11:30-14:30, 17:30-20:30 | Thu: 11:30-14:30, 17:30-20:30 | Fri: 11:30-14:30, 17:30-21:00 | Sat: 11:30-14:30, 17:30-21:00 | Sun: 11:30-14:30, 17:30-20:30",
+        "pricing_tier": "$$",
+        "description": "Papasan Rolls & Bowls Revolving Sushi is a japanese restaurant in Fremont.",
+        "avg_rating": 4.5,
+        "review_count": 1156,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/3l0QOqUBFEddckUDItfgpA/o.jpg"
+        ]
+    },
+    {
+        "name": "R HaanThai",
+        "cuisine_type": "Thai, Noodles, Soup",
+        "address": "46535 Mission Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94539",
+        "contact_info": "(510) 573-3667",
+        "hours": "Mon: 11:00-15:00, 17:00-21:30 | Tue: 11:00-15:00, 17:00-21:30 | Wed: 11:00-15:00, 17:00-21:30 | Thu: 11:00-15:00, 17:00-21:30 | Fri: 11:00-15:00, 17:00-21:30 | Sat: 12:00-15:00, 17:00-21:30 | Sun: 12:00-15:00, 17:00-21:30",
+        "pricing_tier": "$$",
+        "description": "R HaanThai is a thai, noodles, soup restaurant in Fremont.",
+        "avg_rating": 4.3,
+        "review_count": 398,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/-TQ2i__LB8W35R95Ix8YKw/o.jpg"
+        ]
+    },
+    {
+        "name": "Julie\u2019s Noodle",
+        "cuisine_type": "Noodles",
+        "address": "46164 Warm Springs Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94539",
+        "contact_info": "(510) 270-8169",
+        "hours": "Mon: 11:00-20:30 | Tue: 11:00-20:30 | Thu: 11:00-20:30 | Fri: 11:00-20:30 | Sat: 11:00-20:30 | Sun: 11:00-20:30",
+        "pricing_tier": "$$",
+        "description": "Julie\u2019s Noodle is a noodles restaurant in Fremont.",
+        "avg_rating": 4.6,
+        "review_count": 117,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/OuELFbva76AcrtgY5XiIAA/o.jpg"
+        ]
+    },
+    {
+        "name": "El Rodeo",
+        "cuisine_type": "Tex-Mex, Mexican",
+        "address": "4949 Stevenson Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 270-8008",
+        "hours": "Tue: 11:30-21:00 | Wed: 11:30-21:00 | Thu: 11:30-21:00 | Fri: 11:30-21:30 | Sat: 11:30-21:30 | Sun: 11:30-21:00",
+        "pricing_tier": "$$",
+        "description": "El Rodeo is a tex-mex, mexican restaurant in Fremont.",
+        "avg_rating": 4.5,
+        "review_count": 324,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/8ILTinelTaqY7F7SP6_Edg/o.jpg"
+        ]
+    },
+    {
+        "name": "Kapow Thai Eatery",
+        "cuisine_type": "Thai, Seafood, Noodles",
+        "address": "34571 Alvarado-Niles Rd",
+        "city": "Union City",
+        "state": "CA",
+        "zip": "94587",
+        "contact_info": "(510) 253-8873",
+        "hours": "Mon: 11:00-14:00, 16:00-21:00 | Tue: 11:00-14:00, 16:00-21:00 | Wed: 11:00-14:00, 16:00-21:00 | Thu: 11:00-14:00, 16:00-21:00 | Fri: 11:00-14:00, 16:00-21:00 | Sat: 11:00-14:30, 16:00-21:00 | Sun: 11:00-14:30, 16:00-21:00",
+        "pricing_tier": "$$",
+        "description": "Kapow Thai Eatery is a thai, seafood, noodles restaurant in Union City.",
+        "avg_rating": 4.3,
+        "review_count": 161,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/L4JszLhNVISTdrKiAffqVg/o.jpg"
+        ]
+    },
+    {
+        "name": "Sala Thai",
+        "cuisine_type": "Thai, Noodles, Soup",
+        "address": "3241 Walnut Ave",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94538",
+        "contact_info": "(510) 792-0770",
+        "hours": "Mon: 11:00-15:00, 16:00-20:30 | Wed: 11:00-15:00, 16:00-20:30 | Thu: 11:00-15:00, 16:00-20:30 | Fri: 11:00-15:00, 16:00-21:00 | Sat: 12:00-16:00, 17:00-21:00 | Sun: 12:00-16:00, 17:00-20:30",
+        "pricing_tier": "$$",
+        "description": "Sala Thai is a thai, noodles, soup restaurant in Fremont.",
+        "avg_rating": 4.0,
+        "review_count": 2974,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/OAIfcD6FJ5BRSWs1cg8lrw/o.jpg"
+        ]
+    },
+    {
+        "name": "Skillet'z Cafe",
+        "cuisine_type": "Breakfast & Brunch, American, Coffee & Tea",
+        "address": "37378 Niles Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94536",
+        "contact_info": "(510) 793-8161",
+        "hours": "Mon: 08:00-14:00 | Tue: 08:00-14:00 | Wed: 08:00-14:00 | Thu: 08:00-20:00 | Fri: 08:00-20:00 | Sat: 08:00-20:00 | Sun: 08:00-20:00",
+        "pricing_tier": "$$",
+        "description": "Skillet'z Cafe is a breakfast & brunch, american, coffee & tea restaurant in Fremont.",
+        "avg_rating": 4.2,
+        "review_count": 2133,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/IrvuCaI2noF7JMK-TqG4fg/o.jpg"
+        ]
+    },
+    {
+        "name": "Zyka Fusion",
+        "cuisine_type": "Halal, Indian",
+        "address": "47890 Warm Springs Blvd",
+        "city": "Fremont",
+        "state": "CA",
+        "zip": "94539",
+        "contact_info": "(510) 378-9884",
+        "hours": "Mon: 11:00-22:00 | Tue: 11:00-22:00 | Wed: 11:00-22:00 | Thu: 11:00-22:00 | Fri: 11:00-23:00 | Sat: 11:00-23:00 | Sun: 11:00-22:00",
+        "pricing_tier": null,
+        "description": "Zyka Fusion is a halal, indian restaurant in Fremont.",
+        "avg_rating": 4.7,
+        "review_count": 25,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/fU2W42s5u3Qz0SID5hPPxQ/o.jpg"
+        ]
+    },
+    {
+        "name": "Lazy Dog Restaurant & Bar",
+        "cuisine_type": "New American, Burgers, Comfort Food",
+        "address": "3100 Newpark Mall",
+        "city": "Newark",
+        "state": "CA",
+        "zip": "94560",
+        "contact_info": "(510) 925-2424",
+        "hours": "Mon: 11:00-00:00 | Tue: 11:00-00:00 | Wed: 11:00-00:00 | Thu: 11:00-00:00 | Fri: 11:00-00:00 | Sat: 10:00-00:00 | Sun: 10:00-00:00",
+        "pricing_tier": "$$",
+        "description": "Lazy Dog Restaurant & Bar is a new american, burgers, comfort food restaurant in Newark.",
+        "avg_rating": 4.1,
+        "review_count": 2408,
+        "photos": [
+            "https://s3-media0.fl.yelpcdn.com/bphoto/-TChUFYGSc18sTJPM_7f3A/o.jpg"
+        ]
+    }
+]
