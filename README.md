@@ -1,3 +1,6 @@
+# Lab 2 Work in Progress
+
+
 # Yelp Prototype
 
 A Yelp-style restaurant discovery and review platform built with FastAPI + React.
