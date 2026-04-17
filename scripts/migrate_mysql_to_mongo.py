@@ -2,6 +2,7 @@ import os
 import pymysql
 from pymongo import MongoClient
 from datetime import datetime
+from decimal import Decimal
 
 
 MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
@@ -12,6 +13,12 @@ MYSQL_DB = os.getenv("MYSQL_DB", "yelp_db")
 
 MONGO_URL = os.getenv("MONGO_URL", "mongodb://localhost:27017")
 MONGO_DB_NAME = os.getenv("MONGO_DB_NAME", "yelp_lab2")
+
+
+def normalize_value(value):
+    if isinstance(value, Decimal):
+        return float(value)
+    return value
 
 
 def get_mysql_connection():
@@ -62,7 +69,7 @@ def migrate_users_and_preferences(mysql_conn, mongo_db):
             "dietary_needs": pref.get("dietary_needs", "").split(",") if pref.get("dietary_needs") else [],
             "ambiance_prefs": pref.get("ambiance_prefs", "").split(",") if pref.get("ambiance_prefs") else [],
             "preferred_location": pref.get("preferred_location", ""),
-            "search_radius": pref.get("search_radius", 10),
+            "search_radius": normalize_value(pref.get("search_radius", 10)),
             "sort_preference": pref.get("sort_preference", "rating")
         }
 
@@ -128,9 +135,9 @@ def migrate_restaurants(mysql_conn, mongo_db):
             "amenities": restaurant.get("amenities", "").split(",") if restaurant.get("amenities") else [],
             "owner_id": restaurant.get("owner_id", ""),
             "added_by": restaurant.get("added_by", ""),
-            "avg_rating": restaurant.get("avg_rating", 0),
-            "review_count": restaurant.get("review_count", 0),
-            "view_count": restaurant.get("view_count", 0),
+            "avg_rating": normalize_value(restaurant.get("avg_rating", 0)),
+            "review_count": normalize_value(restaurant.get("review_count", 0)),
+            "view_count": normalize_value(restaurant.get("view_count", 0)),
             "photos": [],
             "activity_logs": [],
             "created_at": restaurant.get("created_at") or datetime.utcnow(),
@@ -157,12 +164,12 @@ def migrate_reviews(mysql_conn, mongo_db, user_id_map, restaurant_id_map):
         mysql_restaurant_id = review.get("restaurant_id")
 
         review_doc = {
-            "legacy_mysql_id": review["id"],
+            "legacy_mysql_id": review.get("id"),
             "legacy_mysql_user_id": mysql_user_id,
             "legacy_mysql_restaurant_id": mysql_restaurant_id,
             "user_id": user_id_map.get(mysql_user_id, str(mysql_user_id)),
             "restaurant_id": restaurant_id_map.get(mysql_restaurant_id, str(mysql_restaurant_id)),
-            "rating": review.get("rating", 0),
+            "rating": normalize_value(review.get("rating", 0)),
             "comment": review.get("comment", ""),
             "status": "completed",
             "created_at": review.get("created_at") or datetime.utcnow(),
@@ -188,7 +195,7 @@ def migrate_favorites(mysql_conn, mongo_db, user_id_map, restaurant_id_map):
         mysql_restaurant_id = favorite.get("restaurant_id")
 
         favorite_doc = {
-            "legacy_mysql_id": favorite["id"],
+            "legacy_mysql_id": favorite.get("id"),
             "legacy_mysql_user_id": mysql_user_id,
             "legacy_mysql_restaurant_id": mysql_restaurant_id,
             "user_id": user_id_map.get(mysql_user_id, str(mysql_user_id)),
@@ -217,7 +224,7 @@ def migrate_restaurant_photos(mysql_conn, mongo_db, restaurant_id_map):
         mysql_restaurant_id = photo.get("restaurant_id")
 
         photo_doc = {
-            "legacy_mysql_id": photo["id"],
+            "legacy_mysql_id": photo.get("id"),
             "legacy_mysql_restaurant_id": mysql_restaurant_id,
             "restaurant_id": restaurant_id_map.get(mysql_restaurant_id, str(mysql_restaurant_id)),
             "url": photo.get("url") or photo.get("photo_url", ""),
