@@ -3,21 +3,12 @@ from pydantic import BaseModel, EmailStr
 from datetime import datetime, timedelta
 from database import users_collection, sessions_collection
 from utils.password import hash_password, verify_password
+from bson import ObjectId
 import uuid
 
 router = APIRouter()
 
 SESSION_DURATION_HOURS = 24
-
-DEFAULT_PREFERENCES = {
-    "cuisine_prefs": [],
-    "price_range": "",
-    "dietary_needs": [],
-    "ambiance_prefs": [],
-    "preferred_location": "",
-    "search_radius": 10,
-    "sort_preference": "rating"
-}
 
 
 class SignupRequest(BaseModel):
@@ -32,10 +23,6 @@ class LoginRequest(BaseModel):
     password: str
 
 
-class LogoutRequest(BaseModel):
-    token: str
-
-
 @router.post("/signup")
 async def signup(payload: SignupRequest):
     existing_user = await users_collection.find_one({"email": payload.email})
@@ -47,15 +34,7 @@ async def signup(payload: SignupRequest):
         "email": payload.email,
         "password_hash": hash_password(payload.password),
         "role": payload.role,
-        "phone": "",
-        "profile_pic": "",
-        "about_me": "",
-        "city": "",
-        "state": "",
-        "country": "",
-        "preferences": DEFAULT_PREFERENCES,
-        "created_at": datetime.utcnow(),
-        "updated_at": None
+        "created_at": datetime.utcnow()
     }
 
     result = await users_collection.insert_one(user_doc)
@@ -94,35 +73,7 @@ async def login(payload: LoginRequest):
             "id": str(user["_id"]),
             "name": user["name"],
             "email": user["email"],
-            "role": user.get("role", "user"),
-            "preferences": user.get("preferences", DEFAULT_PREFERENCES)
+            "role": user.get("role", "user")
         },
         "expires_at": expires_at.isoformat()
-    }
-
-
-@router.post("/logout")
-async def logout(payload: LogoutRequest):
-    session = await sessions_collection.find_one({"token": payload.token})
-    if not session:
-        raise HTTPException(status_code=404, detail="Session not found")
-
-    await sessions_collection.delete_one({"token": payload.token})
-
-    return {
-        "message": "Logout successful"
-    }
-
-
-@router.get("/session/{token}")
-async def get_session(token: str):
-    session = await sessions_collection.find_one({"token": token})
-    if not session:
-        raise HTTPException(status_code=404, detail="Session not found")
-
-    return {
-        "user_id": session["user_id"],
-        "token": session["token"],
-        "created_at": session["created_at"].isoformat() if session.get("created_at") else None,
-        "expires_at": session["expires_at"].isoformat() if session.get("expires_at") else None
     }
