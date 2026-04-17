@@ -252,3 +252,4 @@ mkdir -p uploads/restaurants uploads/reviews uploads/profiles
 - **Tracking Restaurant Views:** Silent backend tracker augmenting the `view_count`.
 - **Claim Restaurant Workflow:** Validates whether a restaurant operates under an owner; allows any user to claim it which immediately upgrades their session access level.
 - **Owner Dashboard:** A dedicated space for verified `'owner'` roles incorporating full Review filtering and graphical Restaurant progression stats/analytics (View Counts, Rating Distributions, Total Reviews).
+TEST CHANGE FOR LAB 2
