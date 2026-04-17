@@ -2,8 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, EmailStr
 from datetime import datetime, timedelta
 from database import users_collection, sessions_collection
-from utils.password import verify_password
-from kafka.producer import send_event
+from utils.password import hash_password, verify_password
 import uuid
 
 router = APIRouter()
@@ -43,10 +42,10 @@ async def signup(payload: SignupRequest):
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")
 
-    event_payload = {
+    user_doc = {
         "name": payload.name,
         "email": payload.email,
-        "password": payload.password,
+        "password_hash": hash_password(payload.password),
         "role": payload.role,
         "phone": "",
         "profile_pic": "",
@@ -54,15 +53,16 @@ async def signup(payload: SignupRequest):
         "city": "",
         "state": "",
         "country": "",
-        "preferences": DEFAULT_PREFERENCES
+        "preferences": DEFAULT_PREFERENCES,
+        "created_at": datetime.utcnow(),
+        "updated_at": None
     }
 
-    await send_event("user.created", event_payload)
+    result = await users_collection.insert_one(user_doc)
 
     return {
-        "message": "User creation submitted for processing",
-        "status": "pending",
-        "topic": "user.created"
+        "message": "User created successfully",
+        "user_id": str(result.inserted_id)
     }
 
 

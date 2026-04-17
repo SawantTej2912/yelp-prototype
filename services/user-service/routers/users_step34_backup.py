@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import Optional, List
 from database import users_collection
 from bson import ObjectId
-from kafka.producer import send_event
+from datetime import datetime
 
 router = APIRouter()
 
@@ -84,20 +84,18 @@ async def update_user_profile(user_id: str, payload: UserProfileUpdate):
     if not existing_user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    event_payload = {
-        "user_id": user_id
-    }
+    update_data = {k: v for k, v in payload.dict().items() if v is not None}
+    update_data["updated_at"] = datetime.utcnow()
 
-    for field, value in payload.dict().items():
-        if value is not None:
-            event_payload[field] = value
+    await users_collection.update_one(
+        {"_id": ObjectId(user_id)},
+        {"$set": update_data}
+    )
 
-    await send_event("user.updated", event_payload)
-
+    updated_user = await users_collection.find_one({"_id": ObjectId(user_id)})
     return {
-        "message": "User profile update submitted for processing",
-        "status": "pending",
-        "topic": "user.updated"
+        "message": "User profile updated successfully",
+        "user": serialize_user(updated_user)
     }
 
 
@@ -133,15 +131,19 @@ async def update_user_preferences(user_id: str, payload: UserPreferences):
     if not existing_user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    event_payload = {
-        "user_id": user_id,
-        "preferences": payload.dict()
-    }
+    await users_collection.update_one(
+        {"_id": ObjectId(user_id)},
+        {
+            "$set": {
+                "preferences": payload.dict(),
+                "updated_at": datetime.utcnow()
+            }
+        }
+    )
 
-    await send_event("user.updated", event_payload)
+    updated_user = await users_collection.find_one({"_id": ObjectId(user_id)})
 
     return {
-        "message": "User preferences update submitted for processing",
-        "status": "pending",
-        "topic": "user.updated"
+        "message": "User preferences updated successfully",
+        "user": serialize_user(updated_user)
     }
