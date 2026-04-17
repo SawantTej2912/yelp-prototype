@@ -9,7 +9,6 @@ from database import (
     restaurant_photos_collection,
     activity_logs_collection
 )
-from kafka.producer import send_event
 
 router = APIRouter()
 
@@ -54,10 +53,6 @@ class FavoriteRequest(BaseModel):
 class RestaurantPhotoCreate(BaseModel):
     url: str
     caption: Optional[str] = ""
-
-
-class RestaurantClaimRequest(BaseModel):
-    owner_id: str
 
 
 def serialize_restaurant(restaurant):
@@ -106,9 +101,19 @@ def serialize_activity_log(log):
     }
 
 
+async def log_restaurant_activity(restaurant_id: str, action: str, details: str):
+    log_doc = {
+        "restaurant_id": restaurant_id,
+        "action": action,
+        "details": details,
+        "created_at": datetime.utcnow()
+    }
+    await activity_logs_collection.insert_one(log_doc)
+
+
 @router.post("/")
 async def create_restaurant(payload: RestaurantCreate):
-    event_payload = {
+    restaurant_doc = {
         "name": payload.name,
         "description": payload.description,
         "cuisine_type": payload.cuisine_type,
@@ -121,15 +126,28 @@ async def create_restaurant(payload: RestaurantCreate):
         "pricing_tier": payload.pricing_tier,
         "amenities": payload.amenities,
         "owner_id": payload.owner_id,
-        "added_by": payload.added_by
+        "added_by": payload.added_by,
+        "avg_rating": 0,
+        "review_count": 0,
+        "view_count": 0,
+        "photos": [],
+        "activity_logs": [],
+        "created_at": datetime.utcnow(),
+        "updated_at": None
     }
 
-    await send_event("restaurant.created", event_payload)
+    result = await restaurants_collection.insert_one(restaurant_doc)
+    created_restaurant = await restaurants_collection.find_one({"_id": result.inserted_id})
+
+    await log_restaurant_activity(
+        str(result.inserted_id),
+        "restaurant_created",
+        f"Restaurant '{payload.name}' created"
+    )
 
     return {
-        "message": "Restaurant creation submitted for processing",
-        "status": "pending",
-        "topic": "restaurant.created"
+        "message": "Restaurant created successfully",
+        "restaurant": serialize_restaurant(created_restaurant)
     }
 
 
@@ -175,43 +193,25 @@ async def update_restaurant(restaurant_id: str, payload: RestaurantUpdate):
     if not existing_restaurant:
         raise HTTPException(status_code=404, detail="Restaurant not found")
 
-    event_payload = {
-        "restaurant_id": restaurant_id
-    }
+    update_data = {k: v for k, v in payload.dict().items() if v is not None}
+    update_data["updated_at"] = datetime.utcnow()
 
-    for field, value in payload.dict().items():
-        if value is not None:
-            event_payload[field] = value
+    await restaurants_collection.update_one(
+        {"_id": ObjectId(restaurant_id)},
+        {"$set": update_data}
+    )
 
-    await send_event("restaurant.updated", event_payload)
+    updated_restaurant = await restaurants_collection.find_one({"_id": ObjectId(restaurant_id)})
 
-    return {
-        "message": "Restaurant update submitted for processing",
-        "status": "pending",
-        "topic": "restaurant.updated"
-    }
-
-
-@router.post("/{restaurant_id}/claim")
-async def claim_restaurant(restaurant_id: str, payload: RestaurantClaimRequest):
-    if not ObjectId.is_valid(restaurant_id):
-        raise HTTPException(status_code=400, detail="Invalid restaurant id")
-
-    existing_restaurant = await restaurants_collection.find_one({"_id": ObjectId(restaurant_id)})
-    if not existing_restaurant:
-        raise HTTPException(status_code=404, detail="Restaurant not found")
-
-    event_payload = {
-        "restaurant_id": restaurant_id,
-        "owner_id": payload.owner_id
-    }
-
-    await send_event("restaurant.claimed", event_payload)
+    await log_restaurant_activity(
+        restaurant_id,
+        "restaurant_updated",
+        f"Restaurant '{existing_restaurant.get('name', '')}' updated"
+    )
 
     return {
-        "message": "Restaurant claim submitted for processing",
-        "status": "pending",
-        "topic": "restaurant.claimed"
+        "message": "Restaurant updated successfully",
+        "restaurant": serialize_restaurant(updated_restaurant)
     }
 
 
@@ -302,14 +302,14 @@ async def add_restaurant_photo(restaurant_id: str, payload: RestaurantPhotoCreat
     }
 
     result = await restaurant_photos_collection.insert_one(photo_doc)
-    created_photo = await restaurant_photos_collection.find_one({"_id": result.inserted_id})
 
-    await activity_logs_collection.insert_one({
-        "restaurant_id": restaurant_id,
-        "action": "photo_added",
-        "details": f"Photo added to restaurant '{restaurant.get('name', '')}'",
-        "created_at": datetime.utcnow()
-    })
+    await log_restaurant_activity(
+        restaurant_id,
+        "photo_added",
+        f"Photo added to restaurant '{restaurant.get('name', '')}'"
+    )
+
+    created_photo = await restaurant_photos_collection.find_one({"_id": result.inserted_id})
 
     return {
         "message": "Restaurant photo added successfully",
