@@ -1,9 +1,9 @@
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime
 from bson import ObjectId
-from database import restaurants_collection, favorites_collection
+from database import restaurants_collection
 
 router = APIRouter()
 
@@ -38,11 +38,6 @@ class RestaurantUpdate(BaseModel):
     amenities: Optional[List[str]] = None
     owner_id: Optional[str] = None
     added_by: Optional[str] = None
-
-
-class FavoriteRequest(BaseModel):
-    user_id: str
-    restaurant_id: str
 
 
 def serialize_restaurant(restaurant):
@@ -106,22 +101,9 @@ async def create_restaurant(payload: RestaurantCreate):
 
 
 @router.get("/")
-async def get_all_restaurants(
-    name: Optional[str] = Query(None),
-    cuisine_type: Optional[str] = Query(None),
-    city: Optional[str] = Query(None)
-):
-    query = {}
-
-    if name:
-        query["name"] = {"$regex": name, "$options": "i"}
-    if cuisine_type:
-        query["cuisine_type"] = {"$regex": cuisine_type, "$options": "i"}
-    if city:
-        query["city"] = {"$regex": city, "$options": "i"}
-
+async def get_all_restaurants():
     restaurants = []
-    async for restaurant in restaurants_collection.find(query):
+    async for restaurant in restaurants_collection.find():
         restaurants.append(serialize_restaurant(restaurant))
     return restaurants
 
@@ -160,74 +142,4 @@ async def update_restaurant(restaurant_id: str, payload: RestaurantUpdate):
     return {
         "message": "Restaurant updated successfully",
         "restaurant": serialize_restaurant(updated_restaurant)
-    }
-
-
-@router.post("/favorites")
-async def add_favorite(payload: FavoriteRequest):
-    if not ObjectId.is_valid(payload.restaurant_id):
-        raise HTTPException(status_code=400, detail="Invalid restaurant id")
-
-    restaurant = await restaurants_collection.find_one({"_id": ObjectId(payload.restaurant_id)})
-    if not restaurant:
-        raise HTTPException(status_code=404, detail="Restaurant not found")
-
-    existing_favorite = await favorites_collection.find_one({
-        "user_id": payload.user_id,
-        "restaurant_id": payload.restaurant_id
-    })
-
-    if existing_favorite:
-        raise HTTPException(status_code=400, detail="Restaurant already favorited")
-
-    favorite_doc = {
-        "user_id": payload.user_id,
-        "restaurant_id": payload.restaurant_id,
-        "created_at": datetime.utcnow()
-    }
-
-    await favorites_collection.insert_one(favorite_doc)
-
-    return {
-        "message": "Restaurant added to favorites"
-    }
-
-
-@router.delete("/favorites")
-async def remove_favorite(payload: FavoriteRequest):
-    favorite = await favorites_collection.find_one({
-        "user_id": payload.user_id,
-        "restaurant_id": payload.restaurant_id
-    })
-
-    if not favorite:
-        raise HTTPException(status_code=404, detail="Favorite not found")
-
-    await favorites_collection.delete_one({
-        "user_id": payload.user_id,
-        "restaurant_id": payload.restaurant_id
-    })
-
-    return {
-        "message": "Restaurant removed from favorites"
-    }
-
-
-@router.get("/favorites/{user_id}")
-async def get_user_favorites(user_id: str):
-    favorite_restaurant_ids = []
-
-    async for favorite in favorites_collection.find({"user_id": user_id}):
-        favorite_restaurant_ids.append(favorite["restaurant_id"])
-
-    restaurants = []
-    for restaurant_id in favorite_restaurant_ids:
-        if ObjectId.is_valid(restaurant_id):
-            restaurant = await restaurants_collection.find_one({"_id": ObjectId(restaurant_id)})
-            if restaurant:
-                restaurants.append(serialize_restaurant(restaurant))
-
-    return {
-        "user_id": user_id,
-        "favorites": restaurants
     }
