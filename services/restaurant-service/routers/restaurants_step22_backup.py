@@ -3,12 +3,7 @@ from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime
 from bson import ObjectId
-from database import (
-    restaurants_collection,
-    favorites_collection,
-    restaurant_photos_collection,
-    activity_logs_collection
-)
+from database import restaurants_collection, favorites_collection
 
 router = APIRouter()
 
@@ -50,11 +45,6 @@ class FavoriteRequest(BaseModel):
     restaurant_id: str
 
 
-class RestaurantPhotoCreate(BaseModel):
-    url: str
-    caption: Optional[str] = ""
-
-
 def serialize_restaurant(restaurant):
     return {
         "id": str(restaurant["_id"]),
@@ -79,36 +69,6 @@ def serialize_restaurant(restaurant):
         "created_at": restaurant.get("created_at").isoformat() if restaurant.get("created_at") else None,
         "updated_at": restaurant.get("updated_at").isoformat() if restaurant.get("updated_at") else None
     }
-
-
-def serialize_photo(photo):
-    return {
-        "id": str(photo["_id"]),
-        "restaurant_id": photo.get("restaurant_id", ""),
-        "url": photo.get("url", ""),
-        "caption": photo.get("caption", ""),
-        "uploaded_at": photo.get("uploaded_at").isoformat() if photo.get("uploaded_at") else None
-    }
-
-
-def serialize_activity_log(log):
-    return {
-        "id": str(log["_id"]),
-        "restaurant_id": log.get("restaurant_id", ""),
-        "action": log.get("action", ""),
-        "details": log.get("details", ""),
-        "created_at": log.get("created_at").isoformat() if log.get("created_at") else None
-    }
-
-
-async def log_restaurant_activity(restaurant_id: str, action: str, details: str):
-    log_doc = {
-        "restaurant_id": restaurant_id,
-        "action": action,
-        "details": details,
-        "created_at": datetime.utcnow()
-    }
-    await activity_logs_collection.insert_one(log_doc)
 
 
 @router.post("/")
@@ -138,12 +98,6 @@ async def create_restaurant(payload: RestaurantCreate):
 
     result = await restaurants_collection.insert_one(restaurant_doc)
     created_restaurant = await restaurants_collection.find_one({"_id": result.inserted_id})
-
-    await log_restaurant_activity(
-        str(result.inserted_id),
-        "restaurant_created",
-        f"Restaurant '{payload.name}' created"
-    )
 
     return {
         "message": "Restaurant created successfully",
@@ -202,12 +156,6 @@ async def update_restaurant(restaurant_id: str, payload: RestaurantUpdate):
     )
 
     updated_restaurant = await restaurants_collection.find_one({"_id": ObjectId(restaurant_id)})
-
-    await log_restaurant_activity(
-        restaurant_id,
-        "restaurant_updated",
-        f"Restaurant '{existing_restaurant.get('name', '')}' updated"
-    )
 
     return {
         "message": "Restaurant updated successfully",
@@ -282,66 +230,4 @@ async def get_user_favorites(user_id: str):
     return {
         "user_id": user_id,
         "favorites": restaurants
-    }
-
-
-@router.post("/{restaurant_id}/photos")
-async def add_restaurant_photo(restaurant_id: str, payload: RestaurantPhotoCreate):
-    if not ObjectId.is_valid(restaurant_id):
-        raise HTTPException(status_code=400, detail="Invalid restaurant id")
-
-    restaurant = await restaurants_collection.find_one({"_id": ObjectId(restaurant_id)})
-    if not restaurant:
-        raise HTTPException(status_code=404, detail="Restaurant not found")
-
-    photo_doc = {
-        "restaurant_id": restaurant_id,
-        "url": payload.url,
-        "caption": payload.caption,
-        "uploaded_at": datetime.utcnow()
-    }
-
-    result = await restaurant_photos_collection.insert_one(photo_doc)
-
-    await log_restaurant_activity(
-        restaurant_id,
-        "photo_added",
-        f"Photo added to restaurant '{restaurant.get('name', '')}'"
-    )
-
-    created_photo = await restaurant_photos_collection.find_one({"_id": result.inserted_id})
-
-    return {
-        "message": "Restaurant photo added successfully",
-        "photo": serialize_photo(created_photo)
-    }
-
-
-@router.get("/{restaurant_id}/photos")
-async def get_restaurant_photos(restaurant_id: str):
-    if not ObjectId.is_valid(restaurant_id):
-        raise HTTPException(status_code=400, detail="Invalid restaurant id")
-
-    photos = []
-    async for photo in restaurant_photos_collection.find({"restaurant_id": restaurant_id}):
-        photos.append(serialize_photo(photo))
-
-    return {
-        "restaurant_id": restaurant_id,
-        "photos": photos
-    }
-
-
-@router.get("/{restaurant_id}/activity-logs")
-async def get_restaurant_activity_logs(restaurant_id: str):
-    if not ObjectId.is_valid(restaurant_id):
-        raise HTTPException(status_code=400, detail="Invalid restaurant id")
-
-    logs = []
-    async for log in activity_logs_collection.find({"restaurant_id": restaurant_id}):
-        logs.append(serialize_activity_log(log))
-
-    return {
-        "restaurant_id": restaurant_id,
-        "activity_logs": logs
     }
