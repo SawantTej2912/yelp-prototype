@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, EmailStr
 from datetime import datetime, timedelta
 from database import users_collection, sessions_collection
-from utils.password import verify_password
+from utils.password import verify_password, get_password_hash
 from kafka.producer import send_event
 import uuid
 
@@ -39,14 +39,18 @@ class LogoutRequest(BaseModel):
 
 @router.post("/signup")
 async def signup(payload: SignupRequest):
+    print(f"[user-service] Signup request received for email={payload.email}")
+
     existing_user = await users_collection.find_one({"email": payload.email})
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")
 
+    hashed_password = get_password_hash(payload.password)
+
     event_payload = {
         "name": payload.name,
         "email": payload.email,
-        "password": payload.password,
+        "password_hash": hashed_password,
         "role": payload.role,
         "phone": "",
         "profile_pic": "",
@@ -57,7 +61,9 @@ async def signup(payload: SignupRequest):
         "preferences": DEFAULT_PREFERENCES
     }
 
+    print(f"[user-service] Publishing user.created for email={payload.email}")
     await send_event("user.created", event_payload)
+    print("[user-service] user.created published successfully")
 
     return {
         "message": "User creation submitted for processing",

@@ -71,3 +71,4 @@ passlib[bcrypt]
 bcrypt
 email-validator
 aiokafka
+bcrypt
