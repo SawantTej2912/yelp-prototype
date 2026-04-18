@@ -1,255 +1,210 @@
-# Lab 2 Work in Progress
+# Yelp Prototype – Lab 2 (Deployment, Kafka, MongoDB, Kubernetes)
 
+## Overview
 
-# Yelp Prototype
+This project is an extension of the Lab 1 Yelp prototype.  
+Lab 2 focuses on:
 
-A Yelp-style restaurant discovery and review platform built with FastAPI + React.
+- Containerization using Docker  
+- Orchestration using Kubernetes  
+- Asynchronous messaging using Kafka  
+- Migration from MySQL to MongoDB  
 
-## Tech Stack
-- Backend: Python 3.11 + FastAPI
-- Frontend: React + Vite + TailwindCSS
-- Database: MySQL
-- Auth: JWT
-
-## Setup Instructions
-
-
-## Step 1 — Prerequisites
-Make sure these are installed:
-- Python 3.11
-- Node.js (v18+)
-- MySQL
-- Git
+The system is designed using a **microservices architecture** with **producer-consumer patterns**.
 
 ---
 
-## Step 2 — Clone the Repo
-```bash
-git clone https://github.com/SawantTej2912/yelp-prototype.git
-cd yelp-prototype
+## Architecture
+
+### High-Level Design
+
+```text
+Frontend / Client
+        |
+        v
++----------------------+   +------------------------+   +------------------+
+| User API Service     |   | Restaurant API Service |   | Review API       |
+| (Producer)           |   | (Producer)             |   | (Producer)       |
++----------------------+   +------------------------+   +------------------+
+         |                           |                            |
+         v                           v                            v
+-----------------------------------------------------------------------
+|                            Kafka Topics                            |
+| user.created        user.updated                                   |
+| review.created      review.updated      review.deleted             |
+| restaurant.created  restaurant.updated  restaurant.claimed         |
+| booking.status                                                   |
+-----------------------------------------------------------------------
+         |                           |                            |
+         v                           v                            v
++----------------------+   +------------------------+   +------------------+
+| User Worker          |   | Restaurant Worker      |   | Review Worker    |
+| (Consumer)           |   | (Consumer)             |   | (Consumer)       |
++----------------------+   +------------------------+   +------------------+
+                     \          |           /
+                      \         |          /
+                       \________|_________/
+                               |
+                               v
+                          +-------------+
+                          |   MongoDB   |
+                          +-------------+
 ```
+
 
 ---
 
-## Step 3 — Set Up the Database
+## Technologies Used
 
-**Start MySQL and log in:**
-```bash
-mysql -u root -p
-```
-
-**Run this to create the database and all tables:**
-```sql
-CREATE DATABASE yelp_prototype;
-USE yelp_prototype;
-
--- Users
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    role ENUM('user', 'owner') DEFAULT 'user',
-    profile_pic VARCHAR(255),
-    phone VARCHAR(20),
-    about_me TEXT,
-    city VARCHAR(100),
-    state VARCHAR(10),
-    country VARCHAR(100),
-    languages VARCHAR(255),
-    gender VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- User preferences
-CREATE TABLE user_preferences (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT UNIQUE NOT NULL,
-    cuisine_prefs JSON,
-    price_range VARCHAR(10),
-    dietary_needs JSON,
-    ambiance_prefs JSON,
-    preferred_location VARCHAR(255),
-    search_radius INT DEFAULT 10,
-    sort_preference ENUM('rating', 'distance', 'popularity', 'price') DEFAULT 'rating',
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
--- Restaurants
-CREATE TABLE restaurants (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(150) NOT NULL,
-    cuisine_type VARCHAR(100),
-    address VARCHAR(255),
-    city VARCHAR(100),
-    state VARCHAR(10),
-    zip VARCHAR(20),
-    description TEXT,
-    contact_info VARCHAR(150),
-    hours VARCHAR(255),
-    pricing_tier ENUM('$', '$$', '$$$', '$$$$'),
-    amenities JSON,
-    added_by INT,
-    owner_id INT DEFAULT NULL,
-    avg_rating DECIMAL(3,2) DEFAULT 0.00,
-    review_count INT DEFAULT 0,
-    view_count INT DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (added_by) REFERENCES users(id) ON DELETE SET NULL,
-    FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE SET NULL
-);
-
--- Restaurant photos
-CREATE TABLE restaurant_photos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    restaurant_id INT NOT NULL,
-    photo_url VARCHAR(255) NOT NULL,
-    uploaded_by INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE,
-    FOREIGN KEY (uploaded_by) REFERENCES users(id) ON DELETE SET NULL
-);
-
--- Reviews
-CREATE TABLE reviews (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    restaurant_id INT NOT NULL,
-    rating TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
-    comment TEXT,
-    review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
-);
-
--- Review photos
-CREATE TABLE review_photos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    review_id INT NOT NULL,
-    photo_url VARCHAR(255) NOT NULL,
-    FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE
-);
-
--- Favorites
-CREATE TABLE favorites (
-    user_id INT NOT NULL,
-    restaurant_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (user_id, restaurant_id),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
-);
-
--- Chat history
-CREATE TABLE chat_history (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    role ENUM('user', 'assistant') NOT NULL,
-    message TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-```
-
-**Verify:**
-```sql
-SHOW TABLES;
-```
-Should show 8 tables. ✅
+- **Backend:** FastAPI (Python)
+- **Database:** MongoDB
+- **Messaging:** Apache Kafka
+- **Containerization:** Docker
+- **Orchestration:** Kubernetes
+- **Async Processing:** Kafka producer-consumer pattern
 
 ---
 
-## Step 4 — Set Up the Backend
+## Part 1: Docker & Kubernetes
 
-```bash
-cd backend
-python3.11 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
+### Docker
 
-**Create the `.env` file:**
-```bash
-touch .env
-```
+Each service is containerized with its own Dockerfile:
 
-Add this inside — replacing with their own MySQL password and generating their own JWT secret:
-```env
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=their_mysql_password
-DB_NAME=yelp_prototype
+- user-service  
+- restaurant-service  
+- review-service  
+- user-worker  
+- restaurant-worker  
+- review-worker  
 
-JWT_SECRET=run_this_to_generate: python3 -c "import secrets; print(secrets.token_hex(32))"
-JWT_ALGORITHM=HS256
-JWT_EXPIRE_MINUTES=1440
+### Kubernetes
 
-GEMINI_API_KEY=their_gemini_key
-```
+Deployed components:
 
-**Generate their JWT secret:**
-```bash
-python3 -c "import secrets; print(secrets.token_hex(32))"
-```
-Copy the output into `JWT_SECRET=`
+- API services (user, restaurant, review)
+- Worker services (Kafka consumers)
+- Kafka + Zookeeper
+- MongoDB
 
-**Run the backend:**
-```bash
-uvicorn main:app --reload
-```
-
-Visit `http://localhost:8000/docs` to confirm it's running ✅
+All services communicate within the cluster.
 
 ---
 
-## Step 5 — Set Up the Frontend
+## Part 2: Kafka Integration
 
-Open a new terminal tab:
+Kafka is used to process operations asynchronously.
 
+### Topics Implemented
+
+- `user.created`
+- `user.updated`
+- `review.created`
+- `review.updated`
+- `review.deleted`
+- `restaurant.created`
+- `restaurant.updated`
+- `restaurant.claimed`
+- `booking.status`
+
+### Flow Example (Review)
+
+1. User submits review → Review API publishes `review.created`
+2. Review Worker consumes event
+3. Review stored in MongoDB
+4. Restaurant rating updated
+5. Status published to `booking.status`
+
+---
+
+## Part 3: MongoDB Migration
+
+All data from Lab 1 MySQL is migrated to MongoDB.
+
+### Collections
+
+- users  
+- sessions  
+- restaurants  
+- reviews  
+- favorites  
+- restaurant_photos  
+- activity_logs  
+- booking_status  
+
+### Security
+
+- Passwords hashed using bcrypt  
+- Sessions stored in MongoDB with expiry  
+
+---
+
+## Running the Project
+
+### Prerequisites
+
+- Docker Desktop (with Kubernetes enabled)
+- kubectl
+- MongoDB Compass (optional)
+
+---
+
+### Step 1: Build Docker Images
 ```bash
-cd frontend
-npm install
-npm run dev
+docker build -t yelp-user-service ./services/user-service
+docker build -t yelp-restaurant-service ./services/restaurant-service
+docker build -t yelp-review-service ./services/review-service
+docker build -t yelp-user-worker ./services/user-worker
+docker build -t yelp-restaurant-worker ./services/restaurant-worker
+docker build -t yelp-review-worker ./services/review-worker
 ```
 
-Visit `http://localhost:5173` ✅
-
----
-
-## Step 6 — Create Uploads Folder
-
-The backend needs this folder to store photos:
-
+### Step 2: Deploy to Kubernetes
 ```bash
-cd backend
-mkdir -p uploads/restaurants uploads/reviews uploads/profiles
+kubectl apply -f k8s/
 ```
 
----
+### Step 3: Check Pods
+```bash
+kubectl get pods
+```
 
-## ✅ Full Checklist for Groupmate
+### Step 4: Expose Services
+```bash
+kubectl get services
+```
 
-- [ ] MySQL running with `yelp_prototype` database and all 8 tables
-- [ ] `backend/.env` created with their own DB password and JWT secret
-- [ ] Backend running at `localhost:8000`
-- [ ] Frontend running at `localhost:5173`
-- [ ] `uploads/` folder created inside backend
+**Use NodePort to access APIs:**
 
----
+`http://localhost:<nodeport>`
 
-## 🚀 Key Features Implemented
+### Step 5: Test APIs
 
-**Core Features:**
-- Full User Auth (JWT setup, bcrypt hashes)
-- Profile & Preferences Management (Syncs with AI Assistant)
-- Dynamic Restaurant Search / Details / Add / Favorites
-- Review System (Add, Edit, Delete with Star Ratings)
-- Conversational AI Chatbot (Gemini + Tavily Web Search)
+**Signup**
+```bash
+curl -X POST http://localhost:<user-port>/auth/signup \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Test User",
+  "email": "test@example.com",
+  "password": "test123"
+}'
+```
 
-**Owner Specific Stretch Features:**
-- **Tracking Restaurant Views:** Silent backend tracker augmenting the `view_count`.
-- **Claim Restaurant Workflow:** Validates whether a restaurant operates under an owner; allows any user to claim it which immediately upgrades their session access level.
-- **Owner Dashboard:** A dedicated space for verified `'owner'` roles incorporating full Review filtering and graphical Restaurant progression stats/analytics (View Counts, Rating Distributions, Total Reviews).
-TEST CHANGE FOR LAB 2
+**Create Review**
+```bash
+curl -X POST http://localhost:<review-port>/reviews/
+```
+
+**MongoDB Access**
+
+**To view MongoDB inside Kubernetes:**
+```bash
+kubectl exec -it <mongodb-pod> -- mongosh
+```
+
+**Then:**
+```bash
+use yelp_lab2
+db.users.find().pretty()
+```
