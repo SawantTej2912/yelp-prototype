@@ -9,3 +9,4 @@ db = client[MONGO_DB_NAME]
 
 reviews_collection = db["reviews"]
 restaurants_collection = db["restaurants"]
+booking_status_collection = db["booking_status"]
