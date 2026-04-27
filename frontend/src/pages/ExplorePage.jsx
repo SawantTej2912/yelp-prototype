@@ -1,7 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { searchRestaurants } from '../api/restaurants';
 import RestaurantCard from '../components/RestaurantCard';
+import {
+    setRestaurants,
+    setLoading as setRestaurantsLoading,
+    setError as setRestaurantsError,
+    setFilters,
+} from '../store/slices/restaurantSlice';
 
 const CUISINES = ['All', 'American', 'Italian', 'Japanese', 'Mexican', 'Indian', 'Thai', 'Chinese', 'Mediterranean'];
 const PRICES = ['Any', '$', '$$', '$$$', '$$$$'];
@@ -14,16 +21,11 @@ const SORTS = [
 const LIMIT = 20;
 
 export default function ExplorePage() {
-    const [query, setQuery] = useState('');
-    const [city, setCity] = useState('');
-    const [cuisine, setCuisine] = useState('All');
-    const [price, setPrice] = useState('Any');
-    const [sort, setSort] = useState('rating');
-    const [results, setResults] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const { restaurants, loading, filters } = useSelector((state) => state.restaurants);
+    const { query, city, cuisine, price, sort, offset } = filters;
     
     // Pagination states
-    const [offset, setOffset] = useState(0);
     const [hasMore, setHasMore] = useState(true);
     const [loadingMore, setLoadingMore] = useState(false);
 
@@ -31,28 +33,31 @@ export default function ExplorePage() {
         if (isLoadMore) {
             setLoadingMore(true);
         } else {
-            setLoading(true);
-            setOffset(0);
+            dispatch(setRestaurantsLoading(true));
+            dispatch(setFilters({ offset: 0 }));
         }
 
         try {
             const { data } = await searchRestaurants(params);
             
             if (isLoadMore) {
-                setResults((prev) => [...prev, ...data]);
+                dispatch(setRestaurants([...restaurants, ...data]));
             } else {
-                setResults(data);
+                dispatch(setRestaurants(data));
             }
             // If we received fewer items than the limit, we've hit the end
             setHasMore(data.length === params.limit);
         } catch {
-            if (!isLoadMore) setResults([]);
+            if (!isLoadMore) {
+                dispatch(setRestaurants([]));
+            }
+            dispatch(setRestaurantsError('Failed to load restaurants'));
             setHasMore(false);
         } finally {
-            setLoading(false);
+            dispatch(setRestaurantsLoading(false));
             setLoadingMore(false);
         }
-    }, []);
+    }, [dispatch, restaurants]);
 
     // Build params from current state, with optional overrides
     const buildParams = (overrides = {}) => {
@@ -78,15 +83,15 @@ export default function ExplorePage() {
     // We pass overrides so we always read the *new* value, not stale state
     const handleSort = (e) => {
         const newSort = e.target.value;
-        setSort(newSort);
+        dispatch(setFilters({ sort: newSort }));
         doSearch(buildParams({ sort: newSort, offset: 0 }));
     };
     const handleCuisine = (c) => {
-        setCuisine(c);
+        dispatch(setFilters({ cuisine: c }));
         doSearch(buildParams({ cuisine: c, offset: 0 }));
     };
     const handlePrice = (p) => {
-        setPrice(p);
+        dispatch(setFilters({ price: p }));
         doSearch(buildParams({ price: p, offset: 0 }));
     };
 
@@ -99,7 +104,7 @@ export default function ExplorePage() {
     // Load more handler
     const handleLoadMore = () => {
         const nextOffset = offset + LIMIT;
-        setOffset(nextOffset);
+        dispatch(setFilters({ offset: nextOffset }));
         doSearch(buildParams({ offset: nextOffset }), true);
     };
 
@@ -123,7 +128,7 @@ export default function ExplorePage() {
                                 id="search-keyword"
                                 type="text"
                                 value={query}
-                                onChange={(e) => setQuery(e.target.value)}
+                                onChange={(e) => dispatch(setFilters({ query: e.target.value }))}
                                 placeholder="Search by name, cuisine, keyword…"
                                 className="input-base"
                                 style={{ paddingLeft: '2.25rem' }}
@@ -139,7 +144,7 @@ export default function ExplorePage() {
                                 id="search-city"
                                 type="text"
                                 value={city}
-                                onChange={(e) => setCity(e.target.value)}
+                                onChange={(e) => dispatch(setFilters({ city: e.target.value }))}
                                 placeholder="City or zip…"
                                 className="input-base"
                                 style={{ paddingLeft: '2.25rem' }}
@@ -215,7 +220,7 @@ export default function ExplorePage() {
             {/* ── Add restaurant CTA ── */}
             <div className="flex items-center justify-between mb-5">
                 <p className="text-white/40 text-sm">
-                    {loading ? 'Searching…' : `${results.length} restaurant${results.length !== 1 ? 's' : ''} loaded`}
+                    {loading ? 'Searching…' : `${restaurants.length} restaurant${restaurants.length !== 1 ? 's' : ''} loaded`}
                 </p>
                 <Link
                     to="/restaurants/new"
@@ -238,7 +243,7 @@ export default function ExplorePage() {
                         </div>
                     ))}
                 </div>
-            ) : results.length === 0 ? (
+            ) : restaurants.length === 0 ? (
                 <div className="text-center py-20 animate-fade-in">
                     <p className="text-4xl mb-3">🍽</p>
                     <p className="text-white/40 text-lg font-medium">No restaurants found</p>
@@ -250,7 +255,7 @@ export default function ExplorePage() {
             ) : (
                 <>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-fade-in">
-                        {results.map((r) => <RestaurantCard key={r.id} restaurant={r} />)}
+                        {restaurants.map((r) => <RestaurantCard key={r.id} restaurant={r} />)}
                     </div>
                     
                     {/* Load More Button */}

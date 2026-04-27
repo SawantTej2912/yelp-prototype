@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: review-worker
+  namespace: yelp-prototype
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: review-worker
+  template:
+    metadata:
+      labels:
+        app: review-worker
+    spec:
+      containers:
+        - name: review-worker
+          image: 451978385896.dkr.ecr.us-east-1.amazonaws.com/yelp-prototype/review_worker:latest
+          command: ["python", "workers/review_worker.py"]
+          envFrom:
+            - configMapRef:
+                name: yelp-prototype-config
+            - secretRef:
+                name: yelp-prototype-secrets
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"

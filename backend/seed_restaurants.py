@@ -1,11 +1,17 @@
 import os
 import requests
 import json
+import argparse
+import time
+from datetime import datetime
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
-from database import SessionLocal
-from models.restaurant import Restaurant, RestaurantPhoto
-from models.user import User
+from sqlalchemy import func
+from shared.database import SessionLocal
+from shared.models.restaurant import Restaurant, RestaurantPhoto
+from shared.models.user import User
+from shared.models.review import Review
+from shared.utils.jwt import hash_password
 
 # Load environment variables
 load_dotenv()
@@ -19,6 +25,7 @@ HEADERS = {
 }
 
 SEARCH_URL = "https://api.yelp.com/v3/businesses/search"
+REVIEWS_URL_TEMPLATE = "https://api.yelp.com/v3/businesses/{business_id}/reviews"
 
 # Target cities
 CITIES = ["San Jose, CA", "Santa Clara, CA", "Sunnyvale, CA", "Fremont, CA"]
@@ -193,9 +200,179 @@ def fetch_restaurants(db: Session):
     print(f"Restaurants successfully inserted: {total_inserted}")
     print(f"Duplicates skipped: {total_skipped}")
 
+
+def _get_or_create_seeder_user(db: Session) -> User:
+    seeder = db.query(User).filter(User.email == "seeder@yelp.com").first()
+    if seeder:
+        return seeder
+
+    seeder = User(
+        name="Seeder User",
+        email="seeder@yelp.com",
+        password_hash=hash_password("SeederPassword123!"),
+        role="user",
+    )
+    db.add(seeder)
+    db.commit()
+    db.refresh(seeder)
+    return seeder
+
+
+def _resolve_yelp_business_id(restaurant: Restaurant) -> str | None:
+    # If the schema has yelp_id and it is populated, prefer it directly.
+    if hasattr(restaurant, "yelp_id"):
+        direct_id = getattr(restaurant, "yelp_id", None)
+        if direct_id:
+            return str(direct_id)
+
+    if not restaurant.name:
+        return None
+
+    location_parts = [restaurant.city, restaurant.state, restaurant.zip]
+    location = ", ".join([p for p in location_parts if p]) or "California"
+    params = {
+        "term": restaurant.name,
+        "location": location,
+        "limit": 5,
+        "categories": "restaurants,food",
+    }
+    resp = requests.get(SEARCH_URL, headers=HEADERS, params=params)
+    if resp.status_code != 200:
+        return None
+
+    businesses = (resp.json() or {}).get("businesses", [])
+    if not businesses:
+        return None
+
+    target_name = (restaurant.name or "").strip().lower()
+    target_city = (restaurant.city or "").strip().lower()
+    for biz in businesses:
+        biz_name = (biz.get("name") or "").strip().lower()
+        biz_city = ((biz.get("location") or {}).get("city") or "").strip().lower()
+        if biz_name == target_name and (not target_city or biz_city == target_city):
+            return biz.get("id")
+
+    # Fallback: first result with same city, else first result.
+    for biz in businesses:
+        biz_city = ((biz.get("location") or {}).get("city") or "").strip().lower()
+        if target_city and biz_city == target_city:
+            return biz.get("id")
+    return businesses[0].get("id")
+
+
+def _parse_yelp_review_date(raw: str | None):
+    if not raw:
+        return None
+    try:
+        # Yelp commonly returns: "YYYY-MM-DD HH:MM:SS"
+        return datetime.strptime(raw, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        return None
+
+
+def _recompute_restaurant_review_stats(db: Session, restaurant_id: int) -> None:
+    avg_rating, review_count = (
+        db.query(func.avg(Review.rating), func.count(Review.id))
+        .filter(Review.restaurant_id == restaurant_id)
+        .one()
+    )
+    restaurant = db.query(Restaurant).filter(Restaurant.id == restaurant_id).first()
+    if not restaurant:
+        return
+    restaurant.avg_rating = float(avg_rating) if avg_rating is not None else 0.0
+    restaurant.review_count = int(review_count or 0)
+    db.commit()
+
+
+def seed_reviews(db: Session) -> None:
+    print("\n--- Seeding Yelp Reviews ---")
+    seeder_user = _get_or_create_seeder_user(db)
+    restaurants = db.query(Restaurant).all()
+
+    total_added = 0
+    processed = 0
+
+    for restaurant in restaurants:
+        yelp_business_id = _resolve_yelp_business_id(restaurant)
+        if not yelp_business_id:
+            print(f"Skipping {restaurant.name}: no Yelp business match found")
+            continue
+
+        review_resp = requests.get(
+            REVIEWS_URL_TEMPLATE.format(business_id=yelp_business_id),
+            headers=HEADERS,
+        )
+        time.sleep(0.5)
+        if review_resp.status_code != 200:
+            print(
+                f"Skipping {restaurant.name}: Yelp reviews API error {review_resp.status_code}"
+            )
+            continue
+
+        payload = review_resp.json() or {}
+        yelp_reviews = payload.get("reviews", []) or []
+        added_for_restaurant = 0
+
+        for yelp_review in yelp_reviews:
+            comment = (yelp_review.get("text") or "").strip()
+            if not comment:
+                continue
+
+            duplicate = (
+                db.query(Review)
+                .filter(
+                    Review.restaurant_id == restaurant.id,
+                    Review.comment == comment,
+                )
+                .first()
+            )
+            if duplicate:
+                continue
+
+            rating = int(yelp_review.get("rating") or 0)
+            if rating < 1 or rating > 5:
+                continue
+
+            review_date = _parse_yelp_review_date(yelp_review.get("time_created"))
+            new_review = Review(
+                user_id=seeder_user.id,
+                restaurant_id=restaurant.id,
+                rating=rating,
+                comment=comment,
+                review_date=review_date,
+            )
+            db.add(new_review)
+            added_for_restaurant += 1
+
+        if added_for_restaurant > 0:
+            db.commit()
+            _recompute_restaurant_review_stats(db, restaurant.id)
+        else:
+            db.rollback()
+
+        processed += 1
+        total_added += added_for_restaurant
+        print(f"{restaurant.name}: added {added_for_restaurant} reviews")
+
+    print("\n--- Review Seeding Summary ---")
+    print(f"Restaurants processed: {processed}")
+    print(f"Reviews inserted: {total_added}")
+
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Seed restaurants and Yelp reviews")
+    parser.add_argument(
+        "--reviews-only",
+        action="store_true",
+        help="Only seed Yelp reviews for existing restaurants",
+    )
+    args = parser.parse_args()
+
     db = SessionLocal()
     try:
-        fetch_restaurants(db)
+        if args.reviews_only:
+            seed_reviews(db)
+        else:
+            fetch_restaurants(db)
+            seed_reviews(db)
     finally:
         db.close()

@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import LoginPage from './pages/LoginPage';
@@ -35,32 +34,30 @@ function ProtectedLayout({ children }) {
 export default function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          {/* Public auth pages */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
+      <Routes>
+        {/* Public auth pages */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
 
-          {/* Protected pages with Navbar */}
-          <Route path="/" element={<ProtectedLayout><ExplorePage /></ProtectedLayout>} />
-          <Route path="/profile" element={<ProtectedLayout><ProfilePage /></ProtectedLayout>} />
-          <Route path="/preferences" element={<ProtectedLayout><PreferencesPage /></ProtectedLayout>} />
-          <Route path="/restaurants/new" element={<ProtectedLayout><AddRestaurantPage /></ProtectedLayout>} />
-          <Route path="/restaurants/:id" element={<ProtectedLayout><RestaurantDetailsPage /></ProtectedLayout>} />
+        {/* Protected pages with Navbar */}
+        <Route path="/" element={<ProtectedLayout><ExplorePage /></ProtectedLayout>} />
+        <Route path="/profile" element={<ProtectedLayout><ProfilePage /></ProtectedLayout>} />
+        <Route path="/preferences" element={<ProtectedLayout><PreferencesPage /></ProtectedLayout>} />
+        <Route path="/restaurants/new" element={<ProtectedLayout><AddRestaurantPage /></ProtectedLayout>} />
+        <Route path="/restaurants/:id" element={<ProtectedLayout><RestaurantDetailsPage /></ProtectedLayout>} />
 
-          {/* Phase 5 — Reviews & Favorites */}
-          <Route path="/restaurants/:id/review" element={<ProtectedLayout><WriteReviewPage /></ProtectedLayout>} />
-          <Route path="/favorites" element={<ProtectedLayout><FavoritesPage /></ProtectedLayout>} />
-          <Route path="/history" element={<ProtectedLayout><HistoryPage /></ProtectedLayout>} />
-          <Route path="/owner/dashboard" element={<ProtectedLayout><OwnerDashboardPage /></ProtectedLayout>} />
+        {/* Phase 5 — Reviews & Favorites */}
+        <Route path="/restaurants/:id/review" element={<ProtectedLayout><WriteReviewPage /></ProtectedLayout>} />
+        <Route path="/favorites" element={<ProtectedLayout><FavoritesPage /></ProtectedLayout>} />
+        <Route path="/history" element={<ProtectedLayout><HistoryPage /></ProtectedLayout>} />
+        <Route path="/owner/dashboard" element={<ProtectedLayout><OwnerDashboardPage /></ProtectedLayout>} />
 
-          {/* Catch-all */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        {/* Catch-all */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
 
-        {/* Persistent floating AI assistant (logged-in only) */}
-        <ChatWidget />
-      </AuthProvider>
+      {/* Persistent floating AI assistant (logged-in only) */}
+      <ChatWidget />
     </BrowserRouter>
   );
 }

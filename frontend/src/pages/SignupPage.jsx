@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import api from '../api/axios';
+import { setCredentials, setError as setAuthError, setLoading } from '../store/slices/authSlice';
 
 // ─── Validation ──────────────────────────────────────────────────────────────
 
@@ -20,7 +22,8 @@ function validate(form) {
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export default function SignupPage() {
-    const { signup, loading } = useAuth();
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.auth.loading);
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -57,22 +60,27 @@ export default function SignupPage() {
         }
 
         try {
-            await signup(
-                form.email,
-                form.password,
-                form.name,
-                // optional fields — pass undefined if empty so they're omitted
-                form.phone || undefined,
-                form.about_me || undefined,
-                form.city || undefined,
-                form.state || undefined,
-                form.country || undefined,
-                form.languages || undefined,
-                form.gender || undefined,
-            );
+            dispatch(setLoading(true));
+            dispatch(setAuthError(null));
+            const { data } = await api.post('/auth/signup', {
+                email: form.email,
+                password: form.password,
+                name: form.name,
+                phone: form.phone || undefined,
+                about_me: form.about_me || undefined,
+                city: form.city || undefined,
+                state: form.state || undefined,
+                country: form.country || undefined,
+                languages: form.languages || undefined,
+                gender: form.gender || undefined,
+            });
+            dispatch(setCredentials({ token: data.access_token, user: data.user }));
             navigate('/', { replace: true });
         } catch (err) {
+            dispatch(setAuthError(err.message));
             setServerError(err.message);
+        } finally {
+            dispatch(setLoading(false));
         }
     };
 

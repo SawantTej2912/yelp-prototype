@@ -1,15 +1,17 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout as logoutAction } from '../store/slices/authSlice';
 
-const BACKEND = 'http://localhost:8000';
+import { API_BASE } from '../config.js';
 
 export default function Navbar() {
-    const { user, logout, isAuthenticated } = useAuth();
+    const dispatch = useDispatch();
+    const { user, isAuthenticated } = useSelector((state) => state.auth);
     const location = useLocation();
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        logout();
+        dispatch(logoutAction());
         navigate('/login');
     };
 
@@ -62,7 +64,7 @@ export default function Navbar() {
                         <Link to="/profile" className="w-8 h-8 rounded-full overflow-hidden bg-red-600/30 flex items-center justify-center border border-white/10 hover:border-red-400/50 transition-colors cursor-pointer">
                             {user?.profile_pic ? (
                                 <img
-                                    src={`${BACKEND}${user.profile_pic}`}
+                                    src={`${API_BASE}${user.profile_pic}`}
                                     alt={user.name}
                                     className="w-full h-full object-cover"
                                 />

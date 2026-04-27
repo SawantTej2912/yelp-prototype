@@ -1,0 +1,260 @@
+# Yelp Prototype — full stack (Phase 2)
+# Run: docker compose up -d --build
+#
+# App URLs (from host):
+#   Frontend:     http://localhost:5173
+#   API (nginx):  http://localhost:8000   → routes to user / restaurant / review / owner services
+#   Microservices (direct, optional): 8001–8004
+#   MySQL: 3307→3306 in container (avoids clashing with host MySQL on 3306)   MongoDB: 27017   Zookeeper: 2181   Kafka: 9092
+#
+# Copy backend/.env.example to backend/.env and adjust, or set variables in a root .env file.
+# DB_HOST, MONGO_URI, and KAFKA_BOOTSTRAP_SERVERS are overridden below for the Docker network.
+
+name: yelp-prototype
+
+services:
+  # ─── Databases & messaging ─────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-yelp_root_dev}
+      MYSQL_DATABASE: yelp_prototype
+    # Host 3306 is often taken by local MySQL; map 3307 on the host to container 3306.
+    # App containers still use host name `mysql` and port 3306 inside the network.
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/01_init.sql:ro
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h 127.0.0.1 -uroot -p\"$$MYSQL_ROOT_PASSWORD\" || exit 1",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks: [yelp]
+
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks: [yelp]
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks: [yelp]
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+    ports:
+      - "9092:9092"
+    networks: [yelp]
+
+  # ─── Python microservices ───────────────────────────────────────────
+  user_service:
+    build:
+      context: ./backend
+      dockerfile: user_service/Dockerfile
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD:-yelp_root_dev}
+      DB_NAME: yelp_prototype
+      MONGO_URI: mongodb://mongodb:27017/yelp_prototype
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8001:8001"
+    volumes:
+      - backend_uploads:/app/uploads
+    networks: [yelp]
+
+  restaurant_service:
+    build:
+      context: ./backend
+      dockerfile: restaurant_service/Dockerfile
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD:-yelp_root_dev}
+      DB_NAME: yelp_prototype
+      MONGO_URI: mongodb://mongodb:27017/yelp_prototype
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8002:8002"
+    volumes:
+      - backend_uploads:/app/uploads
+    networks: [yelp]
+
+  review_service:
+    build:
+      context: ./backend
+      dockerfile: review_service/Dockerfile
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD:-yelp_root_dev}
+      DB_NAME: yelp_prototype
+      MONGO_URI: mongodb://mongodb:27017/yelp_prototype
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8003:8003"
+    volumes:
+      - backend_uploads:/app/uploads
+    networks: [yelp]
+
+  owner_service:
+    build:
+      context: ./backend
+      dockerfile: owner_service/Dockerfile
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD:-yelp_root_dev}
+      DB_NAME: yelp_prototype
+      MONGO_URI: mongodb://mongodb:27017/yelp_prototype
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8004:8004"
+    volumes:
+      - backend_uploads:/app/uploads
+    networks: [yelp]
+
+  review_worker:
+    build:
+      context: ./backend
+      dockerfile: workers/Dockerfile
+    env_file:
+      - ./backend/.env
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/yelp_prototype
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      kafka:
+        condition: service_started
+      mongodb:
+        condition: service_started
+    command: ["python", "workers/review_worker.py"]
+    restart: unless-stopped
+    networks: [yelp]
+
+  restaurant_worker:
+    build:
+      context: ./backend
+      dockerfile: workers/Dockerfile
+    env_file:
+      - ./backend/.env
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/yelp_prototype
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      kafka:
+        condition: service_started
+      mongodb:
+        condition: service_started
+    command: ["python", "workers/restaurant_worker.py"]
+    restart: unless-stopped
+    networks: [yelp]
+
+  user_worker:
+    build:
+      context: ./backend
+      dockerfile: workers/Dockerfile
+    env_file:
+      - ./backend/.env
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/yelp_prototype
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      kafka:
+        condition: service_started
+      mongodb:
+        condition: service_started
+    command: ["python", "workers/user_worker.py"]
+    restart: unless-stopped
+    networks: [yelp]
+
+  # ─── Nginx: single public API (same path layout as backend/main.py monolith) ───
+  api_gateway:
+    image: nginx:1.25-alpine
+    depends_on:
+      user_service:
+        condition: service_started
+      restaurant_service:
+        condition: service_started
+      review_service:
+        condition: service_started
+      owner_service:
+        condition: service_started
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./docker/nginx/gateway.conf:/etc/nginx/conf.d/default.conf:ro
+    networks: [yelp]
+
+  # ─── React (static build, served for browser at localhost:5173) ───
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE: http://localhost:8000
+    depends_on:
+      - api_gateway
+    ports:
+      - "5173:5173"
+    networks: [yelp]
+
+networks:
+  yelp:
+    name: yelp-prototype-net
+
+volumes:
+  mysql_data:
+  mongo_data:
+  backend_uploads:

@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { getFavorites, removeFavorite } from '../api/reviews';
-
-const BACKEND = 'http://localhost:8000';
+import { API_BASE } from '../config.js';
+import {
+    setFavorites,
+    removeFavorite as removeFavoriteFromStore,
+    setLoading,
+    setError,
+} from '../store/slices/favoritesSlice';
 
 function StarRow({ rating }) {
     const r = rating ?? 0;
@@ -23,18 +29,17 @@ function StarRow({ rating }) {
 }
 
 export default function FavoritesPage() {
-    const [favorites, setFavorites] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const { favorites, loading, error } = useSelector((state) => state.favorites);
     const [removing, setRemoving] = useState(null); // restaurant_id being removed
-    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const loadFavorites = () => {
-        setLoading(true);
+        dispatch(setLoading(true));
         getFavorites()
-            .then(({ data }) => setFavorites(data))
-            .catch((err) => setError(err.message))
-            .finally(() => setLoading(false));
+            .then(({ data }) => dispatch(setFavorites(data)))
+            .catch((err) => dispatch(setError(err.message)))
+            .finally(() => dispatch(setLoading(false)));
     };
 
     useEffect(() => {
@@ -45,9 +50,9 @@ export default function FavoritesPage() {
         setRemoving(restaurantId);
         try {
             await removeFavorite(restaurantId);
-            setFavorites((prev) => prev.filter((f) => f.restaurant_id !== restaurantId));
+            dispatch(removeFavoriteFromStore(restaurantId));
         } catch (err) {
-            setError(err.message);
+            dispatch(setError(err.message));
         } finally {
             setRemoving(null);
         }
@@ -109,7 +114,7 @@ export default function FavoritesPage() {
                             <Link to={`/restaurants/${fav.restaurant_id}`} className="shrink-0">
                                 {fav.restaurant_cover ? (
                                     <img
-                                        src={`${BACKEND}${fav.restaurant_cover}`}
+                                        src={`${API_BASE}${fav.restaurant_cover}`}
                                         alt={fav.restaurant_name}
                                         className="w-16 h-16 rounded-xl object-cover"
                                     />

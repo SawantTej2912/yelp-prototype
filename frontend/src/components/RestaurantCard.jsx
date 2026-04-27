@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const BACKEND = 'http://localhost:8000';
+import { API_BASE } from '../config.js';
 
 const CUISINE_COLORS = {
     American: 'bg-blue-500/15 text-blue-400',
@@ -40,7 +40,7 @@ export default function RestaurantCard({ restaurant }) {
             <div className="relative h-44 bg-gradient-to-br from-white/05 to-white/02 overflow-hidden">
                 {cover_photo ? (
                     <img
-                        src={cover_photo.startsWith('http') ? cover_photo : `${BACKEND}${cover_photo}`}
+                        src={cover_photo.startsWith('http') ? cover_photo : `${API_BASE}${cover_photo}`}
                         alt={name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />

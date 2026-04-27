@@ -2,208 +2,123 @@
 
 A Yelp-style restaurant discovery and review platform built with FastAPI + React.
 
-## Tech Stack
-- Backend: Python 3.11 + FastAPI
-- Frontend: React + Vite + TailwindCSS
-- Database: MySQL
-- Auth: JWT
+## Tech stack
 
-## Setup Instructions
+- **Backend:** Python 3.11 + FastAPI (four microservices + shared code + dev monolith)
+- **Frontend:** React + Vite + TailwindCSS
+- **MySQL:** primary relational data (existing schema)
+- **MongoDB:** reserved for sessions / chat (Phase 3+), connection via `shared/mongo.py`
+- **Kafka + Zookeeper:** async messaging (Phase 3+)
+- **Auth:** JWT
 
+---
 
-## Step 1 — Prerequisites
-Make sure these are installed:
+## Quick links
+
+| Mode | API | Frontend |
+|------|-----|----------|
+| **Local dev (monolith)** | `http://localhost:8000` | `http://localhost:5173` |
+| **Docker Compose** | `http://localhost:8000` (nginx gateway to all four services) | `http://localhost:5173` |
+| **Microservices direct (local or Docker)** | `http://localhost:8001` … `8004` | (configure `VITE_API_BASE` if you add a custom gateway) |
+
+---
+
+## Environment variables
+
+Copy `backend/.env.example` to `backend/.env` and adjust.
+
+| Variable | Purpose |
+|----------|---------|
+| `DB_HOST` | MySQL host: `localhost` (local) or `mysql` (Docker) |
+| `DB_PORT` | MySQL port (default `3306`) |
+| `DB_USER` / `DB_PASSWORD` | MySQL credentials |
+| `DB_NAME` | Database name (`yelp_prototype`) |
+| `MONGO_URI` | e.g. `mongodb://localhost:27017/yelp_prototype` or `mongodb://mongodb:27017/yelp_prototype` in Docker |
+| `KAFKA_BOOTSTRAP_SERVERS` | e.g. `localhost:9092` or `kafka:9092` in Docker |
+| `JWT_SECRET` | Required; generate with `python3 -c "import secrets; print(secrets.token_hex(32))"` |
+| `JWT_ALGORITHM` | Default `HS256` |
+| `JWT_EXPIRE_MINUTES` | Default `1440` |
+| `GEMINI_API_KEY` | Optional (AI assistant) |
+| `TAVILY_API_KEY` | Optional (web search) |
+
+Docker Compose **overrides** `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `MONGO_URI`, and `KAFKA_BOOTSTRAP_SERVERS` for the container network. Other values (e.g. `JWT_SECRET`, API keys) are read from `backend/.env`.
+
+---
+
+## Run the full stack with Docker
+
+**Prerequisites:** Docker + Docker Compose v2.
+
+1. **Create `backend/.env`** (at least `JWT_SECRET`; MySQL password is overridden for compose — see below):
+   ```bash
+   cp backend/.env.example backend/.env
+   # Edit backend/.env — set JWT_SECRET and any API keys
+   ```
+
+2. **Start everything:**
+   ```bash
+   docker compose up -d --build
+   ```
+
+3. **Open:**
+   - Frontend: [http://localhost:5173](http://localhost:5173)
+   - Unified API (nginx → microservices): [http://localhost:8000/docs](http://localhost:8000/docs)
+   - MySQL: `localhost:3307` on the **host** (mapped to the container; avoids conflict with a local MySQL on 3306). User `root`, default password `yelp_root_dev` unless you set `MYSQL_ROOT_PASSWORD`.
+   - MongoDB: `localhost:27017`
+   - Zookeeper: `localhost:2181`
+   - Kafka: `localhost:9092`
+   - Services: `8001`–`8004` (see `docker-compose.yml`)
+
+**Default MySQL root password in compose** is `yelp_root_dev` (configurable with `MYSQL_ROOT_PASSWORD`). The Python services use the same value for `DB_PASSWORD` so they can connect as `root`.
+
+**First MySQL start:** `docker/mysql/init.sql` creates all 8 tables in `yelp_prototype`. If you change the MySQL data volume, the init scripts run again only on a **fresh** volume.
+
+**API gateway:** The browser and the built React app use **`http://localhost:8000`**. Nginx (`api_gateway`) routes paths to the four services (claim → owner, `/auth` / `/users` / `/ai-assistant` → user, `/restaurants` → restaurant, `/reviews` & `/favorites` → review, `/owner` → owner). Static uploads are proxied to `user_service`.
+
+**Apple Silicon:** If Confluent images fail to start, set `platform: linux/amd64` under `kafka` and `zookeeper` in `docker-compose.yml` (x86_64 emulation).
+
+**Stop:**
+```bash
+docker compose down
+```
+
+---
+
+## Local development (without Docker) — monolith
+
+This is the default workflow; **no Docker required** for the backend/frontend.
+
+### 1. Prerequisites
+
 - Python 3.11
-- Node.js (v18+)
-- MySQL
+- Node.js 18+
+- MySQL (local)
 - Git
 
----
+### 2. Database
 
-## Step 2 — Clone the Repo
+Create the database and tables (same SQL as in `docker/mysql/init.sql` or use the block below), or run:
+
 ```bash
-git clone https://github.com/SawantTej2912/yelp-prototype.git
-cd yelp-prototype
+mysql -u root -p < docker/mysql/init.sql
+# If your server has no yelp_prototype yet, add CREATE DATABASE first or use the README SQL block.
 ```
 
----
-
-## Step 3 — Set Up the Database
-
-**Start MySQL and log in:**
-```bash
-mysql -u root -p
-```
-
-**Run this to create the database and all tables:**
-```sql
-CREATE DATABASE yelp_prototype;
-USE yelp_prototype;
-
--- Users
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    role ENUM('user', 'owner') DEFAULT 'user',
-    profile_pic VARCHAR(255),
-    phone VARCHAR(20),
-    about_me TEXT,
-    city VARCHAR(100),
-    state VARCHAR(10),
-    country VARCHAR(100),
-    languages VARCHAR(255),
-    gender VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- User preferences
-CREATE TABLE user_preferences (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT UNIQUE NOT NULL,
-    cuisine_prefs JSON,
-    price_range VARCHAR(10),
-    dietary_needs JSON,
-    ambiance_prefs JSON,
-    preferred_location VARCHAR(255),
-    search_radius INT DEFAULT 10,
-    sort_preference ENUM('rating', 'distance', 'popularity', 'price') DEFAULT 'rating',
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
--- Restaurants
-CREATE TABLE restaurants (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(150) NOT NULL,
-    cuisine_type VARCHAR(100),
-    address VARCHAR(255),
-    city VARCHAR(100),
-    state VARCHAR(10),
-    zip VARCHAR(20),
-    description TEXT,
-    contact_info VARCHAR(150),
-    hours VARCHAR(255),
-    pricing_tier ENUM('$', '$$', '$$$', '$$$$'),
-    amenities JSON,
-    added_by INT,
-    owner_id INT DEFAULT NULL,
-    avg_rating DECIMAL(3,2) DEFAULT 0.00,
-    review_count INT DEFAULT 0,
-    view_count INT DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (added_by) REFERENCES users(id) ON DELETE SET NULL,
-    FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE SET NULL
-);
-
--- Restaurant photos
-CREATE TABLE restaurant_photos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    restaurant_id INT NOT NULL,
-    photo_url VARCHAR(255) NOT NULL,
-    uploaded_by INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE,
-    FOREIGN KEY (uploaded_by) REFERENCES users(id) ON DELETE SET NULL
-);
-
--- Reviews
-CREATE TABLE reviews (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    restaurant_id INT NOT NULL,
-    rating TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
-    comment TEXT,
-    review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
-);
-
--- Review photos
-CREATE TABLE review_photos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    review_id INT NOT NULL,
-    photo_url VARCHAR(255) NOT NULL,
-    FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE
-);
-
--- Favorites
-CREATE TABLE favorites (
-    user_id INT NOT NULL,
-    restaurant_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (user_id, restaurant_id),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
-);
-
--- Chat history
-CREATE TABLE chat_history (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    role ENUM('user', 'assistant') NOT NULL,
-    message TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-```
-
-**Verify:**
-```sql
-SHOW TABLES;
-```
-Should show 8 tables. ✅
-
----
-
-## Step 4 — Set Up the Backend
+### 3. Backend
 
 ```bash
 cd backend
 python3.11 -m venv venv
-source venv/bin/activate
+source venv/bin/activate   # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-**Create the `.env` file:**
-```bash
-touch .env
-```
-
-Add this inside — replacing with their own MySQL password and generating their own JWT secret:
-```env
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=their_mysql_password
-DB_NAME=yelp_prototype
-
-JWT_SECRET=run_this_to_generate: python3 -c "import secrets; print(secrets.token_hex(32))"
-JWT_ALGORITHM=HS256
-JWT_EXPIRE_MINUTES=1440
-
-GEMINI_API_KEY=their_gemini_key
-```
-
-**Generate their JWT secret:**
-```bash
-python3 -c "import secrets; print(secrets.token_hex(32))"
-```
-Copy the output into `JWT_SECRET=`
-
-**Run the backend:**
-```bash
+cp .env.example .env       # then edit .env
+mkdir -p uploads/profile_pics uploads/restaurant_photos uploads/review_photos
 uvicorn main:app --reload
 ```
 
-Visit `http://localhost:8000/docs` to confirm it's running ✅
+API: [http://localhost:8000/docs](http://localhost:8000/docs)
 
----
-
-## Step 5 — Set Up the Frontend
-
-Open a new terminal tab:
+### 4. Frontend
 
 ```bash
 cd frontend
@@ -211,41 +126,67 @@ npm install
 npm run dev
 ```
 
-Visit `http://localhost:5173` ✅
+App: [http://localhost:5173](http://localhost:5173).  
+The app uses `VITE_API_BASE` if set; otherwise it defaults to **`http://localhost:8000`** (the monolith).
 
----
+### 5. Run each microservice on its own port (optional)
 
-## Step 6 — Create Uploads Folder
-
-The backend needs this folder to store photos:
+From `backend/`, with `PYTHONPATH` = current directory and `.env` configured (MySQL on `localhost`):
 
 ```bash
-cd backend
-mkdir -p uploads/restaurants uploads/reviews uploads/profiles
+# terminal 1
+uvicorn user_service.main:app --reload --port 8001
+# terminal 2
+uvicorn restaurant_service.main:app --reload --port 8002
+# terminal 3
+uvicorn review_service.main:app --reload --port 8003
+# terminal 4
+uvicorn owner_service.main:app --reload --port 8004
 ```
 
----
-
-## ✅ Full Checklist for Groupmate
-
-- [ ] MySQL running with `yelp_prototype` database and all 8 tables
-- [ ] `backend/.env` created with their own DB password and JWT secret
-- [ ] Backend running at `localhost:8000`
-- [ ] Frontend running at `localhost:5173`
-- [ ] `uploads/` folder created inside backend
+The stock React app expects a **single** API base URL (default `http://localhost:8000`). To use four ports you would need a reverse proxy (similar to the Docker `api_gateway`) or a matching `VITE_API_BASE` pointing at that proxy.
 
 ---
 
-## 🚀 Key Features Implemented
+## MySQL schema (8 tables)
 
-**Core Features:**
-- Full User Auth (JWT setup, bcrypt hashes)
-- Profile & Preferences Management (Syncs with AI Assistant)
-- Dynamic Restaurant Search / Details / Add / Favorites
-- Review System (Add, Edit, Delete with Star Ratings)
-- Conversational AI Chatbot (Gemini + Tavily Web Search)
+The canonical file for a **fresh** DB is `docker/mysql/init.sql`. For manual setup, the following matches the app (abbreviated; see file for full):
 
-**Owner Specific Stretch Features:**
-- **Tracking Restaurant Views:** Silent backend tracker augmenting the `view_count`.
-- **Claim Restaurant Workflow:** Validates whether a restaurant operates under an owner; allows any user to claim it which immediately upgrades their session access level.
-- **Owner Dashboard:** A dedicated space for verified `'owner'` roles incorporating full Review filtering and graphical Restaurant progression stats/analytics (View Counts, Rating Distributions, Total Reviews).
+`users`, `user_preferences`, `restaurants`, `restaurant_photos`, `reviews`, `review_photos`, `favorites`, `chat_history`.
+
+**Verify:** `SHOW TABLES;` in MySQL should list 8 tables.
+
+---
+
+## Checklist (local)
+
+- [ ] MySQL running with `yelp_prototype` and 8 tables
+- [ ] `backend/.env` with DB + `JWT_SECRET`
+- [ ] Backend: `uvicorn main:app --reload` on port 8000
+- [ ] Frontend: `npm run dev` on 5173
+- [ ] Upload directories under `backend/uploads/...`
+
+---
+
+## Key features
+
+**Core:** JWT auth, profile & preferences, restaurant search/CRUD, reviews & favorites, AI chat (Gemini + optional Tavily).
+
+**Owner:** view tracking, claim workflow, owner dashboard.
+
+---
+
+## Repository layout (backend)
+
+- `backend/main.py` — dev monolith (all routers, port 8000)
+- `backend/user_service/`, `restaurant_service/`, `review_service/`, `owner_service/`
+- `backend/shared/` — `database`, SQLAlchemy models, schemas, JWT, **`mongo.py`**
+- `docker-compose.yml` — full stack
+- `docker/mysql/init.sql` — MySQL schema
+- `docker/nginx/gateway.conf` — routes `/` API paths to services
+
+---
+
+## License / credits
+
+Yelp Prototype — coursework / portfolio project.

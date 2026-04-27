@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useSelector } from 'react-redux';
 
 /**
  * Protects a route from unauthenticated access.
@@ -13,7 +13,7 @@ import { useAuth } from '../context/AuthContext';
  * destination is preserved so they land on it after signing in.
  */
 export default function ProtectedRoute({ children }) {
-    const { isAuthenticated } = useAuth();
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const location = useLocation();
 
     if (!isAuthenticated) {

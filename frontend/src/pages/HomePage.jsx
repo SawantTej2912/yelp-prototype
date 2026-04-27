@@ -1,7 +1,9 @@
-import { useAuth } from '../context/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout as logoutAction } from '../store/slices/authSlice';
 
 export default function HomePage() {
-    const { user, logout } = useAuth();
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.user);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center gap-6 px-4">
@@ -17,7 +19,7 @@ export default function HomePage() {
                     Phase 2 complete — restaurant discovery features coming next.
                 </p>
                 <button
-                    onClick={logout}
+                    onClick={() => dispatch(logoutAction())}
                     className="btn-primary"
                     style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}
                 >

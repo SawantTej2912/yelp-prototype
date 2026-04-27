@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useSelector } from 'react-redux';
 import { getOwnerReviews } from '../api/reviews';
 import { searchRestaurants } from '../api/restaurants';
 import { Link, useNavigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ function StarRating({ rating }) {
 }
 
 export default function OwnerDashboardPage() {
-    const { user } = useAuth();
+    const user = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
 
     const [activeTab, setActiveTab] = useState('reviews'); // 'reviews' or 'analytics'

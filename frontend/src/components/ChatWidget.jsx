@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { chatWithAssistant, clearAssistantHistory } from '../api/aiAssistant';
-import { useAuth } from '../context/AuthContext';
 
 function Bubble({ role, children }) {
   const isUser = role === 'user';
@@ -51,7 +51,7 @@ function RecommendationCard({ rec }) {
 }
 
 export default function ChatWidget() {
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
     {

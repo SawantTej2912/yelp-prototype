@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     getRestaurant,
     updateRestaurant,
@@ -16,9 +17,21 @@ import {
     deleteReview,
     updateReview,
 } from '../api/reviews';
-import { useAuth } from '../context/AuthContext';
+import {
+    setCurrentRestaurant,
+    setLoading as setRestaurantLoading,
+    setError as setRestaurantError,
+} from '../store/slices/restaurantSlice';
+import {
+    setReviews,
+    updateReview as updateReviewInStore,
+    removeReview as removeReviewFromStore,
+    setLoading as setReviewsLoading,
+    setError as setReviewsError,
+} from '../store/slices/reviewSlice';
+import { setCredentials } from '../store/slices/authSlice';
 
-const BACKEND = 'http://localhost:8000';
+import { API_BASE } from '../config.js';
 
 const CUISINES = [
     'American', 'Italian', 'Japanese', 'Mexican', 'Indian', 'Thai',
@@ -255,7 +268,7 @@ function EditRestaurantModal({ restaurant, onClose, onSaved }) {
                         <div className="flex flex-wrap gap-2">
                             {existingPhotos.map((p) => (
                                 <div key={p.id} className="relative w-20 h-20 group">
-                                    <img src={p.photo_url.startsWith('http') ? p.photo_url : `${BACKEND}${p.photo_url}`} alt="" className="w-full h-full object-cover rounded-xl border border-white/10" />
+                                    <img src={p.photo_url.startsWith('http') ? p.photo_url : `${API_BASE}${p.photo_url}`} alt="" className="w-full h-full object-cover rounded-xl border border-white/10" />
                                     <button
                                         type="button"
                                         onClick={() => handleDeleteExistingPhoto(p.id)}
@@ -413,7 +426,7 @@ function ReviewCard({ review, currentUserId, onEdit, onDelete, deleting }) {
                 <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-full overflow-hidden bg-red-600/25 flex items-center justify-center shrink-0 border border-white/08">
                         {review.user?.profile_pic ? (
-                            <img src={`${BACKEND}${review.user.profile_pic}`} alt={review.user.name} className="w-full h-full object-cover" />
+                            <img src={`${API_BASE}${review.user.profile_pic}`} alt={review.user.name} className="w-full h-full object-cover" />
                         ) : (
                             <span className="text-xs font-semibold text-red-400">{initials}</span>
                         )}
@@ -454,7 +467,7 @@ function ReviewCard({ review, currentUserId, onEdit, onDelete, deleting }) {
                 {review.photos?.length > 0 && (
                     <div className="flex gap-2 mt-2 flex-wrap">
                         {review.photos.map((p) => (
-                            <img key={p.id} src={p.photo_url.startsWith('http') ? p.photo_url : `${BACKEND}${p.photo_url}`} alt="Review" className="w-full h-full object-cover rounded-lg border border-white/08" />
+                            <img key={p.id} src={p.photo_url.startsWith('http') ? p.photo_url : `${API_BASE}${p.photo_url}`} alt="Review" className="w-full h-full object-cover rounded-lg border border-white/08" />
                         ))}
                     </div>
                 )}
@@ -466,18 +479,18 @@ function ReviewCard({ review, currentUserId, onEdit, onDelete, deleting }) {
 // ── Main Page ──────────────────────────────────────────────────────────────────
 
 export default function RestaurantDetailsPage() {
+    const dispatch = useDispatch();
     const { id } = useParams();
     const navigate = useNavigate();
-    const { user, updateUser } = useAuth();
+    const { user, token } = useSelector((state) => state.auth);
+    const restaurant = useSelector((state) => state.restaurants.currentRestaurant);
+    const loading = useSelector((state) => state.restaurants.loading);
+    const error = useSelector((state) => state.restaurants.error);
+    const reviews = useSelector((state) => state.reviews.reviews);
+    const reviewsLoading = useSelector((state) => state.reviews.loading);
+    const reviewsError = useSelector((state) => state.reviews.error);
 
-    const [restaurant, setRestaurant] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
     const [activePhoto, setActivePhoto] = useState(0);
-
-    const [reviews, setReviews] = useState([]);
-    const [reviewsLoading, setReviewsLoading] = useState(true);
-    const [reviewsError, setReviewsError] = useState('');
     const [editingReview, setEditingReview] = useState(null);
     const [deletingReviewId, setDeletingReviewId] = useState(null);
 
@@ -491,20 +504,21 @@ export default function RestaurantDetailsPage() {
 
     // Load restaurant details
     useEffect(() => {
+        dispatch(setRestaurantLoading(true));
         getRestaurant(id)
-            .then(({ data }) => setRestaurant(data))
-            .catch((err) => setError(err.message))
-            .finally(() => setLoading(false));
-    }, [id]);
+            .then(({ data }) => dispatch(setCurrentRestaurant(data)))
+            .catch((err) => dispatch(setRestaurantError(err.message)))
+            .finally(() => dispatch(setRestaurantLoading(false)));
+    }, [dispatch, id]);
 
     // Load reviews
     const loadReviews = useCallback(() => {
-        setReviewsLoading(true);
+        dispatch(setReviewsLoading(true));
         getRestaurantReviews(id)
-            .then(({ data }) => setReviews(data))
-            .catch((err) => setReviewsError(err.message))
-            .finally(() => setReviewsLoading(false));
-    }, [id]);
+            .then(({ data }) => dispatch(setReviews(data)))
+            .catch((err) => dispatch(setReviewsError(err.message)))
+            .finally(() => dispatch(setReviewsLoading(false)));
+    }, [dispatch, id]);
 
     useEffect(() => { loadReviews(); }, [loadReviews]);
 
@@ -537,10 +551,10 @@ export default function RestaurantDetailsPage() {
         setDeletingReviewId(reviewId);
         try {
             await deleteReview(reviewId);
-            setReviews((prev) => prev.filter((r) => r.id !== reviewId));
-            getRestaurant(id).then(({ data }) => setRestaurant(data)).catch(() => {});
+            dispatch(removeReviewFromStore(reviewId));
+            getRestaurant(id).then(({ data }) => dispatch(setCurrentRestaurant(data))).catch(() => {});
         } catch (err) {
-            setReviewsError(err.message);
+            dispatch(setReviewsError(err.message));
         } finally {
             setDeletingReviewId(null);
         }
@@ -548,7 +562,7 @@ export default function RestaurantDetailsPage() {
 
     // Save edited review
     const handleReviewSaved = (updated) => {
-        setReviews((prev) => prev.map((r) => (r.id === updated.id ? updated : r)));
+        dispatch(updateReviewInStore(updated));
         setEditingReview(null);
     };
 
@@ -558,9 +572,9 @@ export default function RestaurantDetailsPage() {
         try {
             await claimRestaurant(id);
             const { data } = await getRestaurant(id);
-            setRestaurant(data);
+            dispatch(setCurrentRestaurant(data));
             if (user && user.role !== 'owner') {
-                updateUser({ role: 'owner' });
+                dispatch(setCredentials({ token, user: { ...user, role: 'owner' } }));
             }
         } catch (err) {
             alert(err.message || 'Failed to claim restaurant');
@@ -627,7 +641,7 @@ export default function RestaurantDetailsPage() {
             <div className="glass-card overflow-hidden mb-6">
                 <div className="relative h-72 bg-gradient-to-br from-white/05 to-black/20">
                     {photos.length > 0 ? (
-                        <img src={photos[activePhoto].photo_url.startsWith('http') ? photos[activePhoto].photo_url : `${BACKEND}${photos[activePhoto].photo_url}`} alt={r.name} className="w-full h-full object-cover" />
+                        <img src={photos[activePhoto].photo_url.startsWith('http') ? photos[activePhoto].photo_url : `${API_BASE}${photos[activePhoto].photo_url}`} alt={r.name} className="w-full h-full object-cover" />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-white/10">
                             <svg className="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
@@ -649,7 +663,7 @@ export default function RestaurantDetailsPage() {
                                 className={`shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
                                     i === activePhoto ? 'border-red-500' : 'border-transparent opacity-60 hover:opacity-90'
                                 }`}>
-                                <img src={p.photo_url.startsWith('http') ? p.photo_url : `${BACKEND}${p.photo_url}`} alt="" className="w-full h-full object-cover" />
+                                <img src={p.photo_url.startsWith('http') ? p.photo_url : `${API_BASE}${p.photo_url}`} alt="" className="w-full h-full object-cover" />
                             </button>
                         ))}
                     </div>
@@ -845,7 +859,7 @@ export default function RestaurantDetailsPage() {
                     restaurant={r}
                     onClose={() => setShowEditModal(false)}
                     onSaved={(updated) => {
-                        setRestaurant(updated);
+                        dispatch(setCurrentRestaurant(updated));
                         setActivePhoto(0);
                         setShowEditModal(false);
                     }}

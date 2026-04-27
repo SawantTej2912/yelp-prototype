@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getRestaurant } from '../api/restaurants';
 import { createReview, uploadReviewPhoto } from '../api/reviews';
 
-const BACKEND = 'http://localhost:8000';
+import { API_BASE } from '../config.js';
 
 function StarPicker({ value, onChange }) {
     const [hovered, setHovered] = useState(0);
@@ -127,7 +127,7 @@ export default function WriteReviewPage() {
                     <div className="flex items-center gap-3 mb-6">
                         {restaurant.photos?.[0] ? (
                             <img
-                                src={`${BACKEND}${restaurant.photos[0].photo_url}`}
+                                src={`${API_BASE}${restaurant.photos[0].photo_url}`}
                                 alt={restaurant.name}
                                 className="w-12 h-12 rounded-xl object-cover"
                             />

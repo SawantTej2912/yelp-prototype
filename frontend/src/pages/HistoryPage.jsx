@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getMyReviews, deleteReview } from '../api/reviews';
+import { useSelector } from 'react-redux';
+import { getMyReviews, deleteReview, updateReview } from '../api/reviews';
 import { searchRestaurants } from '../api/restaurants';
-import { useAuth } from '../context/AuthContext';
 
-const BACKEND = 'http://localhost:8000';
+import { API_BASE } from '../config.js';
 
 function StarRow({ rating }) {
     const r = rating ?? 0;
@@ -49,8 +49,6 @@ function Tab({ label, active, onClick, count }) {
 }
 
 // ── Edit Review Modal ────────────────────────────────────────────────────────
-
-import { updateReview } from '../api/reviews';
 
 function EditModal({ review, onClose, onSaved }) {
     const [rating, setRating] = useState(review.rating);
@@ -160,7 +158,7 @@ function EditModal({ review, onClose, onSaved }) {
 // ── Main Component ─────────────────────────────────────────────────────────────
 
 export default function HistoryPage() {
-    const { user } = useAuth();
+    const user = useSelector((state) => state.auth.user);
     const [activeTab, setActiveTab] = useState('reviews');
 
     // ── Reviews tab state ──
@@ -295,7 +293,7 @@ export default function HistoryPage() {
                                             {review.photos.map((p) => (
                                                 <img
                                                     key={p.id}
-                                                    src={p.photo_url.startsWith('http') ? p.photo_url : `${BACKEND}${p.photo_url}`}
+                                                    src={p.photo_url.startsWith('http') ? p.photo_url : `${API_BASE}${p.photo_url}`}
                                                     alt="Review photo"
                                                     className="w-14 h-14 rounded-lg object-cover border border-white/10"
                                                 />
@@ -386,7 +384,7 @@ export default function HistoryPage() {
                         >
                             {r.cover_photo ? (
                                 <img
-                                    src={r.cover_photo.startsWith('http') ? r.cover_photo : `${BACKEND}${r.cover_photo}`}
+                                    src={r.cover_photo.startsWith('http') ? r.cover_photo : `${API_BASE}${r.cover_photo}`}
                                     alt={r.name}
                                     className="w-16 h-16 rounded-xl object-cover shrink-0"
                                 />

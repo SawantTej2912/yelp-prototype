@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { useAuth } from '../context/AuthContext';
 import { getProfile, updateProfile, uploadProfilePicture } from '../api/users';
-
-const BACKEND = 'http://localhost:8000';
+import { API_BASE } from '../config.js';
 
 const COUNTRIES = [
     'United States', 'Canada', 'United Kingdom', 'Australia', 'India',
@@ -14,7 +12,6 @@ const COUNTRIES = [
 const GENDERS = ['Male', 'Female', 'Non-binary', 'Prefer not to say', 'Other'];
 
 export default function ProfilePage() {
-    const { user, saveSession, token } = useAuth();
     const fileInputRef = useRef(null);
 
     const [form, setForm] = useState({
@@ -117,7 +114,7 @@ export default function ProfilePage() {
     const avatarSrc = picPreview
         ? picPreview
         : profilePic
-            ? `${BACKEND}${profilePic}`
+            ? `${API_BASE}${profilePic}`
             : null;
 
     return (

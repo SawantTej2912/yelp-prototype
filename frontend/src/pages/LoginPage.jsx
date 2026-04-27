@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import api from '../api/axios';
+import { setCredentials, setError as setAuthError, setLoading } from '../store/slices/authSlice';
 
 // ─── Field-level validation ───────────────────────────────────────────────────
 
@@ -15,7 +17,8 @@ function validate(email, password) {
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export default function LoginPage() {
-    const { login, loading } = useAuth();
+    const dispatch = useDispatch();
+    const loading = useSelector((state) => state.auth.loading);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname ?? '/';
@@ -42,10 +45,16 @@ export default function LoginPage() {
         }
 
         try {
-            await login(form.email, form.password);
+            dispatch(setLoading(true));
+            dispatch(setAuthError(null));
+            const { data } = await api.post('/auth/login', { email: form.email, password: form.password });
+            dispatch(setCredentials({ token: data.access_token, user: data.user }));
             navigate(from, { replace: true });
         } catch (err) {
+            dispatch(setAuthError(err.message));
             setServerError(err.message);
+        } finally {
+            dispatch(setLoading(false));
         }
     };
 
