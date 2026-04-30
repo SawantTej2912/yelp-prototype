@@ -114,7 +114,11 @@ export default function FavoritesPage() {
                             <Link to={`/restaurants/${fav.restaurant_id}`} className="shrink-0">
                                 {fav.restaurant_cover ? (
                                     <img
-                                        src={`${API_BASE}${fav.restaurant_cover}`}
+                                        src={
+                                            fav.restaurant_cover.startsWith('http')
+                                                ? fav.restaurant_cover
+                                                : `${API_BASE}${fav.restaurant_cover}`
+                                        }
                                         alt={fav.restaurant_name}
                                         className="w-16 h-16 rounded-xl object-cover"
                                     />

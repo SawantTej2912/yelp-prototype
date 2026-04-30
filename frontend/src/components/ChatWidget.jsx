@@ -22,11 +22,15 @@ function Bubble({ role, children }) {
 }
 
 function RecommendationCard({ rec }) {
-  return (
-    <Link
-      to={`/restaurants/${rec.id}`}
-      className="block glass-card p-3 border border-white/10 hover:border-white/20 transition-all hover:-translate-y-0.5"
-    >
+  const reason = String(rec.reason ?? '');
+  const isWebRecommendation =
+    Number(rec.id) < 0 || reason.toLowerCase().includes('source: web');
+  const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(`${rec.name} restaurants`)}`;
+
+  const cardClassName =
+    'block glass-card p-3 border border-white/10 hover:border-white/20 transition-all hover:-translate-y-0.5';
+  const cardBody = (
+    <>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-white font-semibold truncate text-sm">{rec.name}</p>
@@ -46,6 +50,28 @@ function RecommendationCard({ rec }) {
           {rec.reason}
         </p>
       )}
+    </>
+  );
+
+  if (isWebRecommendation) {
+    return (
+      <a
+        href={googleSearchUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cardClassName}
+      >
+        {cardBody}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      to={`/restaurants/${rec.id}`}
+      className={cardClassName}
+    >
+      {cardBody}
     </Link>
   );
 }

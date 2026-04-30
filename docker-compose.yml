@@ -40,7 +40,7 @@ services:
   mongodb:
     image: mongo:7
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
       - mongo_data:/data/db
     networks: [yelp]
@@ -234,7 +234,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./docker/nginx/gateway.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./docker/nginx:/etc/nginx/conf.d:ro
     networks: [yelp]
 
   # ─── React (static build, served for browser at localhost:5173) ───
@@ -247,7 +247,7 @@ services:
     depends_on:
       - api_gateway
     ports:
-      - "5173:5173"
+      - "5173:80"
     networks: [yelp]
 
 networks:
