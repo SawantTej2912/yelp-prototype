@@ -711,6 +711,7 @@ Use the format `type(scope): description`, e.g.:
 | Name | Role |
 |---|---|
 | **Tejas Sawant** | Full-stack developer — architecture, backend microservices, frontend, DevOps, AI integration |
+| **Shashira** | Full-stack developer — architecture, backend microservices, frontend, DevOps, AI integration |
 
 ---
 
