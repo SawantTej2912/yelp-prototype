@@ -41,5 +41,4 @@ spec:
             periodSeconds: 20
       volumes:
         - name: mysql-data
-          persistentVolumeClaim:
-            claimName: mysql-pvc
+          emptyDir: {}

@@ -33,5 +33,4 @@ spec:
             periodSeconds: 20
       volumes:
         - name: mongodb-data
-          persistentVolumeClaim:
-            claimName: mongodb-pvc
+          emptyDir: {}

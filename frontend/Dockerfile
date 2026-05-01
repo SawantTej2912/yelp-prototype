@@ -2,7 +2,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm ci
-ARG VITE_API_BASE=http://localhost:8000
+ARG VITE_API_BASE=http://ad22063347c8c452cbc8a305b6a06108-639991084.us-east-1.elb.amazonaws.com:8000
 ENV VITE_API_BASE=${VITE_API_BASE}
 COPY . .
 RUN printf "VITE_API_BASE=%s\n" "$VITE_API_BASE" > .env.production && npm run build
